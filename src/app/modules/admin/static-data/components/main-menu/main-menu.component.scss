@@ -1,0 +1,11 @@
+:host {
+  width: 100%;
+}
+
+::ng-deep .edit {
+  display: flex;
+  align-items: center;
+  &>span {
+    margin-left: 10px;
+  }
+}

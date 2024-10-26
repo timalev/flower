@@ -1,0 +1,62 @@
+<flower-valley-container headerTitle="Редактировать баннер">
+  <form [formGroup]="bannerGroup" (ngSubmit)="editBanner()">
+    <span class="p-float-label">
+      <input type="text" id="title" pInputText formControlName="title" />
+      <label for="title">Заголовок</label>
+    </span>
+    <p-editor styleClass="mb-2" formControlName="description" placeholder="Описание"></p-editor>
+    <span class="p-float-label">
+      <input type="text" id="label" pInputText formControlName="label" />
+      <label for="label">Подпись на кнопке</label>
+    </span>
+    <span class="p-float-label mb-2 mr-2">
+      <p-dropdown
+        styleClass="w-12"
+        inputId="link"
+        [options]="catalog"
+        optionValue="id"
+        optionLabel="name"
+        formControlName="routerLink"
+        [autoDisplayFirst]="false"
+      ></p-dropdown>
+      <label for="link">Целевая категория</label>
+    </span>
+    <div class="p-field-checkbox">
+      <p-checkbox
+        formControlName="isUserCanLeaf"
+        [binary]="true"
+        inputId="isUserCanLeaf"
+      ></p-checkbox>
+      <label for="isUserCanLeaf">Пользователь может листать фотографии</label>
+    </div>
+    <span class="p-float-label">
+      <p-inputNumber formControlName="autoPlay" inputId="autoPlay" [min]="1"> </p-inputNumber>
+      <label for="autoPlay">Пауза между сменой фотографии (секунды)</label>
+    </span>
+    <flower-valley-files-upload
+      [multi]="true"
+      (uploaded)="uploadFiles($event)"
+    ></flower-valley-files-upload>
+    <div class="grid">
+      <div
+        class="img col-3"
+        *ngFor="let photo of photosLinks; let i = index"
+        pDraggable="clientPhoto"
+        dragEffect="move"
+        pDroppable="clientPhoto"
+        (onDrop)="drop()"
+        (onDragEnter)="setPosition(i)"
+        (onDragStart)="dragStart(photo, i)"
+        (onDragEnd)="dragEnd()"
+      >
+        <p-image [src]="photo.src" width="100"></p-image>
+        <p-button
+          styleClass="p-button-danger"
+          icon="pi pi-trash"
+          (onClick)="removePhoto(photo.id)"
+        ></p-button>
+      </div>
+    </div>
+    <p-button type="submit" label="Сохранить" [loading]="isLoading"></p-button>
+  </form>
+</flower-valley-container>

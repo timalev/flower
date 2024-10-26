@@ -1,0 +1,253 @@
+@import "colors";
+@import "container";
+
+$root: '.footer';
+
+footer {
+  background-color: $footer;
+}
+
+#{$root} {
+  @include fv-container(65px, 65px);
+  display: flex;
+  flex-direction: column;
+  @include laptop-media {
+    flex-direction: row;
+  }
+  &__company {
+    color: $white-100;
+    display: flex;
+    flex-direction: row;
+    @include laptop-media {
+      flex-direction: column;
+    }
+    height: 100%;
+    ::ng-deep img {
+      width: 100px;
+      @include laptop-media {
+        width: 165px;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &>div {
+      margin-left: 15px;
+      @include laptop-media {
+        margin-left: 0;
+      }
+      span:first-child {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 110%;
+        @include laptop-media {
+          font-size: 25.8621px;
+        }
+      }
+      span:nth-child(2) {
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 19px;
+        @include laptop-media {
+          font-size: 20.1149px;
+          line-height: 24px;
+          margin-top: 20px;
+        }
+      }
+      span:last-child {
+        display: none;
+        @include laptop-media {
+          display: block;
+        }
+        color: $white-50;
+        margin-top: 30px;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 120%;
+      }
+    }
+  }
+  &>div:nth-child(2) {
+    &>.contacts {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      @include laptop-media {
+        display: none;
+      }
+      &>div {
+        margin-bottom: 30px;
+        &:first-child {
+          margin-top: 30px;
+        }
+      }
+    }
+  }
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    @include laptop-media {
+      flex-direction: row;
+      margin-bottom: 60px;
+    }
+    justify-content: space-between;
+    color: $white-100;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 110%;
+    a {
+      color: $white-100;
+    }
+    &>div, &>a {
+      padding-bottom: 25px;
+      @include laptop-media {
+        padding-bottom: 0;
+      }
+      &:first-child {
+        padding-top: 25px;
+        @include laptop-media {
+          padding-top: 0;
+        }
+      }
+    }
+    div:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .price {
+      display: block;
+      ::ng-deep .p-button {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      @include laptop-media {
+        display: none;
+      }
+    }
+  }
+  &__contacts {
+    display: flex;
+    flex-direction: column;
+    @include laptop-media {
+      flex-direction: row;
+    }
+    iframe {
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      @include laptop-media {
+        width: 250px;
+      }
+    }
+    &_content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      @include laptop-media {
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+    }
+    .contacts {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      &>div {
+        font-size: 20px !important;
+      }
+      @include laptop-media {
+        display: flex;
+      }
+    }
+    .roots {
+      display: block;
+      margin-top: 40px;
+      @include laptop-media {
+        display: none;
+        margin-top: 0;
+      }
+      span {
+        color: $white-50;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 120%;
+      }
+    }
+    .price {
+      display: none;
+      @include laptop-media {
+        display: block;
+      }
+    }
+  }
+}
+
+.whats-app-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+  height: 44px;
+  background-color: $whats-app-button-footer;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 15.4978px;
+  line-height: 19px;
+  color: $white-100;
+  &:hover {
+    text-decoration: none;
+    outline: 1px solid $white-50;
+  }
+  margin-bottom: 20px;
+  @include laptop-media {
+    margin-bottom: 0;
+  }
+}
+.address, .work-time {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+  color: $white-70;
+  margin-top: 20px;
+  @include laptop-media {
+    max-width: 255px;
+    margin-top: 0;
+  }
+}
+.phone, .mail {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 120%;
+  color: $white-100;
+  a {
+    padding-left: 10px;
+    color: $white-100;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.advertisement {
+  @include fv-container(10px, 45px);
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  color: $white-50;
+  margin-top: 30px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 120%;
+  a {
+    color: $white-100;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

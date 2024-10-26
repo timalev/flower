@@ -1,0 +1,205 @@
+<flower-valley-container
+  headerTitle="Прайс-лист"
+  [isAdmin]="true"
+  [buttonTemplate]="actionsButtons"
+>
+  <div [formGroup]="textGroup">
+    <div>
+      <h4>Текст в начале документа</h4>
+      <p-editor formControlName="textTop"></p-editor>
+    </div>
+    <div>
+      <h4>Текст в конце документа</h4>
+      <p-editor formControlName="textBottom"></p-editor>
+    </div>
+  </div>
+  <div>
+    <h2>Названия столбцов</h2>
+  </div>
+  <p-table
+    #pricesTable
+    [value]="goods"
+    [loading]="isLoading"
+    [globalFilterFields]="['name']"
+    sortField="name"
+    sortMode="single"
+    rowGroupMode="subheader"
+    groupRowsBy="categoryId"
+    editMode="row"
+    styleClass="p-table-override"
+    dataKey="id"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <button
+          pButton
+          label="Очистить"
+          class="p-button-outlined"
+          icon="pi pi-filter-slash"
+          (click)="pricesTable.clear()"
+        ></button>
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="filterTableData($event)"
+            placeholder="Поиск по названию"
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr [pEditableRow]="headers" *ngIf="headers">
+        <th>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="headers.name" required />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ headers.name }}
+            </ng-template>
+          </p-cellEditor>
+        </th>
+        <th>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="headers.pack" required />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ headers.pack }}
+            </ng-template>
+          </p-cellEditor>
+        </th>
+        <th>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="headers.price" required />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ headers.price }}
+            </ng-template>
+          </p-cellEditor>
+        </th>
+        <th>
+          <div>
+            <div class="edit">
+              <span
+                pInitEditableRow
+                *ngIf="!headersEdit"
+                class="pi pi-pencil cursor-pointer"
+                (click)="onHeaderEditInit(headers)"
+              ></span>
+              <button
+                *ngIf="headersEdit"
+                (click)="onHeaderEditSave(headers)"
+                pButton
+                type="button"
+                pSaveEditableRow
+                icon="pi pi-check"
+                class="p-button-rounded p-button-text p-button-success p-mr-2"
+              ></button>
+              <button
+                *ngIf="headersEdit"
+                (click)="onHeaderEditCancel()"
+                pButton
+                type="button"
+                pCancelEditableRow
+                icon="pi pi-times"
+                class="p-button-rounded p-button-text p-button-danger"
+              ></button>
+            </div>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="groupheader" let-product>
+      <tr pRowGroupHeader>
+        <td colspan="4">
+          {{ product.categoryName || 'Категория не определена' }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+      <tr class="product" [pEditableRow]="product">
+        <td class="product__name">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="product.name" required />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.name }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td class="product__count">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-inputNumber [(ngModel)]="product.coefficient" [required]="true"></p-inputNumber>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.coefficient }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td class="product__sum">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-inputNumber [(ngModel)]="product.price" [required]="true"></p-inputNumber>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.price | priceConverter: 'two':'rub' }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <div>
+            <div class="edit">
+              <span
+                pInitEditableRow
+                *ngIf="!editing"
+                class="pi pi-pencil cursor-pointer"
+                (click)="onRowEditInit(product)"
+              ></span>
+              <button
+                *ngIf="editing"
+                pButton
+                type="button"
+                pSaveEditableRow
+                icon="pi pi-check"
+                (click)="onRowEditSave(product)"
+                class="p-button-rounded p-button-text p-button-success p-mr-2"
+              ></button>
+              <button
+                *ngIf="editing"
+                pButton
+                type="button"
+                pCancelEditableRow
+                icon="pi pi-times"
+                (click)="onRowEditCancel(product, ri)"
+                class="p-button-rounded p-button-text p-button-danger"
+              ></button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</flower-valley-container>
+
+<ng-template #actionsButtons>
+  <span class="p-buttonset">
+    <p-button
+      icon="pi pi-pencil"
+      styleClass="p-button-info"
+      label="Прайс-лист по заказу"
+      (onClick)="createPriceList()"
+    ></p-button>
+    <p-button
+      icon="pi pi-upload"
+      label="Опубликовать"
+      (onClick)="publishPriceList()"
+      [loading]="isButtonLoading"
+    ></p-button>
+  </span>
+</ng-template>

@@ -1,0 +1,91 @@
+<flower-valley-container
+  background="dark"
+  headerTitle="Корзина"
+  [isAdmin]="isAdmin"
+  [buttonTemplate]="boxesTemplate"
+>
+  <div class="banner" *ngIf="cartContent && cartVariables">
+    <div class="banner__img">
+      <p-image
+        styleClass="flex align-items-center justify-content-center"
+        src="assets/icons/doc-cart.svg"
+      ></p-image>
+    </div>
+    <div class="banner__content">
+      <div class="banner__content_title">
+        {{ cartContent.minSumTitle }}
+        {{ cartVariables.minOrderSum | priceConverter: 'none':'full' }}
+      </div>
+      <div class="banner__content_info">{{ cartContent.minSumInfo }}</div>
+    </div>
+  </div>
+  <div class="info-text">
+    {{ cartContent?.infoText }}
+  </div>
+  <div class="contacts" *ngIf="cartContent">
+    <div class="contacts__address">
+      <span *ngFor="let address of cartContent.address">
+        {{ cartContent.address }}
+      </span>
+    </div>
+    <div class="contacts__phoneMail">
+      <div>
+        <span>{{ cartContent.callText }}&nbsp;</span>
+        <div>
+          <a href="tel:{{ phone }}" *ngFor="let phone of cartContent.phones">{{ phone }}&nbsp;</a>
+        </div>
+      </div>
+      <div>
+        <span>{{ cartContent.writeText }}&nbsp;</span>
+        <div>
+          <a href="mailto:{{ mail }}" *ngFor="let mail of cartContent.mail">{{ mail }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="empty-message">
+    <div *ngIf="!goods.length">Ваша корзина пуста</div>
+    <div *ngIf="goods.length">
+      <p-button
+        styleClass="p-button-danger mb-4"
+        label="Очистить корзину"
+        (onClick)="clearCart()"
+      ></p-button>
+    </div>
+  </div>
+  <flower-valley-cart-goods
+    *ngIf="goods.length"
+    [cartVariables]="cartVariables"
+    [cartContent]="cartContent"
+  ></flower-valley-cart-goods>
+  <div class="important" *ngIf="cartContent">
+    <div class="important__header">{{ cartContent.bannerTitle }}</div>
+    <div class="important__content">
+      <div class="important__content_flowers">
+        <span>{{ cartContent.leftBannerBlock.title }}</span>
+        <span>{{ cartContent.leftBannerBlock.description }}</span>
+      </div>
+      <div class="important__content_tulips">
+        <span>{{ cartContent.centerBannerBlock.title }}</span>
+        <span>{{ cartContent.centerBannerBlock.description }} </span>
+      </div>
+      <div class="important__content_pickup">
+        <span>{{ cartContent.rightBannerBlock.title }}</span>
+        <span>{{ cartContent.rightBannerBlock.description }}</span>
+      </div>
+    </div>
+  </div>
+</flower-valley-container>
+<flower-valley-container
+  *ngIf="goods.length && isMinSumReached"
+  background="dark"
+  headerTitle="Оформление заказа"
+>
+  <flower-valley-order-confirmation
+    [cartVariables]="cartVariables"
+  ></flower-valley-order-confirmation>
+</flower-valley-container>
+
+<ng-template #boxesTemplate>
+  <p-button label="Коробки транспортировочные" (onClick)="navigateToBoxes()"></p-button>
+</ng-template>

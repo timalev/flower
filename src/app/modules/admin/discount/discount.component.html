@@ -1,0 +1,121 @@
+<flower-valley-container
+  headerTitle="Система скидок от суммы заказа"
+  [isAdmin]="true"
+  [buttonTemplate]="addDiscountButton"
+>
+  <div class="flex align-items-center mb-2">
+    <span class="p-float-label mb-0 mr-2 w-12">
+      <p-multiSelect
+        [disabled]="requestProcessed"
+        styleClass="w-12"
+        inputId="discount"
+        [options]="catalog"
+        [(ngModel)]="selectedCategories"
+        dataKey="id"
+        optionLabel="name"
+        emptyMessage="Категорий нет"
+        [maxSelectedLabels]="4"
+        selectedItemsLabel="Выбрано категорий: {0}"
+        [filter]="false"
+      ></p-multiSelect>
+      <label for="discount">Применяется к категориям</label>
+    </span>
+    <p-button
+      label="Сохранить"
+      (onClick)="saveCategories()"
+      [loading]="requestProcessed"
+    ></p-button>
+  </div>
+  <p-table [value]="discount" dataKey="id" editMode="row" [loading]="isLoading">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Сумма</th>
+        <th>Скидка</th>
+        <th>Добавить в прайс-лист</th>
+        <th>Действия</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-discount let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="discount">
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-inputNumber [(ngModel)]="discount.sum" [min]="1" [required]="true">
+              </p-inputNumber>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ discount.sum | priceConverter }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-inputNumber [(ngModel)]="discount.discount" [min]="1" [required]="true">
+              </p-inputNumber>
+            </ng-template>
+            <ng-template pTemplate="output"> {{ discount.discount }}% </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <div class="p-field-checkbox">
+            <p-checkbox
+              [(ngModel)]="!!discount.addToPriceList"
+              (ngModelChange)="saveDiscount(discount)"
+              [binary]="true"
+              [disabled]="isCheckBoxesDisabled && !discount.addToPriceList"
+            ></p-checkbox>
+          </div>
+        </td>
+        <td>
+          <div>
+            <div class="edit">
+              <button
+                pButton
+                type="button"
+                pInitEditableRow
+                *ngIf="!editing"
+                icon="pi pi-pencil "
+                class="p-button-rounded p-button-text p-button-success"
+                (click)="onRowEditInit(discount)"
+              ></button>
+              <button
+                *ngIf="editing"
+                pButton
+                type="button"
+                pSaveEditableRow
+                icon="pi pi-check"
+                (click)="onRowEditSave(discount)"
+                class="p-button-rounded p-button-text p-button-success p-mr-2"
+              ></button>
+              <button
+                *ngIf="editing"
+                pButton
+                type="button"
+                pCancelEditableRow
+                icon="pi pi-times"
+                (click)="onRowEditCancel(discount, ri)"
+                class="p-button-rounded p-button-text p-button-danger"
+              ></button>
+            </div>
+            <div class="trash" *ngIf="!editing">
+              <button
+                pButton
+                type="button"
+                pInitEditableRow
+                *ngIf="!editing"
+                icon="pi pi pi-trash "
+                class="p-button-rounded p-button-text p-button-danger"
+                (click)="deleteItem(discount.id)"
+              ></button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</flower-valley-container>
+
+<ng-template #addDiscountButton>
+  <p-button label="Добавить скидку" (onClick)="navigateToAddDiscount()"></p-button>
+</ng-template>

@@ -1,0 +1,78 @@
+<flower-valley-container headerTitle="Редактировать категорию">
+  <form [formGroup]="categoryGroup" (ngSubmit)="editCategory()">
+    <span class="p-float-label mb-2 mr-2">
+      <p-dropdown
+        styleClass="w-12"
+        [autoDisplayFirst]="false"
+        [showClear]="true"
+        inputId="parent"
+        [options]="categories"
+        optionValue="id"
+        optionLabel="name"
+        emptyMessage="Категорий нет"
+        formControlName="parentId"
+      ></p-dropdown>
+      <label for="parent">Расположить в категории (необязательно)</label>
+    </span>
+    <span class="p-float-label">
+      <input type="text" id="name" pInputText formControlName="name" />
+      <label for="name">Название</label>
+    </span>
+    <div class="p-field-checkbox mb-2" *ngIf="category?.id !== 1">
+      <p-checkbox formControlName="isSeedling" [binary]="true" inputId="isSeedling"></p-checkbox>
+      <label for="isSeedling">Добавить в раздел рассад</label>
+    </div>
+    <div class="p-field-checkbox mb-2">
+      <p-checkbox formControlName="isBlocked" [binary]="true" inputId="isBlocked"></p-checkbox>
+      <label for="isBlocked">Заблокировать продажи</label>
+    </div>
+    <div class="p-field-checkbox mb-2" *ngIf="!category?.isTulip">
+      <p-checkbox
+        formControlName="hasNoDiscount"
+        [binary]="true"
+        inputId="hasNoDiscount"
+      ></p-checkbox>
+      <label for="hasNoDiscount">Скидка от суммы</label>
+    </div>
+    <ng-container formArrayName="steps">
+      <ng-container *ngFor="let step of steps.controls; let i = index">
+        <div [formGroup]="getFormGroup(step)" class="flex align-items-center">
+          <span class="p-float-label mr-2">
+            <p-inputNumber
+              class="w-12"
+              styleClass="w-12"
+              suffix=" шт."
+              formControlName="countFrom"
+              inputId="countFrom"
+              [min]="1"
+            >
+            </p-inputNumber>
+            <label for="countFrom">Смена цены от</label>
+          </span>
+          <p-button
+            styleClass="mb-2 p-button-danger"
+            icon="pi pi-trash"
+            (onClick)="deletePriceRange(i)"
+          ></p-button>
+        </div>
+      </ng-container>
+    </ng-container>
+    <p-button
+      label="Добавить порог цены"
+      *ngIf="isFormArrayValid && category?.isTulip"
+      (onClick)="addPriceRange()"
+      styleClass="mb-2 w-12"
+    ></p-button>
+    <flower-valley-files-upload
+      [multi]="false"
+      label="Редактировать обложку"
+      (uploaded)="photoUploaded($event)"
+    ></flower-valley-files-upload>
+    <div class="grid mt-2" *ngIf="category">
+      <div class="img col-3">
+        <p-image [src]="category.img" width="100"></p-image>
+      </div>
+    </div>
+    <p-button type="submit" label="Сохранить"></p-button>
+  </form>
+</flower-valley-container>

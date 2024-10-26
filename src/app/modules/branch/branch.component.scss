@@ -1,0 +1,35 @@
+@media screen and (max-width: 600px) {
+ 
+  #pcmap {
+    visibility: hidden;
+    clear: both;
+    float: left;
+    margin: 10px auto 5px 20px;
+    width: 28%;
+    display: none; 
+    }
+}
+
+
+@media screen and (min-width: 600px) {
+ 
+  #mobmap {
+    visibility: hidden;
+    clear: both;
+    float: left;
+    margin: 10px auto 5px 20px;
+    width: 28%;
+    display: none; 
+
+    }
+}
+
+
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.4/css/lightgallery.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.4/css/lg-zoom.css');
+body {
+  margin: 0;
+}
+.gallery-item {
+  margin: 5px;
+}

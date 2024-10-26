@@ -1,0 +1,9 @@
+<flower-valley-container background="dark" headerTitle="Рассада цветов">
+  <div class="catalog__categories grid">
+    <flower-valley-catalog-item
+      class="col-12 lg:col-6 xl:col-3 flex justify-content-center"
+      *ngFor="let item of seedlingsCatalog; let i = index"
+      [item]="item"
+    ></flower-valley-catalog-item>
+  </div>
+</flower-valley-container>

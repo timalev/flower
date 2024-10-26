@@ -1,0 +1,326 @@
+@import "colors";
+@import "container";
+
+::ng-deep .p-datatable.p-table-override {
+  .p-datatable-thead {
+    tr {
+      th {
+        background-color: $white-100;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 100%;
+        text-transform: uppercase;
+        color: $text-grey;
+        border: none;
+        &:first-child {
+          width: 600px;
+        }
+        &:nth-child(2) {
+          width: 160px;
+        }
+        &:nth-child(3) {
+          width: 180px;
+        }
+        &:nth-child(4) {
+          width: 160px;
+        }
+      }
+    }
+  }
+  .p-datatable-tbody {
+    tr.p-rowgroup-header td {
+      padding: 1rem 0;
+      @include laptop-media {
+        padding: 1rem 1rem;
+      }
+    }
+    tr:not(.p-rowgroup-header) {
+      display: grid;
+      grid-template-areas:
+      'name name name'
+      'count sum delete';
+      grid-template-rows: 50% 50%;
+      grid-auto-columns: 40% 50% 10%;
+      &.boxes {
+        grid-auto-columns: 30% 70% 0;
+        td {
+          &.product__count, &.product__sum {
+            display: flex;
+            justify-content: center !important;
+            @include laptop-media {
+              display: table-cell;
+            }
+          }
+        }
+      }
+      grid-gap: 10px;
+      td {
+        padding: 1rem 0;
+        justify-content: flex-start !important;
+        @include laptop-media {
+          padding: 1rem 1rem;
+        }
+        border: none;
+        &.product__name {
+          grid-area: name;
+        }
+        &.product__count {
+          grid-area: count;
+        }
+        &.product__sum {
+          grid-area: sum;
+        }
+        &.product__delete {
+          grid-area: delete;
+        }
+        .mobile-price {
+          display: block;
+          @include laptop-media {
+            display: none;
+          }
+        }
+        &.mobile-price-cell {
+          display: none !important;
+          @include laptop-media {
+            display: table-cell !important;
+          }
+          &>div {
+            display: flex;
+            flex-direction: column;
+            &>span:last-child:not(:first-child) {
+              color: $red-100;
+              text-decoration: line-through;
+            }
+          }
+        }
+      }
+      @include laptop-media {
+        display: table-row;
+      }
+      &.p-rowgroup-header {
+        td {
+          border-top: 1px solid $border-cart;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 100%;
+          text-transform: uppercase;
+          color: $text-grey;
+          padding-bottom: 0;
+        }
+      }
+    }
+    .product {
+      &__name {
+        display: flex;
+        align-items: center;
+        &_icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 10px;
+          padding: 10px;
+          background-color: $box-background;
+        }
+        &>div:last-child {
+          margin-left: 25px;
+          display: flex;
+          flex-direction: column;
+          @include laptop-media {
+            display: block;
+          }
+          &>span {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 100%;
+            color: $text;
+            &.mobile-price {
+              font-size: 14px;
+              color: $text-grey;
+              margin-top: 10px;
+            }
+          }
+        }
+      }
+      &__count {
+        text-align: center;
+        ::ng-deep .p-inputnumber {
+          width: 100px;
+          height: 40px;
+          @include laptop-media {
+            width: auto;
+            height: 50px;
+          }
+          input {
+            max-width: 45px;
+            @include laptop-media {
+              max-width: 70px;
+            }
+            font-weight: 500;
+            font-size: 17.7778px;
+            line-height: 110%;
+            text-align: center;
+            padding: 0;
+            outline: none !important;
+            box-shadow: none !important;
+            border: 1px solid $border-count;
+            color: $text;
+            &:focus-visible {
+              outline: 3px auto $border-count;
+            }
+          }
+          .p-button.p-button-icon-only {
+            width: unset;
+            padding: 0 5px;
+            min-height: 20px;
+            min-width: 20px;
+            background-color: $white-100;
+            border-color: $border-count;
+            color: $text-grey;
+          }
+        }
+      }
+      &__sum {
+        font-weight: 500;
+        font-size: 18px;
+        @include laptop-media {
+          font-weight: normal;
+          font-size: 14px;
+        }
+      }
+      &__delete {
+        .trash {
+          display: flex;
+          align-items: center;
+          color: $red-40;
+          .pi:hover {
+            color: $red-100;
+          }
+        }
+      }
+    }
+  }
+}
+
+.boxes {
+  border-top: 1px solid $border-cart;
+  &__title {
+    padding: 1rem;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 100%;
+    text-transform: uppercase;
+    color: $text-grey;
+  }
+  &__content {
+    padding: 0 1rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    @include laptop-media {
+      flex-direction: unset;
+    }
+    &_text {
+      display: flex;
+      flex-direction: column;
+      font-size: 16px;
+      color: $text;
+      margin-bottom: 20px;
+      @include laptop-media {
+        margin-bottom: unset;
+      }
+      span:first-child {
+        font-weight: normal;
+        line-height: 100%;
+      }
+      span:last-child:not(:first-child) {
+        padding-top: 10px;
+        font-weight: 500;
+        line-height: 120%;
+      }
+    }
+    &_button {
+      width: 100%;
+      @include laptop-media {
+        width: unset;
+      }
+      ::ng-deep button {
+        width: 100%;
+        @include laptop-media {
+          width: unset;
+        }
+      }
+    }
+  }
+}
+
+.summary-block {
+  display: flex;
+  flex-direction: column-reverse;
+  @include laptop-media {
+    flex-direction: unset;
+    align-items: center;
+  }
+  border-top: 1px solid $main-green;
+  padding-top: 30px;
+  &__info {
+    max-width: 500px;
+    &>div {
+      background-color: $whats-app-button;
+      border-radius: 10px;
+      padding: 15px 20px;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 140%;
+      color: $main-green;
+    }
+  }
+  &__summary{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    @include laptop-media {
+      margin-top: unset;
+      margin-bottom: unset;
+      margin-left: 90px;
+    }
+    font-weight: 500;
+    line-height: 100%;
+    span:first-child {
+      font-size: 18px;
+      text-transform: uppercase;
+      color: $text;
+    }
+    span:nth-child(2) {
+      margin-top: 20px;
+      font-size: 24px;
+      color: $main-green;
+    }
+    span:last-child:not(:nth-child(2)) {
+      margin-top: 20px;
+      font-size: 18px;
+      text-transform: uppercase;
+      text-decoration: line-through;
+      color: $red-100;
+    }
+  }
+  &__additional{
+    display: flex;
+    flex-direction: column;
+    @include laptop-media {
+      justify-content: flex-end;
+      height: 110px;
+      margin-bottom: 30px;
+      margin-left: 40px;
+    }
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 120%;
+    span:first-child {
+      color: $red-100;
+      margin-bottom: 5px;
+    }
+  }
+}

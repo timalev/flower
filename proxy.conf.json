@@ -1,0 +1,7 @@
+{
+  "/back": {
+    "target": "",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

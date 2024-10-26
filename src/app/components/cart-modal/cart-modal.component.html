@@ -1,0 +1,60 @@
+<div class="cart">
+  <div class="cart__content">
+    <div *ngFor="let item of cart" class="cart__content_item">
+      <div class="flex align-items-center">
+        <p-image
+          [src]="item.photos[0].src"
+          [alt]="item.name"
+          class="product__header_image"
+          width="42px"
+          height="42px"
+          [imageStyle]="{ 'border-radius': '5px', 'object-fit': 'cover' }"
+        ></p-image>
+      </div>
+      <div class="cart__content_item-info">
+        <div class="content">
+          <span class="title">{{ item.name }}</span>
+          <div class="interactive">
+            <p-inputNumber
+              #countNumber
+              [(ngModel)]="item.count"
+              (ngModelChange)="updateCount(item)"
+              [min]="getStep(item)"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              inputId="horizontal"
+              [step]="getStep(item)"
+              (onBlur)="changeCount(item, countNumber.value)"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+            >
+            </p-inputNumber>
+            <span class="price">{{ item.price | priceConverter: 'none':'RUB' }} за шт.</span>
+            <span class="sum">{{ item.price * item.count | priceConverter }}</span>
+          </div>
+        </div>
+        <div class="trash">
+          <span class="pi pi-trash cursor-pointer" (click)="removeItem(item.id || '')"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cart__footer">
+    <div>
+      <p-button
+        styleClass="uppercase"
+        [routerLink]="['cart']"
+        (onClick)="hide()"
+        label="Перейти в корзину"
+      ></p-button>
+      <div>
+        <span>ИТОГО:</span>
+        <span>{{ getSum | priceConverter }}</span>
+      </div>
+    </div>
+    <div>
+      <span (click)="hide()">Свернуть</span>
+      <span class="pi pi-angle-up"></span>
+    </div>
+  </div>
+</div>

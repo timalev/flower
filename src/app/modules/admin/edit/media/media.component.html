@@ -1,0 +1,32 @@
+<flower-valley-container headerTitle="Редактировать статью">
+  <form [formGroup]="mediaForm" (ngSubmit)="editMedia()">
+    <span class="p-float-label">
+      <input type="text" id="title" pInputText formControlName="title" />
+      <label for="title">Заголовок</label>
+    </span>
+    <span class="p-float-label">
+      <input type="text" id="link" pInputText formControlName="link" />
+      <label for="link">Ссылка на статью</label>
+    </span>
+    <span class="p-float-label">
+      <p-calendar
+        inputId="publishDate"
+        formControlName="publishDate"
+        dateFormat="dd.mm.yy"
+        [maxDate]="currentDate"
+      ></p-calendar>
+      <label for="publishDate">Дата публикации</label>
+    </span>
+    <flower-valley-files-upload
+      [multi]="false"
+      label="Обновить обложку"
+      (uploaded)="photoUploaded($event)"
+    ></flower-valley-files-upload>
+    <div class="grid mt-2" *ngIf="media">
+      <div class="img col-3">
+        <p-image [src]="media.img" width="100"></p-image>
+      </div>
+    </div>
+    <p-button type="submit" label="Сохранить"></p-button>
+  </form>
+</flower-valley-container>

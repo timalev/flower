@@ -1,0 +1,28 @@
+<flower-valley-container
+  background="dark"
+  headerTitle="Каталог"
+  [isAdmin]="isAdmin"
+  [buttonTemplate]="actionsTemplate"
+>
+  <div class="catalog__categories grid">
+    <flower-valley-catalog-item
+      class="col-12 lg:col-6 xl:col-3 flex justify-content-center"
+      pDraggable="catalog"
+      dragEffect="move"
+      pDroppable="catalog"
+      (onDrop)="drop()"
+      [pDraggableDisabled]="!isAdmin"
+      (onDragEnter)="setPosition(i)"
+      (onDragStart)="dragStart(item, i)"
+      (onDragEnd)="dragEnd()"
+      *ngFor="let item of catalog; let i = index"
+      [item]="item"
+      [isAdmin]="isAdmin"
+      (categoryDeleted)="deleteCategory(item.id)"
+    ></flower-valley-catalog-item>
+  </div>
+</flower-valley-container>
+
+<ng-template #actionsTemplate>
+  <p-button label="Добавить категорию" (onClick)="addCategory()"></p-button>
+</ng-template>

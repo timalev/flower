@@ -1,0 +1,168 @@
+<div class="confirmation">
+  <span class="p-buttonset">
+    <button
+      pButton
+      class="w-6"
+      [ngClass]="{ 'p-button-outlined': clientType !== 'individual' }"
+      label="ФИЗИЧЕСКИЕ ЛИЦА"
+      (click)="clientType = 'individual'"
+    ></button>
+    <button
+      pButton
+      class="w-6"
+      [ngClass]="{ 'p-button-outlined': clientType !== 'entity' }"
+      label="ЮРИДИЧЕСКИЕ ЛИЦА"
+      (click)="clientType = 'entity'"
+    ></button>
+  </span>
+  <p-tabView styleClass="tab-view" (onChange)="setClientType($event.index)">
+    <p-tabPanel header="Физические лица"></p-tabPanel>
+    <p-tabPanel header="Юридические лица"></p-tabPanel>
+  </p-tabView>
+  <div class="confirmation__content">
+    <div class="confirmation__content_form">
+      <form [formGroup]="contacts">
+        <span class="p-float-label">
+          <input type="text" id="FIO" pInputText formControlName="name" />
+          <label for="FIO">Контактное лицо</label>
+        </span>
+
+        <span class="p-float-label">
+          <input type="text" id="phone" pInputText formControlName="phone" />
+          <label for="phone">Телефон</label>
+        </span>
+
+        <span class="p-float-label">
+          <input type="text" id="email" pInputText formControlName="email" />
+          <label for="email">Email</label>
+        </span>
+
+        <span class="p-float-label">
+          <input
+            [ngClass]="{ 'calculation-padding': shippingCost }"
+            type="text"
+            id="address"
+            pInputText
+            formControlName="address"
+          />
+          <label for="address">Адрес доставки</label>
+          <div class="calculation-result" *ngIf="shippingCost || delivery_error">
+            <p-button
+              styleClass="blink"
+              *ngIf="!showDelivery && !delivery_error"
+              (onClick)="deliveryButtonClick()"
+              label="Рассчитать доставку"
+            ></p-button>
+            <div
+              *ngIf="showDelivery || delivery_error"
+              class="delivery"
+              [ngClass]="{ success: shippingCost, error: delivery_error }"
+            >
+              {{
+                shippingCost
+                  ? 'Доставка ' + (shippingCost | priceConverter: 'none':'RUB')
+                  : delivery_error
+              }}
+            </div>
+          </div>
+        </span>
+        <div class="flex justify-content-end">
+          <p-button
+            *ngIf="showDelivery"
+            styleClass="p-button-text"
+            label="Показать на карте"
+            (onClick)="yandexMapComponent.showMapToggle()"
+          ></p-button>
+        </div>
+        <div class="delivery-info" *ngIf="cartVariables && !pickUp.value">
+          <span>ВНИМАНИЕ!</span>
+          <span>Для заказа обязательно указать адрес доставки или выбрать самовывоз</span>
+          <span>Стоимость доставки по Москве - {{ cartVariables.moscowDelivery }}&#8381;</span>
+          <span>Далее - {{ cartVariables.deliveryPerKm }}&#8381;/км</span>
+          <span>В другие города рассчитывается индивидуально</span>
+        </div>
+      </form>
+      <div class="p-field-checkbox">
+        <p-checkbox [formControl]="pickUp" [binary]="true" inputId="pickUp"></p-checkbox>
+        <label for="pickUp">Самовывоз</label>
+      </div>
+      <span class="p-float-label">
+        <p-calendar
+          [formControl]="deliveryDate"
+          [firstDayOfWeek]="1"
+          dateFormat="dd.mm.yy"
+          [minDate]="currentDate"
+          [showButtonBar]="true"
+          selectionMode="range"
+          [readonlyInput]="true"
+          inputId="range"
+          styleClass="w-12"
+          #calendar
+        >
+          <ng-template pTemplate="footer">
+            <div class="flex justify-content-center align-items-center">
+              <p-button
+                class="w-full"
+                styleClass="w-full"
+                (onClick)="calendar.hideOverlay()"
+                label="Закрыть"
+              ></p-button>
+            </div>
+          </ng-template>
+        </p-calendar>
+        <label for="range">Желаемая дата поставки (самовывоза)</label>
+      </span>
+      <span class="p-float-label">
+        <textarea
+          id="textarea"
+          rows="3"
+          style="resize: none"
+          [formControl]="comment"
+          pInputTextarea
+        ></textarea>
+        <label for="textarea">Комментарий к заказу</label>
+      </span>
+      <flower-valley-entity-form
+        *ngIf="clientType === 'entity'"
+        (dataChanges)="entityDataChanges($event)"
+      ></flower-valley-entity-form>
+      <div class="p-field-checkbox mt-2" *ngIf="clientType === 'entity'">
+        <p-checkbox
+          [(ngModel)]="clientDataVerified"
+          [binary]="true"
+          inputId="clientDataVerify"
+        ></p-checkbox>
+        <label for="clientDataVerify">Данные о компании заполнены корректно</label>
+      </div>
+      <div class="private-policy">
+        Нажимая кнопку "Оформить заказ" Вы соглашаетесь с условиями
+        <a [routerLink]="['/private-policy']">Политики конфиденциальности</a>
+      </div>
+      <p-button
+        *ngIf="!isOrderConfirmed"
+        [loading]="isInvoiceLoading"
+        styleClass="confirm-order"
+        label="Оформить заказ"
+        [disabled]="isConfirmOrderDisabled || (clientType === 'entity' && !clientDataVerified)"
+        (onClick)="confirmOrder()"
+      ></p-button>
+      <p-button
+        *ngIf="isOrderConfirmed"
+        styleClass="confirm-order"
+        label="Новый заказ"
+        routerLink="/catalog"
+      ></p-button>
+    </div>
+    <div class="confirmation__content_goods">
+      <flower-valley-confirmation-goods
+        [pickUp]="pickUp.value"
+        [goods]="goods"
+        [order]="order"
+        [shippingCost]="shippingCostInput"
+        (orderSum)="setOrderSum($event)"
+      ></flower-valley-confirmation-goods>
+    </div>
+  </div>
+  <p-messages [(value)]="message" key="orderMessage" styleClass="order-message"></p-messages>
+</div>
+<flower-valley-yandex-map #yandexMapComponent></flower-valley-yandex-map>

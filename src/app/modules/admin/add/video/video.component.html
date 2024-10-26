@@ -1,0 +1,42 @@
+<flower-valley-container headerTitle="Добавить видео">
+  <form [formGroup]="videoGroup" (ngSubmit)="addVideo()">
+    <span class="p-float-label">
+      <input
+        #input
+        type="text"
+        id="src"
+        pInputText
+        formControlName="src"
+        (blur)="convertLink(input.value)"
+      />
+      <label for="src">Ссылка на видео в YouTube</label>
+    </span>
+    <span class="p-float-label">
+      <input type="text" id="title" pInputText formControlName="title" />
+      <label for="title">Заголовок</label>
+    </span>
+    <span class="p-float-label">
+      <textarea
+        type="text"
+        id="description"
+        [rows]="5"
+        [cols]="30"
+        [autoResize]="true"
+        pInputTextarea
+        formControlName="description"
+      ></textarea>
+      <label for="description">Описание</label>
+    </span>
+    <div class="preview" *ngIf="isLinkCopied">
+      <div>Предпросмотр:</div>
+      <iframe
+        width="383"
+        height="216"
+        [src]="videoGroup.getRawValue().src | safeUrl"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <p-button type="submit" label="Добавить" [loading]="isLoading"></p-button>
+  </form>
+</flower-valley-container>

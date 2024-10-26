@@ -1,0 +1,102 @@
+<h2>Метатэги</h2>
+<font color=green>{{str}}</font><br><br>
+
+<form [formGroup]="variablesForm" (ngSubmit)="saveOthers(variablesForm.value)">
+
+
+ <input type= "text" size=50 name="url" placeholder="Ссылка" 
+         formControlName = "url"> <br><br>
+		  <input type= "text" size=50  name="tit" placeholder="Titles" 
+         formControlName = "tit"> <br><br>
+
+		   <input type= "text" size=50  name="keyw" placeholder="Keywords" 
+         formControlName = "keyw"> <br><br>
+		 
+		   <input type= "text" size=50  name="desc" placeholder="Description" 
+         formControlName = "desc"> 
+
+   <br/>
+
+      <br/>
+      <input type="submit"  value="Сохранить"> 
+</form>
+
+
+<br><br>
+
+<h2>Заголовки H1</h2>
+<font color=green>{{str2}}</font><br><br>
+
+<form [formGroup]="h1Form" (ngSubmit)="saveh1(h1Form.value)">
+
+
+ <input type= "text" size=50 name="urlh" placeholder="Ссылка" 
+         formControlName = "urlh"> <br><br>
+		  <input type= "text" size=50  name="h1" placeholder="H1" 
+         formControlName = "h1"> <br><br>
+
+   <br/>
+
+      <br/>
+      <input type="submit"  value="Сохранить"> 
+</form>
+
+
+
+<br><br>
+
+<h2>Текстовый контент</h2>
+<font color=green>{{str3}}</font><br><br>
+
+<form [formGroup]="contForm" (ngSubmit)="savecont(contForm.value)">
+
+<div>Тюльпаны оптом:</div>
+<textarea rows="7" cols="70" name="tulp" formControlName = "tulp"></textarea>
+
+<br><br>
+<div>Рассады цветов:</div>
+<textarea  rows="7" cols="70" name="rass" formControlName = "rass"></textarea>
+
+
+   <br/>
+
+      <br/>
+      <input type="submit"  value="Сохранить"> 
+</form>
+
+
+
+<br><br>
+
+<h2>Файл robots.txt</h2>
+<font color=green>{{str4}}</font><br><br>
+
+<form [formGroup]="roboForm" (ngSubmit)="saverobo(roboForm.value)">
+
+<div>Тело файла:</div>
+<textarea rows="7" cols="70" name="robo" formControlName = "robo"></textarea>
+
+
+
+   <br/>
+
+      <br/>
+      <input type="submit"  value="Сохранить"> 
+</form>
+
+
+<br><br>
+
+<h2>Карта сайта</h2>
+<font color=green>{{str5}}</font><br><br>
+
+<form [formGroup]="mapForm" (ngSubmit)="savemap(mapForm.value)">
+
+Ссылка - <a href="/sitemap.xml">sitemap.xml</a> 
+
+
+   <br/>
+
+      <br/>
+      <input type="submit"  value="Сгенерировать"> 
+</form>

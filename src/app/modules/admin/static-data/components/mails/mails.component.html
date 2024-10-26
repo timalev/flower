@@ -1,0 +1,11 @@
+<form [formGroup]="mailGroup" (ngSubmit)="saveForm()">
+  <h2>Текст физ. лицо</h2>
+  <p-editor styleClass="mb-2" formControlName="individualText"></p-editor>
+  <h2>Текст юр. лицо</h2>
+  <p-editor styleClass="mb-2" formControlName="businessText"></p-editor>
+  <h2>Уведомление об обработке заказа юр. лицо</h2>
+  <p-editor styleClass="mb-2" formControlName="businessNotificationText"></p-editor>
+  <h2>Подпись</h2>
+  <p-editor styleClass="mb-2" formControlName="signature"></p-editor>
+  <p-button type="submit" label="Сохранить" [loading]="isLoading"></p-button>
+</form>

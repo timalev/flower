@@ -1,0 +1,63 @@
+<p-table [value]="orderBoxes" editMode="row" dataKey="id">
+  <ng-template pTemplate="caption">
+    <div class="flex justify-content-between align-items-center">
+      <div>Список коробок</div>
+      <p-button label="Пересчитать коробки" (onClick)="regenerateBoxes()"></p-button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Коробка</th>
+      <th>Количество</th>
+      <th>Стоимость</th>
+      <th>Действия</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-box let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="box">
+      <td>
+        {{ box.box.name }}
+      </td>
+      <td>{{ box.count }}</td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <p-inputNumber
+              [(ngModel)]="box.price"
+              [min]="0"
+              [maxFractionDigits]="2"
+              [required]="true"
+            >
+            </p-inputNumber>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ box.price }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-button
+          *ngIf="!editing"
+          pInitEditableRow
+          styleClass="p-button-rounded p-button-text"
+          icon="pi pi-pencil"
+          (click)="onRowEditInit(box)"
+        ></p-button>
+        <p-button
+          *ngIf="editing"
+          pSaveEditableRow
+          icon="pi pi-check"
+          styleClass="p-button-rounded p-button-text p-button-success p-mr-2"
+          (click)="onRowEditSave(box, ri)"
+        ></p-button>
+        <p-button
+          *ngIf="editing"
+          pCancelEditableRow
+          icon="pi pi-times"
+          styleClass="p-button-rounded p-button-text p-button-danger"
+          (click)="onRowEditCancel(box, ri)"
+        ></p-button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

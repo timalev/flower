@@ -1,0 +1,41 @@
+@import "container";
+@import "colors";
+
+$root: '.download-invoice';
+
+#{$root} {
+  @include fv-container(100px, 100px);
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &_header {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      text-align: center;
+      @include laptop-media {
+        font-size: 60px;
+        text-align: unset;
+      }
+      line-height: 100%;
+      color: $text;
+    }
+    &_text {
+      margin-top: 25px;
+      margin-bottom: 60px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 140%;
+      color: $text-grey;
+      text-align: center;
+    }
+    &_button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

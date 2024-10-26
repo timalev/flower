@@ -1,0 +1,36 @@
+<flower-valley-container headerTitle="Добавить категорию">
+  <form [formGroup]="category" (ngSubmit)="addCategory()">
+    <span class="p-float-label mb-2 mr-2">
+      <p-dropdown
+        styleClass="w-12"
+        [autoDisplayFirst]="false"
+        [showClear]="true"
+        inputId="parent"
+        [options]="categories"
+        optionValue="id"
+        optionLabel="name"
+        emptyMessage="Категорий нет"
+        formControlName="parentId"
+      ></p-dropdown>
+      <label for="parent">Расположить в категории (необязательно)</label>
+    </span>
+    <span class="p-float-label">
+      <input type="text" id="name" pInputText formControlName="name" />
+      <label for="name">Название</label>
+    </span>
+    <div class="p-field-checkbox mb-2">
+      <p-checkbox formControlName="isSeedling" [binary]="true" inputId="isSeedling"></p-checkbox>
+      <label for="isSeedling">Добавить в раздел рассад</label>
+    </div>
+    <div class="p-field-checkbox mb-2">
+      <p-checkbox formControlName="isBlocked" [binary]="true" inputId="isBlocked"></p-checkbox>
+      <label for="isBlocked">Заблокировать продажи</label>
+    </div>
+    <flower-valley-files-upload
+      [multi]="false"
+      label="Добавить обложку"
+      (uploaded)="photoUploaded($event)"
+    ></flower-valley-files-upload>
+    <p-button type="submit" label="Добавить"></p-button>
+  </form>
+</flower-valley-container>

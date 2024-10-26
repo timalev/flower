@@ -1,0 +1,150 @@
+<form [formGroup]="contactsForm" (ngSubmit)="saveContacts()">
+  <span class="p-float-label">
+    <input type="text" id="whatsAppNumber" pInputText formControlName="whatsAppNumber" />
+    <label for="whatsAppNumber">Номер чата на кнопке WhatsApp</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="mail" pInputText formControlName="mail" />
+    <label for="mail">Почта</label>
+  </span>
+  <div class="formArrayBlock">
+    <div>
+      <ng-container formArrayName="workTime">
+        <ng-container
+          *ngFor="
+            let control of getControlArray('workTime').controls;
+            let i = index;
+            let first = first
+          "
+        >
+          <div class="flex align-items-center">
+            <span class="p-float-label mr-2">
+              <input
+                type="text"
+                id="workTime-{{ i }}"
+                pInputText
+                [formControl]="getFormControl(control)"
+              />
+              <label for="workTime-{{ i }}">Время работы</label>
+            </span>
+            <p-button
+              *ngIf="!first"
+              styleClass="mb-2 p-button-danger"
+              icon="pi pi-trash"
+              (onClick)="deleteArrayControl('workTime', i)"
+            ></p-button>
+          </div>
+        </ng-container>
+      </ng-container>
+      <p-button
+        label="Добавить значение"
+        *ngIf="isFormArrayValid('workTime')"
+        (onClick)="addControlToArray('workTime')"
+        styleClass="mb-2 w-12"
+      ></p-button>
+    </div>
+    <div>
+      <ng-container formArrayName="address">
+        <ng-container
+          *ngFor="
+            let control of getControlArray('address').controls;
+            let i = index;
+            let first = first
+          "
+        >
+          <div class="flex align-items-center">
+            <span class="p-float-label mr-2">
+              <input
+                type="text"
+                id="address-{{ i }}"
+                pInputText
+                [formControl]="getFormControl(control)"
+              />
+              <label for="address-{{ i }}">Адрес</label>
+            </span>
+            <p-button
+              *ngIf="!first"
+              styleClass="mb-2 p-button-danger"
+              icon="pi pi-trash"
+              (onClick)="deleteArrayControl('address', i)"
+            ></p-button>
+          </div>
+        </ng-container>
+      </ng-container>
+      <p-button
+        label="Добавить значение"
+        *ngIf="isFormArrayValid('address')"
+        (onClick)="addControlToArray('address')"
+        styleClass="mb-2 w-12"
+      ></p-button>
+    </div>
+  </div>
+  <div>
+    <ng-container formArrayName="phones">
+      <ng-container
+        *ngFor="let control of getControlArray('phones').controls; let i = index; let first = first"
+      >
+        <div class="flex align-items-center">
+          <span class="p-float-label mr-2">
+            <input
+              type="text"
+              id="phones-{{ i }}"
+              pInputText
+              [formControl]="getFormControl(control)"
+            />
+            <label for="phones-{{ i }}">Телефон</label>
+          </span>
+          <p-button
+            *ngIf="!first"
+            styleClass="mb-2 p-button-danger"
+            icon="pi pi-trash"
+            (onClick)="deleteArrayControl('phones', i)"
+          ></p-button>
+        </div>
+      </ng-container>
+    </ng-container>
+    <p-button
+      label="Добавить значение"
+      *ngIf="isFormArrayValid('phones')"
+      (onClick)="addControlToArray('phones')"
+      styleClass="mb-2 w-12"
+    ></p-button>
+  </div>
+  <div>
+    <ng-container formArrayName="mapImages">
+      <div class="grid mt-2">
+        <div
+          class="img col-6"
+          *ngFor="
+            let control of getControlArray('mapImages').controls;
+            let i = index;
+            let first = first
+          "
+        >
+          <p-image [src]="control.value" width="100%"></p-image>
+          <div class="hover">
+            <flower-valley-files-upload
+              label="Изменить фотографию"
+              [multi]="false"
+              [showOnlyButton]="true"
+              (uploaded)="editPhoto($event, i)"
+            ></flower-valley-files-upload>
+            <p-button
+              *ngIf="!first"
+              styleClass="p-button-danger ml-2"
+              icon="pi pi-trash"
+              (onClick)="deletePhoto(i)"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <flower-valley-files-upload
+      [multi]="true"
+      label="Добавить фото"
+      (uploaded)="addPhoto($event)"
+      *ngIf="isFormArrayValid('mapImages') && getControlArray('mapImages').length < 2"
+    ></flower-valley-files-upload>
+  </div>
+  <p-button type="submit" label="Сохранить" [loading]="isLoading"></p-button>
+</form>

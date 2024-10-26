@@ -1,0 +1,187 @@
+<flower-valley-container background="dark" headerTitle="Контакты" *ngIf="contacts">
+  <div class="contacts">
+    
+	<table>
+      <tr>
+		<td>
+	
+	<div class="contacts__info">
+
+
+      <div
+        class="data-container"
+        [ngClass]="{ 'py-6': !first }"
+        *ngFor="let data of getAddressData(); let first = first; index as i"
+      >
+        <div class="contacts__info_data">
+          <div class="contacts__info_address">
+            <div class="contacts__info_address-title">
+              <p-image
+                styleClass="flex align-items-center mr-2"
+                src="assets/icons/map-grey.svg"
+                width="15px"
+              ></p-image>
+              <span>Адрес</span>
+            </div>
+            <div class="contacts__info_address-content">
+              {{ data.address }}
+            </div>
+
+			<table>
+			<tr>
+				<td>Проложить маршрут:</td>
+				<td>&nbsp;&nbsp;
+				
+				<a [href]="sanitize('yandexnavi://build_route_on_map?lat_to=' + data.lonlan[i].lat +'&lon_to=' + data.lonlan[i].lon + '')"><img src="assets/images/yn.png" height=28 border=0></a>
+ 
+				</td>
+			</tr>
+			</table>
+
+
+          </div>
+          <div class="contacts__info_timing pt-4">
+            <div class="contacts__info_timing-title">
+              <p-image
+                styleClass="flex align-items-center mr-2"
+                src="assets/icons/clock.svg"
+                width="15px"
+              ></p-image>
+              <span>Время работы</span>
+            </div>
+            <div class="contacts__info_timing-content">
+              <span>{{ data.workTime }}</span>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div >
+		
+		<!--
+          <p-image [src]="data.mapImage" [width]="mapWidth"></p-image>
+        -->
+		</div>
+      </div>
+    </div>
+
+	</td>
+		<td valign=top id="pcmap"> <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A4c0bbfd7735e41af052a6d859dbc34f33d7e812dee62f1aaa7fa5c4d328e2d4e&amp;source=constructor" width="400" height="300" frameborder="0"></iframe></td>
+      </tr>
+      </table>
+	  
+<div id="mobmap">
+ <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A4c0bbfd7735e41af052a6d859dbc34f33d7e812dee62f1aaa7fa5c4d328e2d4e&amp;source=constructor" width="100%" height="300" frameborder="0"></iframe>
+</div>
+<br/>
+    <div class="contacts__map">
+      <div class="contacts__map_phones">
+        <div class="contacts__map_phones-title">
+          <p-image
+            styleClass="flex align-items-center mr-2"
+            src="assets/icons/phone.svg"
+            width="15px"
+          ></p-image>
+          <span>Номер</span>
+        </div>
+        <div class="contacts__map_phones-content grid">
+          <div class="col-6 flex flex-column">
+            <a
+              class="contacts__map_phones-content_item"
+              *ngFor="let phone of contacts.phones"
+              href="tel:{{ phone }}"
+              >{{ phone }}</a
+            >
+          </div>
+          <div class="col-6 flex flex-column justify-content-center">
+            <a
+              class="whats-app-button"
+              href="https://api.whatsapp.com/send/?phone={{ contacts.whatsAppNumber }}"
+              target="_blank"
+            >
+              <span class="pi pi-whatsapp"></span>
+              <div class="pl-1">What'sApp</div>
+            </a>
+            <a class="contacts__map_mail" type="mail" href="mailto:{{ contacts.mail }}">{{
+              contacts.mail
+            }}</a>
+          </div>
+        </div>
+      </div>
+
+	  <!--
+      <iframe
+        src="https://yandex.ru/map-widget/v1/?um=constructor%3Ab7ea06c19db994941839ac2fc7ba73c120fc662538e98ee5dc1ad3149c3e12e4&amp;source=constructor"
+        [width]="mapWidth"
+        height="300"
+      ></iframe>
+	  -->
+    </div>
+  </div>
+</flower-valley-container>
+<flower-valley-container
+  background="dark"
+  headerTitle="Фотографии"
+  [isAdmin]="isAdmin"
+  [buttonTemplate]="addPhotos"
+>
+  <div class="grid" *ngIf="photos.length">
+    <div
+      *ngFor="let photo of photos; let i = index"
+      pDraggable="contactsPhoto"
+      dragEffect="move"
+      pDroppable="contactsPhoto"
+      (onDrop)="drop()"
+      (onDragEnter)="setPosition(i)"
+      (onDragStart)="dragStart(photo, i)"
+      (onDragEnd)="dragEnd()"
+      class="photo col-12 lg:col-6 xl:col-4 flex justify-content-center"
+    >
+      <p-image
+        [src]="photo.img"
+        styleClass="cursor-pointer"
+        [width]="photosWidth"
+        (click)="openImage(photo.id)"
+        [imageStyle]="{ 'border-radius': '10px', height: '100%', 'object-fit': 'cover' }"
+      ></p-image>
+      <div class="hover" *ngIf="isAdmin">
+        <flower-valley-files-upload
+          label="Изменить фотографию"
+          [multi]="false"
+          [showOnlyButton]="true"
+          (uploaded)="editImage($event, photo.id)"
+        ></flower-valley-files-upload>
+        <p-button
+          styleClass="p-button-danger ml-2"
+          icon="pi pi-trash"
+          (onClick)="deleteImage(photo.id)"
+        ></p-button>
+      </div>
+    </div>
+  </div>
+</flower-valley-container>
+
+<p-galleria
+  [value]="photos"
+  [(visible)]="displayCustom"
+  [(activeIndex)]="activeIndex"
+  [circular]="true"
+  [fullScreen]="true"
+  [showItemNavigators]="true"
+  [showThumbnails]="false"
+>
+  <ng-template pTemplate="item" let-item>
+    <img [src]="item.img" style="width: 100%; display: block" />
+  </ng-template>
+</p-galleria>
+
+<ng-template #addPhotos>
+  <flower-valley-files-upload
+    label="Добавить фотографии"
+    [showOnlyButton]="true"
+    [autoUpload]="true"
+    (uploaded)="addPhoto($event)"
+  ></flower-valley-files-upload>
+</ng-template>

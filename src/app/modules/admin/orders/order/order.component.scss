@@ -1,0 +1,45 @@
+$root: '.order';
+
+#{$root} {
+  padding-top: 20px;
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 10px;
+  }
+  &__header, &__entity {
+    display: flex;
+    justify-content: space-between;
+    &>div {
+      &>div {
+        display: flex;
+        align-items: center;
+        padding-bottom: 10px;
+        &>div:first-child {
+          margin-right: 10px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  &__header {
+    &_id {
+      &>div {
+        display: flex;
+        align-items: center;
+        &>span {
+          padding-right: 10px;
+        }
+      }
+    }
+  }
+  &__entity {
+    padding-top: 20px;
+  }
+  &__products {
+    padding-top: 20px;
+  }
+  &__boxes {
+    padding-top: 20px;
+  }
+}

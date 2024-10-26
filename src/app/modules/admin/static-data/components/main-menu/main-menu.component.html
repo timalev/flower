@@ -1,0 +1,98 @@
+<p-table [value]="menu" dataKey="id" editMode="row" [loading]="isLoading">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Название</th>
+      <th>Ссылка</th>
+      <th>Действия</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="item" [pReorderableRow]="ri">
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <span class="p-float-label">
+              <input type="text" [id]="'title_' + ri" pInputText [(ngModel)]="item.title" />
+              <label for="title">Название</label>
+            </span>
+          </ng-template>
+          <ng-template pTemplate="output">
+            <span>
+              {{ item.title }}
+            </span>
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <span class="p-float-label">
+              <p-autoComplete
+                styleClass="w-12"
+                (onSelect)="menuItemSelected($event, item)"
+                [suggestions]="filteredItems"
+                [showEmptyMessage]="true"
+                emptyMessage="Совпадений не найдено"
+                field="title"
+                (completeMethod)="searchItem($event.query)"
+                [dropdown]="true"
+                inputId="linkInput"
+              >
+                <ng-template let-item pTemplate="item">
+                  {{ item.title }}
+                </ng-template>
+              </p-autoComplete>
+              <label for="linkInput">Выберите элемент</label>
+            </span>
+          </ng-template>
+          <ng-template pTemplate="output">
+            <a routerLink="{{ getLink(item.link) }}" [fragment]="getFragment(item.link)">{{
+              item.title
+            }}</a>
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <div>
+          <div class="edit">
+            <button
+              pButton
+              type="button"
+              pInitEditableRow
+              *ngIf="!editing"
+              icon="pi pi-pencil "
+              class="p-button-rounded p-button-text p-button-success"
+              (click)="onRowEditInit(item)"
+            ></button>
+            <button
+              *ngIf="editing"
+              pButton
+              type="button"
+              pSaveEditableRow
+              icon="pi pi-check"
+              (click)="onRowEditSave(item)"
+              class="p-button-rounded p-button-text p-button-success p-mr-2"
+            ></button>
+            <button
+              *ngIf="editing"
+              pButton
+              type="button"
+              pCancelEditableRow
+              icon="pi pi-times"
+              (click)="onRowEditCancel(item, ri)"
+              class="p-button-rounded p-button-text p-button-danger"
+            ></button>
+            <span class="pi pi-bars" [pReorderableRowHandle]="ri"></span>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-button
+  [loading]="isSaving"
+  styleClass="mt-4"
+  (onClick)="saveMenu()"
+  label="Сохранить"
+></p-button>

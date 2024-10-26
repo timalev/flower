@@ -1,0 +1,288 @@
+<div class="order" *ngIf="order">
+  <div class="order__actions">
+    <span class="p-buttonset">
+      <p-button
+        *ngIf="clientEntity"
+        icon="pi pi-file"
+        (onClick)="getOffer(clientEntity)"
+        label="КП"
+      >
+      </p-button>
+      <p-button
+        [disabled]="!order.confirmedDeliveryDate"
+        icon="pi pi-download"
+        label="Смета"
+        (onClick)="getEstimate()"
+      ></p-button>
+      <p-button
+        icon="pi pi-sync"
+        styleClass="p-button-info"
+        label="Повторить"
+        (onClick)="repeatOrder()"
+      ></p-button>
+      <p-button
+        icon="pi pi-save"
+        label="Сохранить"
+        [loading]="sendingMail"
+        (onClick)="confirmSaving()"
+      ></p-button>
+    </span>
+  </div>
+  <div class="order__header">
+    <div>
+      <div class="order__header_id">
+        <div>Номер заказа:</div>
+        <div>
+          <span>
+            {{ order.id }}
+          </span>
+          <p-inplace #statusInplace>
+            <ng-template pTemplate="display">
+              <p-tag
+                [value]="getStatus(order.status).label"
+                [severity]="getStatus(order.status).severity"
+              ></p-tag>
+            </ng-template>
+            <ng-template pTemplate="content">
+              <p-dropdown
+                [options]="statusDropdown"
+                [autoDisplayFirst]="false"
+                (onHide)="statusInplace.deactivate()"
+                [(ngModel)]="order.status"
+                placeholder="Выберите статус"
+                optionLabel="name"
+                optionValue="value"
+              ></p-dropdown>
+            </ng-template>
+          </p-inplace>
+        </div>
+      </div>
+      <div class="order__header_date">
+        <div>Дата заказа:</div>
+        <div>{{ order.orderDate | date: 'dd.MM.yyyy HH:mm' }}</div>
+      </div>
+      <div
+        class="order__header_date"
+        *ngIf="!order.confirmedDeliveryDate && order.deliveryWishDateFrom"
+      >
+        <div>Желаемая дата поставки:</div>
+        <div>
+          {{ order.deliveryWishDateFrom | date: 'dd.MM.yyyy' }}
+          {{ order.deliveryWishDateTo ? '-' : '' }}
+          {{ order.deliveryWishDateTo | date: 'dd.MM.yyyy' }}
+        </div>
+      </div>
+      <div class="order__header_date">
+        <div>Дата поставки:</div>
+        <div *ngIf="order.confirmedDeliveryDate">
+          <p-inplace #inplace>
+            <ng-template pTemplate="display">
+              {{ order.confirmedDeliveryDate | date: 'dd.MM.yyyy' }}
+            </ng-template>
+            <ng-template pTemplate="content">
+              <div class="flex align-items-center">
+                <span class="p-float-label">
+                  <p-calendar
+                    #calendar
+                    [(ngModel)]="order.confirmedDeliveryDate"
+                    [firstDayOfWeek]="1"
+                    [showTime]="false"
+                    [showSeconds]="false"
+                    dateFormat="dd.mm.yy"
+                    [readonlyInput]="true"
+                    inputId="confirmedDate"
+                  ></p-calendar>
+                  <label for="confirmedDate">Дата поставки</label>
+                </span>
+                <p-button
+                  styleClass="ml-2"
+                  label="Изменить"
+                  (onClick)="inplace.deactivate()"
+                ></p-button>
+              </div>
+            </ng-template>
+          </p-inplace>
+        </div>
+        <p-inplace *ngIf="!order.confirmedDeliveryDate" #dateInplace>
+          <ng-template pTemplate="display"> Согласовать </ng-template>
+          <ng-template pTemplate="content">
+            <div class="flex align-items-center">
+              <span class="p-float-label">
+                <p-calendar
+                  #calendar
+                  [formControl]="confirmedDate"
+                  [firstDayOfWeek]="1"
+                  [showTime]="false"
+                  [showSeconds]="false"
+                  dateFormat="dd.mm.yy"
+                  [readonlyInput]="true"
+                  inputId="confirmedDate"
+                ></p-calendar>
+                <label for="confirmedDate">Дата поставки</label>
+              </span>
+              <p-button
+                styleClass="ml-2"
+                label="Согласовать"
+                (onClick)="confirmDate(dateInplace)"
+              ></p-button>
+            </div>
+          </ng-template>
+        </p-inplace>
+      </div>
+      <div class="order__header_address">
+        <div>Адрес поставки:</div>
+        <div>
+          <p-inplace #addressInplace>
+            <ng-template pTemplate="display"> {{ order.clientAddress }} </ng-template>
+            <ng-template pTemplate="content">
+              <div class="flex align-items-center">
+                <span class="p-float-label">
+                  <input type="text" id="address" pInputText [(ngModel)]="order.clientAddress" />
+                  <label for="address">Адрес</label>
+                </span>
+                <p-button
+                  styleClass="ml-2"
+                  label="Закрыть"
+                  (onClick)="addressInplace.deactivate()"
+                ></p-button>
+              </div>
+            </ng-template>
+          </p-inplace>
+        </div>
+      </div>
+      <div class="order__header_products-sum">
+        <div>Стоимость товаров:</div>
+        <div>{{ getProductsSum() | priceConverter }}</div>
+      </div>
+      <div class="order__header_products-sum" *ngIf="orderDiscount">
+        <div>Скидка:</div>
+        <div>{{ orderDiscount.value | priceConverter }} ({{ orderDiscount.percent }}%)</div>
+      </div>
+      <div class="order__header_boxes-sum">
+        <div>Стоимость коробок:</div>
+        <div>{{ getBoxesSum() | priceConverter }}</div>
+      </div>
+      <div class="order__header_delivery">
+        <div>Стоимость поставки:</div>
+        <div>
+          <p-inplace #deliveryInplace>
+            <ng-template pTemplate="display">
+              {{ order.deliveryPrice | priceConverter }}
+            </ng-template>
+            <ng-template pTemplate="content">
+              <div class="flex align-items-center">
+                <span class="p-float-label">
+                  <p-inputNumber
+                    [(ngModel)]="order.deliveryPrice"
+                    inputId="delivery"
+                    [min]="1"
+                    [disabled]="isDeliveryDistribute"
+                  >
+                  </p-inputNumber>
+                  <label for="delivery">Стоимость поставки</label>
+                </span>
+                <p-button
+                  styleClass="ml-2"
+                  label="Закрыть"
+                  (onClick)="deliveryInplace.deactivate()"
+                ></p-button>
+              </div>
+            </ng-template>
+          </p-inplace>
+        </div>
+      </div>
+      <div class="order__header_sum">
+        <div>Сумма заказа:</div>
+        <div>{{ getOrderSum() | priceConverter }}</div>
+      </div>
+      <div class="order__header_comment" *ngIf="order.comment">
+        <div>Комментарий:</div>
+        <div>{{ order.comment }}</div>
+      </div>
+    </div>
+    <div class="order__client">
+      <div class="order__client_name">
+        <div>Клиент:</div>
+        <div>{{ order.clientName }}</div>
+      </div>
+      <div class="order__client_phone">
+        <div>Телефон:</div>
+        <div>{{ order.clientPhone }}</div>
+      </div>
+      <div class="order__client_email">
+        <div>Почта:</div>
+        <div>{{ order.clientEmail }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="order__entity">
+    <div *ngIf="clientEntity && clientEntity.INN">
+      <div class="order__entity_name">
+        <div>Наименование юридического лица:</div>
+        <div>{{ clientEntity.ShortName }}</div>
+      </div>
+      <div class="order__entity_inn">
+        <div>ИНН:</div>
+        <div>{{ clientEntity.INN }}</div>
+      </div>
+    </div>
+    <div class="order__entity_account" *ngIf="this.order?.accountNumber">
+      <p-button label="Посмотреть счет" (onClick)="openTelepack()"></p-button>
+    </div>
+  </div>
+  <p-accordion styleClass="mt-4">
+    <p-accordionTab header="Калькуляция заказа">
+      <div class="flex justify-content-between">
+        <div>
+          <span class="p-float-label">
+            <p-dropdown
+              inputId="dropdown"
+              [options]="calculateOptions"
+              optionLabel="name"
+              optionValue="value"
+              #dropdown
+            ></p-dropdown>
+            <label for="dropdown">Действие</label>
+          </span>
+          <span class="p-float-label">
+            <p-inputNumber #inputNumber inputId="percentValue" [min]="1"> </p-inputNumber>
+            <label for="percentValue">Значение, %</label>
+          </span>
+          <p-button
+            label="Расчитать"
+            (onClick)="changeOrderSum(dropdown.value, inputNumber.value)"
+          ></p-button>
+          <p-button
+            styleClass="p-button-danger ml-2"
+            label="Сбросить"
+            (onClick)="cancelChangeOrderSum()"
+          ></p-button>
+        </div>
+        <div class="flex flex-column">
+          <p-button
+            styleClass="mb-2"
+            label="Распределить коробки"
+            (onClick)="distributeBoxesPrice()"
+          ></p-button>
+          <p-button label="Распределить доставку" (onClick)="distributeDeliveryPrice()"></p-button>
+        </div>
+      </div>
+      <div class="flex justify-content-center">
+        <p-button
+          label="Оформить"
+          (onClick)="saveCalculatedOrder()"
+          [loading]="sendingMail"
+        ></p-button>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+  <div class="order__products">
+    <flower-valley-products-order [(orderProducts)]="order.products"></flower-valley-products-order>
+  </div>
+  <div class="order__boxes" *ngIf="!isBoxesDistribute">
+    <flower-valley-boxes-order
+      [(orderBoxes)]="order.boxes"
+      [products]="order.products"
+    ></flower-valley-boxes-order>
+  </div>
+</div>

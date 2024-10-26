@@ -1,0 +1,161 @@
+<form [formGroup]="headerForm" (ngSubmit)="saveHeader()">
+  <flower-valley-files-upload
+    [multi]="false"
+    label="Обновить изображение"
+    (uploaded)="photoUploaded($event)"
+  ></flower-valley-files-upload>
+  <div class="grid mt-2">
+    <div class="img col-3">
+      <p-image [src]="headerForm.controls['img'].value" width="100"></p-image>
+    </div>
+  </div>
+  <span class="p-float-label">
+    <input type="text" id="title" pInputText formControlName="title" />
+    <label for="title">Заголовок</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="subTitle" pInputText formControlName="subTitle" />
+    <label for="subTitle">Подзаголовок</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="whatsAppNumber" pInputText formControlName="whatsAppNumber" />
+    <label for="whatsAppNumber">Номер чата на кнопке WhatsApp</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="phone" pInputText formControlName="phone" />
+    <label for="phone">Телефон</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="mail" pInputText formControlName="mail" />
+    <label for="mail">Почта</label>
+  </span>
+  <div class="formArrayBlock">
+    <div>
+      <ng-container formArrayName="workTime">
+        <ng-container
+          *ngFor="
+            let control of getControlArray(headerForm, 'workTime').controls;
+            let i = index;
+            let first = first
+          "
+        >
+          <div class="flex align-items-center">
+            <span class="p-float-label mr-2">
+              <input
+                type="text"
+                id="workTime-{{ i }}"
+                pInputText
+                [formControl]="getFormControl(control)"
+              />
+              <label for="workTime-{{ i }}">Время работы</label>
+            </span>
+            <p-button
+              *ngIf="!first"
+              styleClass="mb-2 p-button-danger"
+              icon="pi pi-trash"
+              (onClick)="deleteArrayControl(headerForm, 'workTime', i)"
+            ></p-button>
+          </div>
+        </ng-container>
+      </ng-container>
+      <p-button
+        label="Добавить значение"
+        *ngIf="isFormArrayValid(headerForm, 'workTime')"
+        (onClick)="addControlToArray(headerForm, 'workTime')"
+        styleClass="mb-2 w-12"
+      ></p-button>
+    </div>
+    <div>
+      <ng-container formArrayName="address">
+        <ng-container
+          *ngFor="
+            let control of getControlArray(headerForm, 'address').controls;
+            let i = index;
+            let first = first
+          "
+        >
+          <div class="flex align-items-center">
+            <span class="p-float-label mr-2">
+              <input
+                type="text"
+                id="address-{{ i }}"
+                pInputText
+                [formControl]="getFormControl(control)"
+              />
+              <label for="address-{{ i }}">Адрес</label>
+            </span>
+            <p-button
+              *ngIf="!first"
+              styleClass="mb-2 p-button-danger"
+              icon="pi pi-trash"
+              (onClick)="deleteArrayControl(headerForm, 'address', i)"
+            ></p-button>
+          </div>
+        </ng-container>
+      </ng-container>
+      <p-button
+        label="Добавить значение"
+        *ngIf="isFormArrayValid(headerForm, 'address')"
+        (onClick)="addControlToArray(headerForm, 'address')"
+        styleClass="mb-2 w-12"
+      ></p-button>
+    </div>
+  </div>
+  <!--  <div-->
+  <!--    class="photos-error"-->
+  <!--    *ngIf="productGroup.dirty && !photos.length && product && !product.photos.length"-->
+  <!--  >-->
+  <!--    Добавьте фотографии-->
+  <!--  </div>-->
+  <!--  <div class="grid mt-2">-->
+  <!--    <div class="img col-3" *ngFor="let photo of product?.photos">-->
+  <!--      <p-image [src]="photo.src" width="100"></p-image>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <p-button type="submit" label="Сохранить" [loading]="isHeaderLoading"></p-button>
+</form>
+
+<h2>Дополнительная информация в Footer</h2>
+
+<form [formGroup]="footerForm" (ngSubmit)="saveFooter()">
+  <span class="p-float-label">
+    <input type="text" id="roots" pInputText formControlName="roots" />
+    <label for="roots">Правообладатель</label>
+  </span>
+  <div>
+    <ng-container formArrayName="phones">
+      <ng-container
+        *ngFor="
+          let control of getControlArray(footerForm, 'phones').controls;
+          let i = index;
+          let first = first
+        "
+      >
+        <div class="flex align-items-center">
+          <span class="p-float-label mr-2">
+            <input
+              type="text"
+              id="phones-{{ i }}"
+              pInputText
+              [formControl]="getFormControl(control)"
+            />
+            <label for="phones-{{ i }}">Телефон</label>
+          </span>
+          <p-button
+            *ngIf="!first"
+            styleClass="mb-2 p-button-danger"
+            icon="pi pi-trash"
+            (onClick)="deleteArrayControl(footerForm, 'phones', i)"
+          ></p-button>
+        </div>
+      </ng-container>
+    </ng-container>
+    <p-button
+      label="Добавить значение"
+      *ngIf="isFormArrayValid(footerForm, 'phones')"
+      (onClick)="addControlToArray(footerForm, 'phones')"
+      styleClass="mb-2 w-12"
+    ></p-button>
+  </div>
+  <p-button type="submit" label="Сохранить" [loading]="isFooterLoading"></p-button>
+</form>

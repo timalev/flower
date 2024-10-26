@@ -1,0 +1,15 @@
+<form [formGroup]="policyForm" (ngSubmit)="savePolicy()">
+  <span class="p-float-label">
+    <input type="text" id="title" pInputText formControlName="title" />
+    <label for="title">Заголовок</label>
+  </span>
+  <p-editor
+    [ngClass]="{
+      'editor-danger': policyForm.controls['text'].dirty && policyForm.controls['text'].invalid
+    }"
+    styleClass="mb-2"
+    formControlName="text"
+    placeholder="Текст"
+  ></p-editor>
+  <p-button type="submit" label="Сохранить" [loading]="isLoading"></p-button>
+</form>

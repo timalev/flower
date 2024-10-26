@@ -1,0 +1,48 @@
+<div class="video grid" #container>
+  <div *ngIf="!videos.length" class="video__error col-12">
+    К сожалению, видео пока отсутвует.<br />Но мы обязательно исправим ситуацию!
+  </div>
+  <div
+    class="video__container col-12 lg:col-6 xl:col-4"
+    *ngFor="let video of videos; let i = index"
+    pDraggable="video"
+    dragEffect="move"
+    pDroppable="video"
+    (onDrop)="drop()"
+    [pDraggableDisabled]="!isAdmin"
+    (onDragEnter)="setPosition(i)"
+    (onDragStart)="dragStart(video, i)"
+    (onDragEnd)="dragEnd()"
+  >
+    <iframe
+      [ngStyle]="{ width: container.offsetWidth < 383 ? '100%' : '383px' }"
+      height="216"
+      [src]="video.src | safeUrl"
+      [title]="video.title"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+    <div>{{ video.title }}</div>
+    <div
+      [pTooltip]="getHidden(video.id) ? 'Развернуть' : 'Свернуть'"
+      [ngClass]="{ 'text-hidden': getHidden(video.id) }"
+      (click)="hiddenToggle(video.id)"
+    >
+      {{ video.description }}
+    </div>
+    <div class="product__edit" *ngIf="isAdmin">
+      <p-button
+        class="w-12"
+        styleClass="w-12 mb-2"
+        label="Редактировать"
+        (onClick)="editVideo(video.id)"
+      ></p-button>
+      <p-button
+        class="w-12"
+        styleClass="w-12 p-button-danger"
+        label="Удалить"
+        (onClick)="deleteVideo(video.id)"
+      ></p-button>
+    </div>
+  </div>
+</div>

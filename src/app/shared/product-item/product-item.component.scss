@@ -1,0 +1,136 @@
+@import "src/assets/styles/colors";
+
+ :host ::ng-deep .p-button {
+  padding: 12px;
+}
+
+.product {
+  background-color: $white-100;
+  border-radius: 10px;
+  width: 280px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &__header {
+    position: relative;
+    &_image {
+      cursor: pointer;
+    }
+    &>span {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: $white-100;
+      background-color: $main-green;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 110%;
+    }
+    &_title {
+      padding: 20px 20px 30px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 110%;
+      span {
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  &__interactive {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    &_price {
+      font-weight: 500;
+      line-height: 110%;
+      display: flex;
+      flex-direction: column;
+      span {
+        font-size: 32px;
+        color: $main-green;
+      }
+      &>div:last-child:not(:first-child) {
+        margin-top: 15px;
+        &>span {
+          font-size: 18px;
+          color: $text-discount;
+          text-align: center;
+          position: relative;
+          &::before {
+            content: '';
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            border-bottom: 1px solid $text-grey;
+            -webkit-transform: skewY(-10deg);
+            transform: skewY(-10deg);
+          }
+        }
+      }
+    }
+    ::ng-deep .p-inputnumber {
+      width: 100px;
+      input {
+        width: 60px;
+        text-align: center;
+        padding: 0;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+      .p-button.p-button-icon-only {
+        width: unset;
+        padding-left: 5px;
+        padding-right: 5px;
+        max-width: 20px;
+        background-color: $white-100;
+        border-color: $border-count;
+        color: $text-grey;
+        .p-button-icon {
+          display: flex;
+          &::before {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px 15px 15px;
+    ::ng-deep p-button {
+      width: 100%;
+      height: 54px;
+      .p-button {
+        width: 100%;
+        height: 54px;
+        display: flex;
+        justify-content: center;
+        span {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  &__edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px 15px 15px;
+  }
+}

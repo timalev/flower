@@ -1,0 +1,78 @@
+<div class="product" [ngClass]="{ 'cursor-move': isAdmin }">
+  <div class="product__header">
+    <p-image
+      [src]="product.photos[0].src"
+      [alt]="product.name"
+      class="product__header_image"
+      width="280"
+      [height]="category.id === 1 ? '380' : '180'"
+      [imageStyle]="{ 'border-radius': '10px', 'object-fit': 'cover' }"
+      (click)="openProductCard.emit(product.id)"
+    ></p-image>
+    <span *ngIf="percentDiscount">Скидка {{ percentDiscount }}%</span>
+    <div class="product__header_title">
+      <span (click)="openProductCard.emit(product.id)">{{ product.name }}</span>
+    </div>
+  </div>
+  <div class="product__interactive">
+    <div class="product__interactive_price">
+      <span *ngIf="product.sale">{{ product.sale | priceConverter }}</span>
+      <div>
+        <span>{{ product.price | priceConverter }}</span>
+      </div>
+    </div>
+    <div class="flex align-items-center">
+      <p-inputNumber
+        name="c-o-u-n-t"
+        autocomplete="h87h58g7h8hd"
+        [(ngModel)]="product.count"
+        (ngModelChange)="checkPrice()"
+        [allowEmpty]="true"
+        [min]="step"
+        [showButtons]="true"
+        buttonLayout="horizontal"
+        inputId="horizontal"
+        [step]="step"
+        (onBlur)="setCorrectCount()"
+        incrementButtonIcon="pi pi-plus"
+        decrementButtonIcon="pi pi-minus"
+      >
+      </p-inputNumber>
+    </div>
+  </div>
+  <div class="product__button">
+    <p-button
+      *ngIf="!isInCartShow"
+      (onClick)="addToCart()"
+      [disabled]="category.isBlocked"
+      pTooltip="Временно нет в наличии"
+      [tooltipDisabled]="!category.isBlocked"
+    >
+      <ng-template pTemplate="content">
+        <span>Добавить в корзину</span>
+        <img src="../../../assets/icons/cart.svg" width="25px" />
+      </ng-template>
+    </p-button>
+    <p-button *ngIf="isInCartShow" styleClass="p-button-outlined disabled">
+      <ng-template pTemplate="content">
+        <span>Товар в корзине</span>
+        <i class="pi pi-check"></i>
+      </ng-template>
+    </p-button>
+  </div>
+  <div class="product__edit" *ngIf="isAdmin">
+    <p-button
+      *ngIf="product.id"
+      class="w-12"
+      styleClass="w-12 mb-2"
+      label="Редактировать"
+      (onClick)="editProduct(product.id)"
+    ></p-button>
+    <p-button
+      class="w-12"
+      styleClass="w-12 p-button-danger"
+      label="Удалить"
+      (onClick)="deleteProduct()"
+    ></p-button>
+  </div>
+</div>

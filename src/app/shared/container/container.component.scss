@@ -1,0 +1,44 @@
+@import "src/assets/styles/container";
+@import "src/assets/styles/colors";
+
+$root: '.container';
+
+.container-dark {
+  background: $light-grey;
+}
+
+.container-light {
+  background: $white-100;
+}
+
+#{$root}__content {
+  @include fv-container(50px, 50px);
+  &_header {
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 500;
+      font-size: 30px;
+      @include laptop-media {
+        font-size: 48px;
+      }
+      line-height: 110%;
+      color: $text;
+      padding-bottom: 40px;
+      &>div {
+        display: flex;
+        align-items: center;
+        &>span {
+          color: $main-green;
+        }
+      }
+      .leaf-button {
+        display: none;
+        @include laptop-media {
+          display: block;
+        }
+      }
+    }
+  }
+}

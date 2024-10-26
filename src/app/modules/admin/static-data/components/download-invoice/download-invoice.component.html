@@ -1,0 +1,18 @@
+<form [formGroup]="dataForm" (ngSubmit)="saveOthers()">
+  <span class="p-float-label">
+    <input type="text" id="title" pInputText formControlName="title" />
+    <label for="title">Заголовок</label>
+  </span>
+  <span class="p-float-label">
+    <textarea
+      type="text"
+      id="text"
+      rows="3"
+      style="resize: none"
+      pInputTextarea
+      formControlName="text"
+    ></textarea>
+    <label for="text">Текст</label>
+  </span>
+  <p-button type="submit" label="Сохранить" [loading]="isLoading"></p-button>
+</form>

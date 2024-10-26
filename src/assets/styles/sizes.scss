@@ -1,0 +1,15 @@
+$container-width: 1200px;
+$middle-width: 90%;
+$mobile-width: 100%;
+
+@mixin laptop-media {
+  @media screen and (min-width: 1024px) {
+    @content
+  }
+}
+
+@mixin xl-media {
+  @media screen and (min-width: 1230px) {
+    @content
+  }
+}

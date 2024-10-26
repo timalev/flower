@@ -1,0 +1,28 @@
+<span class="search p-input-icon-left w-12">
+  <i class="pi pi-search"></i>
+  <p-autoComplete
+    styleClass="w-12"
+    [(ngModel)]="product"
+    (onSelect)="navigate($event)"
+    [suggestions]="searchResults"
+    [showEmptyMessage]="true"
+    emptyMessage="Совпадений не найдено"
+    field="name"
+    (completeMethod)="searchProducts($event.query)"
+    inputId="inputtext"
+    placeholder="Поиск по товарам"
+  >
+    <ng-template let-product let-index="index" pTemplate="item">
+      <div class="search__result">
+        <span>{{ index + 1 }}.</span>
+        <span>{{ product.name }}</span>
+        <span>({{ product.price | priceConverter }})</span>
+      </div>
+    </ng-template>
+  </p-autoComplete>
+  <p-button class="search__button">
+    <ng-template pTemplate="content">
+      <p-image styleClass="flex" src="../../../assets/icons/search.png"></p-image>
+    </ng-template>
+  </p-button>
+</span>

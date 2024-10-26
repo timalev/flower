@@ -1,0 +1,64 @@
+@import "colors";
+@import "container";
+
+$root: '.carousel';
+
+#{$root} {
+  &__page {
+    display: flex;
+    justify-content: center;
+    &_img {
+      width: 200px;
+      height: auto;
+      cursor: pointer;
+    }
+  }
+}
+
+.error {
+  width: 100%;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 110%;
+  color: $text;
+  text-align: center;
+}
+:host ::ng-deep .p-carousel-indicators {
+  @include laptop-media {
+    bottom: 0;
+  }
+  bottom: -30px;
+  .p-carousel-indicator.p-highlight button {
+    background-color: $text;
+  }
+  .p-carousel-indicator button {
+    background-color: $text;
+    opacity: 0.32;
+  }
+}
+
+:host ::ng-deep .p-carousel-content {
+  @include laptop-media {
+    overflow: auto;
+  }
+  overflow: unset;
+  padding: 40px;
+  .p-carousel-prev, .p-carousel-next {
+    color: $text;
+  }
+  .p-carousel-prev {
+    left: 0;
+  }
+}
+
+.full-width-img {
+  width: 90vw;
+  height: auto;
+  @include laptop-media {
+    height: 100vh;
+    width: unset;
+  }
+  margin: auto;
+  object-fit: cover;
+  display: block
+}

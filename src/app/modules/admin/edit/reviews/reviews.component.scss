@@ -1,0 +1,16 @@
+@import "../product/product.component";
+
+::ng-deep {
+  p-inputnumber, .p-inputnumber {
+    width: 100%;
+  }
+}
+
+.img {
+  position: relative;
+  p-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

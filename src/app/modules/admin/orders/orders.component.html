@@ -1,0 +1,78 @@
+<span class="p-float-label mt-2">
+  <input type="text" id="search" pInputText [formControl]="searchControl" />
+  <label for="search">Номер заказа, ИНН, имя, почта или номер телефона</label>
+</span>
+<div infinite-scroll (scrolled)="getOrders()">
+  <p-table styleClass="mt-2" [value]="orders">
+    <ng-template pTemplate="caption">
+      <div class="flex justify-content-between align-items-center">
+        <div>Список заказов</div>
+        <p-button label="Новый заказ" (onClick)="newOrder()"></p-button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Номер заказа</th>
+        <th>Дата заказа</th>
+        <th>Клиент</th>
+        <th>Данные клиента</th>
+        <th>Адрес доставки</th>
+        <th>Сумма заказа</th>
+        <th>Статус</th>
+        <th>Действия</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-order let-ri="rowIndex">
+      <tr>
+        <td>{{ order.id }}</td>
+        <td>{{ order.orderDate | date: 'dd.MM.yyyy HH:mm' }}</td>
+        <td>{{ order.clientName }}</td>
+        <td>
+          <div *ngIf="order.clientInn">ИНН: {{ order.clientInn }}</div>
+          <div>Почта: {{ order.clientEmail }}</div>
+        </td>
+        <td>{{ order.clientAddress }}</td>
+        <td>{{ order.orderSum | priceConverter: 'two' }}</td>
+        <td>
+          <p-inplace #inplace>
+            <ng-template pTemplate="display">
+              <p-tag
+                [value]="getStatus(order.status).label"
+                [severity]="getStatus(order.status).severity"
+              ></p-tag>
+            </ng-template>
+            <ng-template pTemplate="content">
+              <p-dropdown
+                [options]="statusDropdown"
+                [autoDisplayFirst]="false"
+                (onChange)="changeStatus(order, inplace)"
+                [(ngModel)]="order.status"
+                placeholder="Выберите статус"
+                optionLabel="name"
+                optionValue="value"
+              ></p-dropdown>
+            </ng-template>
+          </p-inplace>
+        </td>
+        <td>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-sync"
+            (click)="repeatOrder(order.id)"
+            class="p-button-rounded p-button-info p-button-text"
+          ></button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-eye"
+            (click)="showOrder(order.id)"
+            class="p-button-rounded p-button-text p-button-success"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<flower-valley-loader *ngIf="isLoading" appearance="small"></flower-valley-loader>

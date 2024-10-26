@@ -1,0 +1,24 @@
+@import "colors";
+
+::ng-deep .p-datatable-tbody {
+  td {
+    ::ng-deep {
+      input {
+        width: 200px;
+      }
+    }
+    &:last-child {
+      &>div {
+        display: flex;
+        justify-content: center;
+        .edit {
+          color: $main-green;
+        }
+        .trash {
+          margin-left: 20px;
+          color: $red-100;
+        }
+      }
+    }
+  }
+}

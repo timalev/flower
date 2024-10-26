@@ -1,0 +1,497 @@
+@import "colors";
+@import "container";
+
+$root: '.header';
+
+@mixin mobile-panel($top: 70px) {
+  position: absolute;
+  top: $top;
+  background-color: $white-50;
+  @include laptop-media {
+    right: unset;
+    left: 0;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  .content {
+    height: 100%;
+    width: 80%;
+    padding: 0 10px;
+    @include laptop-media {
+      height: unset;
+      width: 250px;
+      padding: unset;
+      border-bottom-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+    &:hover {
+      text-decoration: none !important;
+    }
+    background-color: $white-100;
+    display: flex;
+    flex-direction: column;
+    color: $white-100;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    &>a, &>div {
+      &:hover {
+        text-decoration: none !important;
+      }
+      color: $text;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+      padding: 10px;
+      @include laptop-media {
+        padding: 20px;
+      }
+      &.catalog {
+        font-size: 24px;
+        line-height: 30px;
+        div {
+          text-align: center;
+        }
+      }
+      &:not(.mobile-cart) {
+        display: flex;
+        align-items: center;
+      }
+      &:last-child {
+        @include laptop-media {
+          border-bottom-right-radius: 10px;
+          border-bottom-left-radius: 10px;
+        }
+      }
+    }
+  }
+}
+
+@mixin cart-button {
+  .cart {
+    &:hover {
+      outline: 1px solid $white-100;
+      text-decoration: none;
+      div {
+        text-decoration: none;
+      }
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+    padding: 5px;
+    &__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .pi-shopping-cart {
+      font-size: 35px;
+      padding-right: 5px;
+    }
+    &__sum {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 25px;
+    }
+    &__count {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+    }
+  }
+}
+
+#{$root} {
+  background: $white-100;
+  position: sticky;
+  top: 0;
+  @include laptop-media {
+    position: unset;
+    height: 230px;
+  }
+  z-index: 110;
+  &__contacts {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    @include fv-container(20px, 20px);
+    height: 70px;
+    @include laptop-media {
+      height: 150px;
+    }
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    &_logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      ::ng-deep img {
+        width: 53px;
+        @include laptop-media {
+          width: 150px;
+        }
+      }
+      &>div {
+        display: none;
+        @include laptop-media {
+          display: flex;
+        }
+        .title {
+          font-weight: 600;
+          font-size: 20px;
+          line-height: 108.9%;
+          max-width: 200px;
+        }
+        .sub-title {
+          padding-top: 5px;
+          font-size: 16px;
+        }
+      }
+    }
+    &_data {
+      display: none;
+      @include laptop-media {
+        display: flex;
+      }
+      width: 600px;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .address {
+      display: none;
+      @include laptop-media {
+        padding-top: 10px;
+        display: flex;
+      }
+      &+div {
+        display: none;
+        @include laptop-media {
+          display: flex;
+        }
+      }
+    }
+    .work-time {
+      display: none;
+      @include laptop-media {
+        display: flex;
+      }
+    }
+    .contacts {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .whats-app-button {
+        display: none;
+        @include laptop-media {
+          display: flex;
+        }
+        justify-content: center;
+        align-items: center;
+        width: 140px;
+        height: 44px;
+        background-color: $whats-app-button;
+        border-radius: 5px;
+        font-weight: 500;
+        font-size: 15.4978px;
+        line-height: 19px;
+        color: #3A3A3A;
+        .pi-whatsapp {
+          color: $main-green;
+        }
+        &:hover {
+          text-decoration: none;
+          outline: 1px solid $main-green;
+        }
+      }
+      font-weight: 500;
+      font-size: 11px;
+      line-height: 14px;
+      @include laptop-media {
+        font-size: 15.4978px;
+        line-height: 19px;
+        padding-left: 10px;
+      }
+      .phone {
+        @include laptop-media {
+          margin-top: 10px;
+        }
+        margin-bottom: 10px;
+      }
+      span {
+        color: $main-green;
+      }
+      a {
+        color: $text;
+        padding-left: 10px;
+
+      }
+    }
+    .search {
+      display: flex;
+      @include laptop-media {
+        display: none;
+      }
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      margin-left: 10px;
+      &__button {
+        ::ng-deep button {
+          padding: 10px;
+        }
+
+        right: 10px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .mobile-menu {
+      display: flex;
+      width: 35px;
+      @include laptop-media {
+        display: none;
+      }
+      align-items: center;
+    }
+    .mobile-menu-panel {
+      display: none;
+      &.visible {
+        display: flex;
+        justify-content: flex-end;
+        z-index: 1000;
+        right: 0;
+        width: 100%;
+        @include laptop-media {
+          display: none;
+        }
+      }
+      @include mobile-panel;
+      height: calc(100vh - 70px);
+    }
+    .search-panel {
+      display: none;
+      &.visible {
+        display: block;
+      }
+      position: absolute;
+      background-color: $main-green;
+      top: 70px;
+      width: 100%;
+      left: 0;
+      padding: 9px 11px;
+    }
+  }
+  &__menu-bar {
+    display: none;
+    @include laptop-media {
+      display: block;
+    }
+    background-color: $main-green;
+    color: $white-100;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+
+    &_content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+      @include fv-container(10px, 10px);
+      div {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      a {
+        color: $white-100;
+      }
+      .scrolled-search {
+        display: none;
+      }
+      .prices, .catalog {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .prices {
+        font-weight: 600;
+        padding: 20px;
+        border: 1px solid #FFFFFF;
+        border-radius: 10px;
+        &:hover {
+          outline: 1px solid $white-100;
+          text-decoration: none;
+          div {
+            text-decoration: none;
+          }
+        }
+      }
+      .catalog {
+        font-size: 24px;
+        line-height: 30px;
+        &:hover {
+          text-decoration: none;
+          div {
+            text-decoration: underline;
+          }
+        }
+      }
+      @include cart-button;
+    }
+  }
+  &.scrolled {
+    .header__menu-bar {
+      @include laptop-media {
+        position: fixed;
+        top: 0;
+        z-index: 120;
+        width: 100%;
+        padding: 0 27px;
+      }
+    }
+    .header__menu-bar_content {
+      @include fv-container(10px, 10px);
+      .catalog ~ a {
+        display: none;
+      }
+      .scrolled-search {
+        padding-left: 50px;
+        padding-right: 20px;
+        &:hover {
+          text-decoration: none;
+          cursor: default;
+        }
+        .menu {
+          position: relative;
+          &:hover {
+            text-decoration: none;
+            cursor: default;
+          }
+          .button {
+            margin-right: 30px;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 30px;
+            span:first-child {
+              margin-right: 10px;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+          .panel {
+            &:hover {
+              text-decoration: none;
+            }
+            .catalog {
+              display: none !important;
+              &~ a {
+                display: block;
+                &:hover {
+                  background-color: $main-green;
+                  color: $white-100;
+                }
+              }
+            }
+            @include mobile-panel(55px);
+          }
+        }
+        display: flex !important;
+        flex: 1 1 auto;
+        align-items: center;
+        ::ng-deep flower-valley-search {
+          flex: 1 1 auto;
+        }
+        ::ng-deep .search {
+          input {
+            height: 50px;
+          }
+          &__button {
+            ::ng-deep button {
+              padding: 10px;
+              ::ng-deep img {
+                width: 15px;
+                height: 15px;
+              }
+            }
+          }
+        }
+      }
+      .prices {
+        display: none;
+      }
+      .cart__icon {
+        ::ng-deep img {
+          width: 20px;
+        }
+      }
+    }
+  }
+}
+
+:host ::ng-deep p-button {
+  border: none;
+}
+
+.mobile-cart {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @include cart-button;
+  .cart-button-container {
+    margin-right: auto;
+  }
+  .cart {
+    border-color: $main-green;
+    &__icon {
+      background-color: #F4F8E6;
+    }
+  }
+  .prices {
+    background-color: $whats-app-button;
+    color: $main-green;
+    margin: 20px 0;
+    padding: 20px;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    text-transform: uppercase;
+    &:active {
+      outline: 1px solid $main-green;
+    }
+  }
+  .work-time {
+    display: flex;
+    width: 100%;
+  }
+  .address {
+    display: flex;
+    width: 100%;
+    margin: 20px 0;
+  }
+  .work-time, .address {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

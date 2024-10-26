@@ -1,0 +1,92 @@
+<form [formGroup]="advantagesForm" (ngSubmit)="saveAdvantages()">
+  <span class="p-float-label">
+    <input type="text" id="title" pInputText formControlName="title" />
+    <label for="title">Заголовок</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="subTitle" pInputText formControlName="subTitle" />
+    <label for="subTitle">Подзаголовок</label>
+  </span>
+  <div class="grid">
+    <div formGroupName="leftBlock" class="col-4">
+      <h2>Левый блок</h2>
+      <span class="p-float-label">
+        <input type="text" id="title-leftBlock" pInputText formControlName="title" />
+        <label for="title-leftBlock">Заголовок</label>
+      </span>
+      <span class="p-float-label">
+        <textarea
+          type="text"
+          id="description-leftBlock"
+          [rows]="7"
+          [cols]="30"
+          [autoResize]="true"
+          pInputTextarea
+          formControlName="description"
+        ></textarea>
+        <label for="description-leftBlock">Описание</label>
+      </span>
+      <flower-valley-files-upload
+        [multi]="false"
+        label="Обновить изображение"
+        (uploaded)="photoUploaded($event, 'leftBlock')"
+      ></flower-valley-files-upload>
+      <p-image *ngIf="photos" [src]="photos.left" width="100"></p-image>
+    </div>
+    <div formGroupName="centerBlock" class="col-4">
+      <h2>Центральный блок</h2>
+      <span class="p-float-label">
+        <input type="text" id="title-centerBlock" pInputText formControlName="title" />
+        <label for="title-centerBlock">Заголовок</label>
+      </span>
+      <span class="p-float-label">
+        <textarea
+          type="text"
+          id="description-centerBlock"
+          [rows]="7"
+          [cols]="30"
+          [autoResize]="true"
+          pInputTextarea
+          formControlName="description"
+        ></textarea>
+        <label for="description-centerBlock">Описание</label>
+      </span>
+      <flower-valley-files-upload
+        [multi]="false"
+        label="Обновить изображение"
+        (uploaded)="photoUploaded($event, 'centerBlock')"
+      ></flower-valley-files-upload>
+      <p-image *ngIf="photos" [src]="photos.center" width="100"></p-image>
+    </div>
+    <div formGroupName="rightBlock" class="col-4">
+      <h2>Правый блок</h2>
+      <span class="p-float-label">
+        <input type="text" id="title-rightBlock" pInputText formControlName="title" />
+        <label for="title-rightBlock">Заголовок</label>
+      </span>
+      <span class="p-float-label">
+        <textarea
+          type="text"
+          id="description-rightBlock"
+          [rows]="7"
+          [cols]="30"
+          [autoResize]="true"
+          pInputTextarea
+          formControlName="description"
+        ></textarea>
+        <label for="description-rightBlock">Описание</label>
+      </span>
+      <flower-valley-files-upload
+        [multi]="false"
+        label="Обновить изображение"
+        (uploaded)="photoUploaded($event, 'rightBlock')"
+      ></flower-valley-files-upload>
+      <p-image *ngIf="photos" [src]="photos.right" width="100"></p-image>
+    </div>
+  </div>
+  <p-button type="submit" label="Сохранить" [loading]="isLoading"></p-button>
+</form>
+<h2>Предпросмотр</h2>
+<flower-valley-advantages
+  [advantagesData]="advantagesForm.getRawValue()"
+></flower-valley-advantages>

@@ -1,0 +1,45 @@
+@import "colors";
+
+$root: '.carousel';
+
+#{$root} {
+  &__page {
+    display: flex;
+    justify-content: center;
+    &_img {
+      width: 200px;
+      height: 150px;
+      object-fit: scale-down;
+      cursor: pointer;
+    }
+  }
+}
+
+.error {
+  width: 100%;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 110%;
+  color: $text;
+  text-align: center;
+}
+
+:host ::ng-deep .p-carousel-indicators {
+  .p-carousel-indicator.p-highlight button {
+    background-color: $text;
+  }
+  .p-carousel-indicator button {
+    background-color: $text;
+    opacity: 0.32;
+  }
+}
+
+:host ::ng-deep .p-carousel-content {
+  padding: 40px;
+  .p-carousel-prev, .p-carousel-next {
+    color: $text;
+  }
+  .p-carousel-prev {
+    left: 0;
+  }
+}

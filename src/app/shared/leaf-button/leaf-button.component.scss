@@ -1,0 +1,29 @@
+@import "src/assets/styles/colors";
+@import "container";
+
+$root: '.leaf';
+
+#{$root} {
+  &__button {
+    position: relative;
+    ::ng-deep button {
+      padding-right: 80px;
+      border-radius: 10px;
+      height: 55px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    &_icon{
+      position: absolute;
+      right: 0;
+      padding: 15px;
+      background-color: $dark-green;
+      border-radius: 10px;
+    }
+  }
+}
+
+:host ::ng-deep .p-button {
+  border: none !important;
+}

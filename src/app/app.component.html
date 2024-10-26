@@ -1,0 +1,72 @@
+<flower-valley-header [headerData]="header"></flower-valley-header>
+<div
+  [ngClass]="{
+    'background-dark': background === 'dark',
+    'background-light': background === 'light'
+  }"
+  *ngIf="isShowBreadcrumb"
+>
+  <div class="container">
+    <flower-valley-breadcrumb></flower-valley-breadcrumb>
+  </div>
+</div>
+<router-outlet></router-outlet>
+<flower-valley-footer [footer]="footer"></flower-valley-footer>
+<p-dialog
+  [closable]="false"
+  [(visible)]="cookieVisible"
+  [modal]="false"
+  [resizable]="false"
+  [draggable]="false"
+  position="bottom-left"
+  [style]="{ width: '350px' }"
+>
+  <span class="cookie"
+    >Веб-сайт использует файлы cookie. Продолжая пользоваться сайтом, вы даете согласие на работу с
+    этими файлами.</span
+  >
+  <ng-template pTemplate="footer">
+    <p-button
+      styleClass="p-button-cookie"
+      (onClick)="cookieVisible = false"
+      label="Понятно"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+<p-confirmDialog #confirmDialog>
+  <ng-template pTemplate="footer">
+    <button
+      type="button"
+      pButton
+      icon="pi pi-check"
+      [label]="confirmDialog.acceptButtonLabel !== 'Yes' ? confirmDialog.acceptButtonLabel : 'Да'"
+      (click)="confirmDialog.accept()"
+    ></button>
+    <button
+      type="button"
+      pButton
+      class="p-button-danger"
+      icon="pi pi-times"
+      [label]="confirmDialog.rejectButtonLabel !== 'No' ? confirmDialog.rejectButtonLabel : 'Нет'"
+      (click)="confirmDialog.reject()"
+    ></button>
+  </ng-template>
+</p-confirmDialog>
+<p-toast></p-toast>
+<div class="whatsapp" *ngIf="mobileButtons">
+  <a href="https://api.whatsapp.com/send/?phone={{ mobileButtons.mobileWhatsApp }}" target="_blank">
+    <p-image src="assets/images/whatsapp.svg" width="50px"></p-image>
+    <div class="animation delay-0"></div>
+    <div class="animation delay-1"></div>
+    <div class="animation delay-2"></div>
+  </a>
+</div>
+<div class="phone" *ngIf="mobileButtons">
+  <a href="tel:{{ mobileButtons.mobilePhone }}" target="_blank">
+    <p-image src="assets/images/phone-call-icon.svg" width="50px"></p-image>
+    <div class="animation delay-0"></div>
+    <div class="animation delay-1"></div>
+    <div class="animation delay-2"></div>
+  </a>
+</div>
+<flower-valley-loader *ngIf="loadingService.isLoading"></flower-valley-loader>

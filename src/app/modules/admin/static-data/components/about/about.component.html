@@ -1,0 +1,30 @@
+<form [formGroup]="aboutForm" (ngSubmit)="saveAbout()">
+  <span class="p-float-label">
+    <input type="text" id="title" pInputText formControlName="title" />
+    <label for="title">Заголовок</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="subTitle" pInputText formControlName="subTitle" />
+    <label for="subTitle">Подзаголовок</label>
+  </span>
+  <p-editor
+    [ngClass]="{
+      'editor-danger':
+        aboutForm.controls['description'].dirty && aboutForm.controls['description'].invalid
+    }"
+    styleClass="mb-2"
+    formControlName="description"
+    placeholder="Текст"
+  ></p-editor>
+  <flower-valley-files-upload
+    [multi]="false"
+    label="Обновить изображение"
+    (uploaded)="photoUploaded($event)"
+  ></flower-valley-files-upload>
+  <div class="grid mt-2">
+    <div class="img col-3">
+      <p-image [src]="aboutForm.controls['img'].value" width="100"></p-image>
+    </div>
+  </div>
+  <p-button type="submit" label="Сохранить" [loading]="isLoading"></p-button>
+</form>

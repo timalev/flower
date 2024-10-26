@@ -1,0 +1,14 @@
+@import "container";
+@import "colors";
+
+$root: '.catalog';
+
+#{$root} {
+  &__categories {
+    padding-bottom: 100px;
+    flower-valley-item {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

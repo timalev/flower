@@ -1,0 +1,205 @@
+<form [formGroup]="cartForm" (ngSubmit)="saveCart()">
+  <span class="p-float-label">
+    <input type="text" id="minSumTitle" pInputText formControlName="minSumTitle" />
+    <label for="minSumTitle">Заголовок минимальной суммы оплаты</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="minSumInfo" pInputText formControlName="minSumInfo" />
+    <label for="minSumInfo">Подзаголовок минимальной суммы оплаты</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="infoText" pInputText formControlName="infoText" />
+    <label for="infoText">Текст под карточкой предупреждения</label>
+  </span>
+  <ng-container formArrayName="address">
+    <ng-container
+      *ngFor="let control of getControlArray('address').controls; let i = index; let first = first"
+    >
+      <div class="flex align-items-center">
+        <span class="p-float-label mr-2">
+          <input
+            type="text"
+            id="address-{{ i }}"
+            pInputText
+            [formControl]="getFormControl(control)"
+          />
+          <label for="address-{{ i }}">Адрес</label>
+        </span>
+        <p-button
+          *ngIf="!first"
+          styleClass="mb-2 p-button-danger"
+          icon="pi pi-trash"
+          (onClick)="deleteArrayControl('address', i)"
+        ></p-button>
+      </div>
+    </ng-container>
+  </ng-container>
+  <p-button
+    label="Добавить значение"
+    *ngIf="isFormArrayValid('address')"
+    (onClick)="addControlToArray('address')"
+    styleClass="mb-2 w-12"
+  ></p-button>
+
+  <span class="p-float-label">
+    <input type="text" id="callText" pInputText formControlName="callText" />
+    <label for="callText">Приглашение к звонку</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="writeText" pInputText formControlName="writeText" />
+    <label for="writeText">Приглашение к письму</label>
+  </span>
+  <div class="formArrayBlock">
+    <div>
+      <ng-container formArrayName="phones">
+        <ng-container
+          *ngFor="
+            let control of getControlArray('phones').controls;
+            let i = index;
+            let first = first
+          "
+        >
+          <div class="flex align-items-center">
+            <span class="p-float-label mr-2">
+              <input
+                type="text"
+                id="phones-{{ i }}"
+                pInputText
+                [formControl]="getFormControl(control)"
+              />
+              <label for="phones-{{ i }}">Телефон</label>
+            </span>
+            <p-button
+              *ngIf="!first"
+              styleClass="mb-2 p-button-danger"
+              icon="pi pi-trash"
+              (onClick)="deleteArrayControl('phones', i)"
+            ></p-button>
+          </div>
+        </ng-container>
+      </ng-container>
+      <p-button
+        label="Добавить значение"
+        *ngIf="isFormArrayValid('phones')"
+        (onClick)="addControlToArray('phones')"
+        styleClass="mb-2 w-12"
+      ></p-button>
+    </div>
+    <div>
+      <ng-container formArrayName="mail">
+        <ng-container
+          *ngFor="let control of getControlArray('mail').controls; let i = index; let first = first"
+        >
+          <div class="flex align-items-center">
+            <span class="p-float-label mr-2">
+              <input
+                type="text"
+                id="mail-{{ i }}"
+                pInputText
+                [formControl]="getFormControl(control)"
+              />
+              <label for="mail-{{ i }}">Почта</label>
+            </span>
+            <p-button
+              *ngIf="!first"
+              styleClass="mb-2 p-button-danger"
+              icon="pi pi-trash"
+              (onClick)="deleteArrayControl('mail', i)"
+            ></p-button>
+          </div>
+        </ng-container>
+      </ng-container>
+      <p-button
+        label="Добавить значение"
+        *ngIf="isFormArrayValid('mail')"
+        (onClick)="addControlToArray('mail')"
+        styleClass="mb-2 w-12"
+      ></p-button>
+    </div>
+  </div>
+  <span class="p-float-label">
+    <input type="text" id="boxesTitle" pInputText formControlName="boxesTitle" />
+    <label for="boxesTitle">Заголовок расчета коробок</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="boxesNotice" pInputText formControlName="boxesNotice" />
+    <label for="boxesNotice">Уведомление расчета коробок</label>
+  </span>
+  <span class="p-float-label">
+    <textarea
+      type="text"
+      id="paymentInfo"
+      [rows]="7"
+      [cols]="30"
+      [autoResize]="true"
+      pInputTextarea
+      formControlName="paymentInfo"
+    ></textarea>
+    <label for="paymentInfo">Порядок оплаты</label>
+  </span>
+  <h2>Баннер</h2>
+  <span class="p-float-label">
+    <input type="text" id="bannerTitle" pInputText formControlName="bannerTitle" />
+    <label for="bannerTitle">Заголовок баннера</label>
+  </span>
+  <div class="content-block">
+    <div formGroupName="leftBannerBlock">
+      <h4>Левый блок</h4>
+      <span class="p-float-label">
+        <input type="text" id="title-leftBlock" pInputText formControlName="title" />
+        <label for="title-leftBlock">Заголовок</label>
+      </span>
+      <span class="p-float-label">
+        <textarea
+          type="text"
+          id="description-leftBlock"
+          [rows]="7"
+          [cols]="30"
+          [autoResize]="true"
+          pInputTextarea
+          formControlName="description"
+        ></textarea>
+        <label for="description-leftBlock">Описание</label>
+      </span>
+    </div>
+    <div formGroupName="centerBannerBlock">
+      <h4>Центральный блок</h4>
+      <span class="p-float-label">
+        <input type="text" id="title-centerBlock" pInputText formControlName="title" />
+        <label for="title-centerBlock">Заголовок</label>
+      </span>
+      <span class="p-float-label">
+        <textarea
+          type="text"
+          id="description-centerBlock"
+          [rows]="7"
+          [cols]="30"
+          [autoResize]="true"
+          pInputTextarea
+          formControlName="description"
+        ></textarea>
+        <label for="description-centerBlock">Описание</label>
+      </span>
+    </div>
+    <div formGroupName="rightBannerBlock">
+      <h4>Правый блок</h4>
+      <span class="p-float-label">
+        <input type="text" id="title-rightBlock" pInputText formControlName="title" />
+        <label for="title-rightBlock">Заголовок</label>
+      </span>
+      <span class="p-float-label">
+        <textarea
+          type="text"
+          id="description-rightBlock"
+          [rows]="7"
+          [cols]="30"
+          [autoResize]="true"
+          pInputTextarea
+          formControlName="description"
+        ></textarea>
+        <label for="description-rightBlock">Описание</label>
+      </span>
+    </div>
+  </div>
+  <p-button type="submit" label="Сохранить" [loading]="isLoading"></p-button>
+</form>

@@ -1,0 +1,20 @@
+@import "container";
+@import "colors";
+
+$root: '.category';
+
+#{$root} {
+  &__content {
+    @include laptop-media {
+      padding-top: 40px;
+    }
+    display: flex;
+    position: relative;
+    &_menu {
+      display: none;
+      @include laptop-media {
+        display: block;
+      }
+    }
+  }
+}

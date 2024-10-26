@@ -1,0 +1,15 @@
+<flower-valley-container headerTitle="Добавить скидку">
+  <form [formGroup]="discountForm" (ngSubmit)="saveDiscount()">
+    <span class="p-float-label">
+      <p-inputNumber formControlName="sum" inputId="sum" [min]="1" suffix="&#8381;">
+      </p-inputNumber>
+      <label for="sum">Сумма</label>
+    </span>
+    <span class="p-float-label">
+      <p-inputNumber formControlName="discount" inputId="discount" [min]="1" suffix="%">
+      </p-inputNumber>
+      <label for="discount">Скидка</label>
+    </span>
+    <p-button type="submit" label="Сохранить" [loading]="isLoading"></p-button>
+  </form>
+</flower-valley-container>

@@ -1,0 +1,248 @@
+@import "colors";
+@import "container";
+
+.container {
+  @include fv-container(30px);
+}
+
+.whatsapp {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  @include laptop-media {
+    display: none;
+  }
+}
+.phone {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  @include laptop-media {
+    display: none;
+  }
+}
+
+.phone, .whatsapp {
+  a {
+    .animation {
+      z-index: -10;
+      position: absolute;
+      top: 0;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      opacity: 0;
+      border: 2px solid $main-green;
+      animation: scaleIn 4s infinite cubic-bezier(.36, .11, .89, .32);
+      &.delay {
+        &-0 {
+          animation-delay: 0s;
+        }
+        &-1 {
+          animation-delay: 500ms;
+        }
+        &-2 {
+          animation-delay: 1s;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .p-button-label {
+  font-weight: normal;
+}
+
+:host ::ng-deep .p-button {
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  background-color: $main-green;
+  border-color: $main-green;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 110%;
+  &.text-normal {
+    font-size: 14px;
+    line-height: 100%;
+  }
+  &.p-fileupload-choose {
+    &:hover, &:active {
+      background-color: $dark-green;
+      border-color: $dark-green;
+    }
+  }
+  &:enabled {
+    &:hover, &:active {
+      background-color: $dark-green;
+      border-color: $dark-green;
+    }
+  }
+  &.p-button-outlined {
+    background-color: $whats-app-button;
+    color: $main-green;
+    &:enabled {
+      &:hover, &:active {
+        background-color: $dark-green;
+        color: $white-100;
+      }
+      &.disabled {
+        &:hover, &:active {
+          background-color: $whats-app-button;
+          color: $main-green;
+          border-color: $main-green;
+        }
+      }
+    }
+  }
+  &.p-button-cookie {
+    background-color: $white-100;
+    color: $main-green;
+    &:enabled {
+      &:hover, &:active {
+        background-color: $dark-green;
+        color: $white-100;
+      }
+    }
+  }
+  &.p-button-text {
+    background: none;
+    border: none;
+    color: $main-green;
+    &:enabled {
+      &:hover, &:active {
+        background-color: $whats-app-button;
+        color: $main-green;
+      }
+    }
+  }
+  &.p-button-danger {
+    &:not(.p-button-text) {
+      background-color: $danger-background;
+    }
+    border-color: $danger-border;
+    color: $red-100;
+    &:enabled {
+      &:hover, &:active {
+        background-color: $red-100;
+        border-color: $red-100;
+        color: $white-100;
+      }
+    }
+  }
+  &.p-button-estimate {
+    background-color: $whats-app-button;
+    border-radius: 15px;
+    color: $text;
+    border: none;
+    span {
+      margin-left: 15px;
+    }
+    &:enabled {
+      &:hover, &:active {
+        background-color: $whats-app-button;
+        color: $text;
+        outline: 1px solid $main-green;
+      }
+    }
+  }
+  &.p-button-info {
+    background-color: transparent;
+    color: #3B82F6;
+    border-color: transparent;
+    &:focus {
+      box-shadow: none;
+    }
+    &:not(.p-button-text) {
+      background-color: #3B82F6;
+      color: white;
+    }
+    &:enabled {
+      &:hover, &:active {
+        outline: none;
+        &.p-button-text {
+          background: rgba(59, 130, 246, 0.04);
+          border-color: transparent;
+          color: #3B82F6;
+        }
+        &:not(.p-button-text) {
+          border-color: #2563EB;
+          background: #2563EB;
+        }
+      }
+    }
+  }
+}
+
+:host ::ng-deep .p-carousel-indicators {
+  position: absolute;
+  bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  .p-carousel-indicator button {
+    opacity: 0.4;
+    border-radius: 119.15px;
+    height: 3px;
+    width: 32.79px;
+  }
+  .p-carousel-indicator.p-highlight button {
+    opacity: 1;
+    background-color: white;
+    border-radius: 119.15px;
+    height: 3px;
+    width: 32.79px;
+  }
+}
+:host ::ng-deep .p-carousel-content {
+  position: relative;
+  border-radius: 15px;
+  .p-carousel-prev, .p-carousel-next {
+    color: white;
+    position: absolute;
+    z-index: 10;
+  }
+  .p-carousel-next {
+    right: 0;
+  }
+}
+
+:host ::ng-deep .p-galleria-mask {
+  z-index: 10000;
+}
+
+::ng-deep {
+  .p-galleria-close {
+    z-index: 100;
+  }
+}
+
+.cookie {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 140%;
+}
+
+.background-dark {
+  background: $light-grey;
+}
+
+.background-light {
+  background: $white-100;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(.5, .5);
+    opacity: .5;
+  }
+  to {
+    transform: scale(2.5, 2.5);
+    opacity: 0;
+  }
+}

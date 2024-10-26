@@ -1,0 +1,96 @@
+@import "src/assets/styles/container";
+@import "colors";
+
+.search {
+  position: relative;
+  .pi-search {
+    position: absolute;
+    z-index: 1;
+    display: none;
+    @include laptop-media {
+      display: block;
+    }
+  }
+  ::ng-deep input {
+    padding-right: 10%;
+    width: 100%;
+    &:focus {
+      box-shadow: none;
+      border-color: unset;
+      @include laptop-media {
+        border-color: $main-green;
+      }
+    }
+    &:hover {
+      border-color: unset;
+      @include laptop-media {
+        border-color: $main-green;
+      }
+    }
+    &+i {
+      z-index: 1;
+      right: 7%;
+    }
+    &::placeholder {
+      color: $white-100;
+      @include laptop-media {
+        color: $text-grey;
+      }
+    }
+    @include laptop-media {
+      height: 67px;
+      background-color: $white-100;
+      color: $text;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 22px;
+      padding-left: 2.5rem;
+    }
+    height: 47px;
+    background-color: $main-green;
+    border: 1px solid #DDD;
+    border-radius: 10px;
+    color: $white-100;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    padding-left: 0.75rem;
+  }
+  &__result {
+    span:nth-child(2) {
+      padding: 0 5px 0 10px;
+      font-weight: bold;
+    }
+  }
+  ::ng-deep .p-autocomplete-item {
+    white-space: normal;
+  }
+  &__button {
+    ::ng-deep button {
+      padding: 10px;
+      background-color: $white-10;
+      @include laptop-media {
+        background-color: $main-green;
+        padding: 15px;
+      }
+      ::ng-deep img {
+        width: 15px;
+        height: 15px;
+        @include laptop-media {
+          width: 23px;
+          height: 23px;
+        }
+      }
+    }
+    position: absolute;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    top: 0;
+    bottom: 0;
+    right: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

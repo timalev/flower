@@ -1,0 +1,31 @@
+<div class="card" [ngClass]="{ 'cursor-move': isAdmin }">
+  <span *ngIf="item.sale">Скидка {{ item.sale }}%</span>
+  <p-image
+    [src]="item.img"
+    [alt]="item.name"
+    width="280"
+    height="230"
+    class="image"
+    [imageStyle]="{ 'border-radius': '10px', 'object-fit': 'cover' }"
+    [routerLink]="['/', routerLink]"
+  ></p-image>
+  <div class="name-block">
+    <div class="category__name">{{ item.name }}</div>
+    <p-button icon="pi pi-arrow-right" [routerLink]="['/', routerLink]"></p-button>
+  </div>
+  <div *ngIf="isAdmin">
+    <p-button
+      class="w-12"
+      styleClass="w-12 mb-2"
+      label="Редактировать"
+      (onClick)="editCategory()"
+    ></p-button>
+    <p-button
+      *ngIf="!item.isTulip"
+      class="w-12"
+      styleClass="w-12 p-button-danger"
+      label="Удалить"
+      (onClick)="deleteCategory()"
+    ></p-button>
+  </div>
+</div>

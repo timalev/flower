@@ -1,0 +1,87 @@
+<flower-valley-container
+  headerTitle="Транспортировочные коробки"
+  [isAdmin]="true"
+  [buttonTemplate]="addBox"
+>
+  <p-table [value]="boxes" dataKey="id" editMode="row" [loading]="isLoading">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Название</th>
+        <th>Вместимость</th>
+        <th>Цена</th>
+        <th>Действия</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-box let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="box">
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="box.name" required />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ box.name }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-inputNumber [(ngModel)]="box.volume" [min]="1" [required]="true"> </p-inputNumber>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ box.volume }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-inputNumber [(ngModel)]="box.price" [min]="1" [required]="true"> </p-inputNumber>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ box.price }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <div>
+            <div class="edit">
+              <span
+                pInitEditableRow
+                *ngIf="!editing"
+                class="pi pi-pencil cursor-pointer"
+                (click)="onRowEditInit(box)"
+              ></span>
+              <button
+                *ngIf="editing"
+                pButton
+                type="button"
+                pSaveEditableRow
+                icon="pi pi-check"
+                (click)="onRowEditSave(box)"
+                class="p-button-rounded p-button-text p-button-success p-mr-2"
+              ></button>
+              <button
+                *ngIf="editing"
+                pButton
+                type="button"
+                pCancelEditableRow
+                icon="pi pi-times"
+                (click)="onRowEditCancel(box, ri)"
+                class="p-button-rounded p-button-text p-button-danger"
+              ></button>
+            </div>
+            <div class="trash" *ngIf="!editing">
+              <span class="pi pi-trash cursor-pointer" (click)="deleteItem(box.id)"></span>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</flower-valley-container>
+
+<ng-template #addBox>
+  <p-button label="Добавить коробку" (onClick)="navigateToAddBox()"></p-button>
+</ng-template>

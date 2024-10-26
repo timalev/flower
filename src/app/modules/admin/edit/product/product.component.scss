@@ -1,0 +1,20 @@
+@import "src/app/modules/admin/add/product/product.component";
+
+.editor-danger {
+  ::ng-deep {
+    .p-editor-container .p-editor-content.ql-snow {
+      border: 1px solid #e24c4c;
+      .ql-editor.ql-blank::before {
+        color: #e24c4c;
+      }
+    }
+  }
+}
+
+.photos-error {
+  color: #e24c4c;
+  padding-bottom: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+}

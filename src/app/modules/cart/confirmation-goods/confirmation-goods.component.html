@@ -1,0 +1,93 @@
+<p-card styleClass="confirmation">
+  <p-table
+    [value]="goods"
+    rowGroupMode="subheader"
+    groupRowsBy="category.id"
+    styleClass="confirmation"
+    [scrollable]="true"
+    scrollHeight="370px"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Товар</th>
+        <th>Цена</th>
+        <th>Кол-во</th>
+        <th>Стоимость</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="groupheader" let-product>
+      <tr pRowGroupHeader>
+        <td colspan="5">
+          {{ product.category?.name || 'Категория не определена' }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr class="product">
+        <td class="product__name">
+          <p-image
+            [src]="product.photos[0].src"
+            [alt]="product.name"
+            width="40px"
+            height="40px"
+            [imageStyle]="{ 'border-radius': '5px', 'object-fit': 'cover' }"
+          ></p-image>
+          <span [pTooltip]="product.name" tooltipPosition="left">{{ product.name }}</span>
+        </td>
+        <td class="product__price">{{ product.price | priceConverter: 'two':'rub' }}</td>
+        <td class="product__count">
+          <p-inputNumber
+            #countNumber
+            [(ngModel)]="product.count"
+            (ngModelChange)="updateCount(product)"
+            [min]="getStep(product)"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            inputId="horizontal"
+            [step]="getStep(product)"
+            (onBlur)="changeCount(product, countNumber.value)"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+          >
+          </p-inputNumber>
+        </td>
+        <td class="product__price">
+          {{ product.price * product.count | priceConverter: 'two':'rub' }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-button
+    styleClass="ml-3 my-3"
+    label="Добавить товар"
+    icon="pi pi-plus"
+    routerLink="/catalog"
+  ></p-button>
+  <div class="summary-block">
+    <div class="summary-block__delivery">
+      <span>Доставка:</span>
+      <span *ngIf="shippingCost">{{ shippingCost | priceConverter: 'two':'rub' }}</span>
+      <span *ngIf="shippingCost === 0">Не расчитано</span>
+      <span *ngIf="shippingCost === undefined">Персональный расчет</span>
+    </div>
+    <div class="summary-block__boxes">
+      <span>Коробки:</span>
+      <span>{{ boxesSum | priceConverter: 'none':'RUB' }} ({{ boxesCount }}шт.)</span>
+    </div>
+    <div class="summary-block__summary">
+      <span>Итог:</span>
+      <span>{{ getOrderSum() | priceConverter: 'two':'rub' }}</span>
+    </div>
+  </div>
+</p-card>
+
+<p-button
+  *ngIf="pickUp && order?.id && boxesSum"
+  styleClass="p-button-estimate w-12 flex justify-content-center blink"
+  (onClick)="getInvoice()"
+>
+  <ng-template pTemplate="content">
+    <p-image styleClass="flex align-items-center" src="assets/icons/estimate.svg"></p-image>
+    <span>Скачать смету</span>
+  </ng-template>
+</p-button>

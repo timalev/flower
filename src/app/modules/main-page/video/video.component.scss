@@ -1,0 +1,54 @@
+@import "colors";
+
+$root: '.video';
+
+#{$root} {
+  &__error {
+    width: 100%;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 110%;
+    color: $text;
+    text-align: center;
+  }
+  &__container {
+    iframe {
+      border: none;
+      border-radius: 10px;
+    }
+    div {
+      max-width: 340px;
+    }
+    &>div:nth-child(2) {
+      padding-top: 25px;
+      padding-bottom: 15px;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 135%;
+      color: $text;
+    }
+    &>div:nth-child(3) {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 135%;
+      color: $text-grey;
+      &:hover {
+        cursor: pointer;
+      }
+      &.text-hidden {
+        height: 95px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+      }
+    }
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+  }
+  .product__edit {
+    margin-top: 15px;
+    max-width: unset;
+  }
+}

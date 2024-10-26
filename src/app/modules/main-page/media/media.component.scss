@@ -1,0 +1,47 @@
+@import "colors";
+
+$root: '.media';
+
+#{$root} {
+  &__error {
+    width: 100%;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 110%;
+    color: $text;
+    text-align: center;
+  }
+  &__container {
+    display: flex;
+    justify-content: center;
+    .card {
+      background-color: $white-100;
+      border-radius: 10px;
+      width: 280px;
+      margin-bottom: 20px;
+      .image {
+        cursor: pointer;
+      }
+      &>div:nth-child(2) {
+        padding: 20px 20px 0;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 160%;
+        color: $text-grey;
+      }
+      &>div:nth-child(3) {
+        padding: 20px 20px 30px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 110%;
+      }
+      &>div:last-child:not(:nth-child(3)) {
+        padding: 0 10px 20px;
+      }
+    }
+  }
+  .product__edit {
+    margin-top: 15px;
+    max-width: unset;
+  }
+}

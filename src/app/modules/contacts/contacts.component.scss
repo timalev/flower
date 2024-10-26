@@ -1,0 +1,190 @@
+@import "colors";
+@import "container";
+
+$root: '.contacts';
+
+#{$root} {
+  display: flex;
+  flex-direction: column;
+  &__info {
+    display: flex;
+    flex-direction: column;
+    .data-container {
+      display: flex;
+      flex-direction: column;
+      @include laptop-media {
+        flex-direction: row;
+      }
+    }
+    &_address {
+      &-title {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 140%;
+        color: $text-grey;
+        text-transform: uppercase;
+      }
+      &-content {
+        font-weight: 500;
+        font-size: 18px;
+        @include laptop-media {
+          font-size: 24px;
+        }
+        line-height: 140%;
+        color: $text;
+      }
+    }
+    &_timing {
+      &-title {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 140%;
+        color: $text-grey;
+        text-transform: uppercase;
+      }
+      &-content {
+        font-weight: 500;
+        font-size: 18px;
+        @include laptop-media {
+          font-weight: 400;
+          font-size: 24px;
+        }
+        line-height: 140%;
+        color: $text;
+        display: flex;
+        flex-direction: column;
+        span {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  &__map {
+    display: flex;
+    flex-direction: column;
+    @include laptop-media {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    &_phones {
+      &-title {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 140%;
+        color: $text-grey;
+        text-transform: uppercase;
+      }
+      &-content {
+        padding-top: 20px;
+        padding-bottom: 40px;
+        a.contacts__map_phones-content_item {
+          font-weight: 500;
+          font-size: 16px;
+          @include laptop-media {
+            font-size: 18px;
+          }
+          @include xl-media {
+            font-size: 21px;
+          }
+          line-height: 120%;
+          color: $text;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+          &:not(:last-child) {
+            margin-bottom: 20px;
+          }
+        }
+        .whats-app-button {
+          padding-top: 10px;
+          padding-bottom: 10px;
+          max-width: 200px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: $whats-app-button;
+          border-radius: 5px;
+          color: $main-green !important;
+          font-weight: 500;
+          font-size: 15.4978px;
+          line-height: 19px;
+          &:hover {
+            cursor: pointer;
+            outline: 1px solid $main-green;
+            text-decoration: none !important;
+          }
+        }
+      }
+    }
+    &_mail {
+      padding-top: 20px;
+      font-weight: 500;
+      font-size: 16px;
+      @include laptop-media {
+        font-size: 18px;
+      }
+      @include xl-media {
+        font-size: 21px;
+      }
+      line-height: 120%;
+      color: $main-green;
+      text-decoration: underline;
+    }
+    iframe {
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+    }
+  }
+}
+
+.photo {
+  position: relative;
+  .hover {
+    display: none;
+    position: absolute;
+    justify-content: flex-end;
+    top: 0;
+    right: 0;
+    width: 100%;
+    padding: 10px;
+    background: $white-50;
+  }
+  &:hover {
+    .hover {
+      display: flex;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+ 
+  #pcmap {
+    visibility: hidden;
+    clear: both;
+    float: left;
+    margin: 10px auto 5px 20px;
+    width: 28%;
+    display: none; 
+    }
+}
+
+@media screen and (min-width: 600px) {
+ 
+  #mobmap {
+    visibility: hidden;
+    clear: both;
+    float: left;
+    margin: 10px auto 5px 20px;
+    width: 28%;
+    display: none; 
+
+    }
+}

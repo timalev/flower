@@ -1,0 +1,41 @@
+<flower-valley-container headerTitle="Редактировать отзывы">
+  <form [formGroup]="reviewGroup" (ngSubmit)="editReview()">
+    <span class="p-float-label">
+      <p-inputNumber formControlName="autoPlay" inputId="autoPlay" [min]="1"> </p-inputNumber>
+      <label for="autoPlay">Пауза между сменой фотографии (секунды)</label>
+    </span>
+    <div class="p-field-checkbox">
+      <p-checkbox
+        formControlName="isUserCanLeaf"
+        [binary]="true"
+        inputId="isUserCanLeaf"
+      ></p-checkbox>
+      <label for="isUserCanLeaf">Пользователь может листать фотографии</label>
+    </div>
+    <flower-valley-files-upload
+      label="Загрузить изображение"
+      (uploaded)="filesUploaded($event)"
+    ></flower-valley-files-upload>
+    <div class="grid">
+      <div
+        class="img col-3"
+        *ngFor="let photo of currentPhotos; let i = index"
+        pDraggable="reviewPhoto"
+        dragEffect="move"
+        pDroppable="reviewPhoto"
+        (onDrop)="drop()"
+        (onDragEnter)="setPosition(i)"
+        (onDragStart)="dragStart(photo, i)"
+        (onDragEnd)="dragEnd()"
+      >
+        <p-image [src]="photo.src" width="100"></p-image>
+        <p-button
+          styleClass="p-button-danger"
+          icon="pi pi-trash"
+          (onClick)="removePhoto(photo.id)"
+        ></p-button>
+      </div>
+    </div>
+    <p-button type="submit" label="Сохранить" [loading]="isLoading"></p-button>
+  </form>
+</flower-valley-container>

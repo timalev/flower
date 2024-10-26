@@ -1,0 +1,8 @@
+<flower-valley-container [headerTemplate]="headerMenu">
+  <router-outlet></router-outlet>
+</flower-valley-container>
+
+<ng-template #headerMenu>
+  <div class="title">Панель администратора</div>
+  <p-menubar [model]="items"></p-menubar>
+</ng-template>

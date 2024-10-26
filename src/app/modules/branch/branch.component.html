@@ -1,0 +1,155 @@
+
+
+
+
+<flower-valley-container background="dark" headerTitle="Новый филиал">
+  <div  >
+    <div >
+
+<div  id="mobmap" >
+<table border=0>
+<tr>
+<td width=100><font size=5>Адрес</font>:</td>
+
+
+<td><a href="yandexnavi://build_route_on_map?lat_to=55.673768&lon_to=36.904844"><img src="assets/images/yn.png" height=28 border=0></a>
+&nbsp;&nbsp;
+<a href="yandexmaps://build_route_on_map?lat_to=55.673768&lon_to=36.904844"><img src="assets/images/ym.png" border=0></a></td></tr>
+</table>
+
+
+
+
+</div>
+
+<br>
+
+<div style="position:relative;overflow:hidden;" id="pcmap" >
+<b><font size=5>Адрес</font></b>:<br><br>
+
+<iframe src="https://yandex.ru/map-widget/v1/org/agrofirma_tsvetochnaya_dolina_zvenigorod/213622374670/?ll=36.904844%2C55.673768&z=11" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe></div>
+
+
+ </div>
+
+
+
+
+<div [innerHTML]="block1">
+
+</div>
+
+<div>
+
+
+<lightgallery [settings]="settings" [onBeforeSlide]="onBeforeSlide">
+  <a data-lg-size="480-475-480, 800-791-800, 1406-1390" class="gallery-item"
+    data-src="https://flowervalley.ru/back/Uploads/img1.jpg"
+    data-sub-html="<p></p>">
+    <img class="img-responsive" height=240
+      src="https://flowervalley.ru/back/Uploads/img1.jpg" />
+  </a>
+  <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=" "
+    data-tweet-text=" " class="gallery-item"
+    data-src="https://flowervalley.ru/back/Uploads/img2.jpg"
+   
+    data-sub-html="<p></p>">
+    <img class="img-responsive" height=240
+      src="https://flowervalley.ru/back/Uploads/img2.jpg" />
+  </a>
+  <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=""
+    data-tweet-text="" class="gallery-item"
+    data-src="https://flowervalley.ru/back/Uploads/img3.jpg"
+    data-sub-html="<span></span>">
+    <img class="img-responsive" height=240
+      src="https://flowervalley.ru/back/Uploads/img3.jpg" />
+  </a>
+
+    <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=""
+    data-tweet-text="" class="gallery-item"
+    data-src="https://flowervalley.ru/back/Uploads/img4.jpg"
+    data-sub-html="<span></span>">
+    <img class="img-responsive" height=240
+      src="https://flowervalley.ru/back/Uploads/img4.jpg" />
+  </a>
+    <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=""
+    data-tweet-text="" class="gallery-item"
+    data-src="https://flowervalley.ru/back/Uploads/img5.jpg"
+    data-sub-html="<span></span>">
+    <img class="img-responsive" height=240
+      src="https://flowervalley.ru/back/Uploads/img5.jpg" />
+  </a>
+    <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=""
+    data-tweet-text="" class="gallery-item"
+    data-src="https://flowervalley.ru/back/Uploads/img6.jpg"
+    data-sub-html="<span></span>">
+    <img class="img-responsive" height=240
+      src="https://flowervalley.ru/back/Uploads/img6.jpg" />
+  </a>
+    <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=""
+    data-tweet-text="" class="gallery-item"
+    data-src="https://flowervalley.ru/back/Uploads/img7.jpg"
+    data-sub-html="<span></span>">
+    <img class="img-responsive" height=240
+      src="https://flowervalley.ru/back/Uploads/img7.jpg" />
+  </a>
+    <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=""
+    data-tweet-text="" class="gallery-item"
+    data-src="https://flowervalley.ru/back/Uploads/img8.jpg"
+    data-sub-html="<span></span>">
+    <img class="img-responsive" height=240
+      src="https://flowervalley.ru/back/Uploads/img8.jpg" />
+  </a>
+
+
+
+</lightgallery>
+
+
+
+
+</div>
+
+<div [innerHTML]="block2">
+
+
+</div>
+
+
+<div>
+<br><h2>Наши видео</h2>
+ <video height="200" controls *ngIf="vid1!=''" >
+     <source src="https://flowervalley.ru/back/Uploads/{{vid1}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video>&nbsp;&nbsp;
+
+   <video height="200" controls *ngIf="vid2!=''">
+     <source src="https://flowervalley.ru/back/Uploads/{{vid2}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video>&nbsp;&nbsp;
+
+   <video height="200" controls *ngIf="vid3!=''">
+     <source src="https://flowervalley.ru/back/Uploads/{{vid3}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video>
+</div>
+
+
+
+
+
+
+
+
+<div [innerHTML]="block3">
+
+
+</div>
+
+
+
+
+
+
+ </div>
+</flower-valley-container>

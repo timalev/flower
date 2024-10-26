@@ -1,0 +1,19 @@
+<flower-valley-container headerTitle="Добавить коробку">
+  <form [formGroup]="boxesForm" (ngSubmit)="saveBox()">
+    <span class="p-float-label">
+      <input type="text" id="name" pInputText formControlName="name" />
+      <label for="name">Название</label>
+    </span>
+    <div class="flex">
+      <span class="p-float-label">
+        <p-inputNumber formControlName="volume" inputId="volume" [min]="1"> </p-inputNumber>
+        <label for="volume">Вместимость</label>
+      </span>
+      <span class="p-float-label">
+        <p-inputNumber formControlName="price" inputId="price" [min]="1"> </p-inputNumber>
+        <label for="price">Цена</label>
+      </span>
+    </div>
+    <p-button type="submit" label="Сохранить" [loading]="isLoading"></p-button>
+  </form>
+</flower-valley-container>

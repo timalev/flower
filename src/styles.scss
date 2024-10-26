@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', serif;
+  font-style: normal;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.p-toast {
+  z-index: 1103;
+}

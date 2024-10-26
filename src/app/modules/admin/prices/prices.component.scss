@@ -1,0 +1,41 @@
+@import "colors";
+::ng-deep .p-datatable.p-table-override {
+  margin-top: 10px;
+  .p-datatable-thead {
+    tr {
+      th {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 100%;
+        text-transform: uppercase;
+      }
+    }
+  }
+  .p-datatable-tbody {
+    tr.p-rowgroup-header td {
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 100%;
+      padding: 1rem 1rem;
+    }
+    tr:not(.p-rowgroup-header) {
+      &.p-rowgroup-header {
+        td {
+          border-top: 1px solid $border-cart;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 100%;
+          text-transform: uppercase;
+          color: $text-grey;
+          padding-bottom: 0;
+        }
+      }
+      td {
+        p-celleditor, input {
+          width: 70%;
+        }
+      }
+    }
+  }
+}

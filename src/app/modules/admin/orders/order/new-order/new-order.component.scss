@@ -1,0 +1,48 @@
+@import "src/assets/styles/colors";
+.client {
+  display: flex;
+  form {
+    width: 50%;
+    &:first-child {
+      padding-right: 20px;
+    }
+  }
+  &>div {
+    width: 50%;
+  }
+}
+.calculation-result {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 100%;
+  ::ng-deep .p-button {
+    padding: 8px 22px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 100%;
+  }
+  .delivery {
+    border-radius: 5px;
+    padding: 8px 22px;
+    &.success {
+      border: 1px solid $main-green;
+      color: $text;
+    }
+    &.error {
+      border: 1px solid $red-100;
+      background-color: $red-100;
+      color: $white-100;
+    }
+  }
+}
+
+.products, .boxes {
+  padding-top: 10px;
+}
+
+.boxes {
+  padding-bottom: 10px;
+}

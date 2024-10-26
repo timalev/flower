@@ -1,0 +1,21 @@
+<div class="about" *ngIf="aboutData">
+  <div class="about__photo" *ngIf="aboutData.img">
+    <ng-container *ngTemplateOutlet="aboutPhoto"></ng-container>
+  </div>
+  <div class="about__desc">
+    <div class="about__desc_title">{{ aboutData.title }}</div>
+    <div class="about__desc_name">{{ aboutData.subTitle }}</div>
+    <div class="about__desc_photo" *ngIf="aboutData.img">
+      <ng-container *ngTemplateOutlet="aboutPhoto"></ng-container>
+    </div>
+    <div class="about__desc_text" [innerHTML]="aboutData.description"></div>
+  </div>
+</div>
+
+<ng-template #aboutPhoto>
+  <img *ngIf="aboutData" [src]="aboutData.img" />
+  <div class="about__photo_banner">
+    <img src="assets/icons/shield.png" />
+    <div class="ml-2">ПРЕМИАЛЬНОЕ КАЧЕСТВО ГАРАНТИРУЕМ!</div>
+  </div>
+</ng-template>

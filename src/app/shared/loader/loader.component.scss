@@ -1,0 +1,17 @@
+@import "../../../assets/styles/colors";
+@import "../../../assets/styles/container";
+
+.loader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.full-loader {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  height: calc(100vh + 180px);
+  background: $white-70;
+}

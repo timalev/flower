@@ -1,0 +1,103 @@
+<span
+  [ngClass]="{
+        'p-inputnumber p-component': true,
+        'p-inputnumber-buttons-stacked': this.showButtons && this.buttonLayout === 'stacked',
+        'p-inputnumber-buttons-horizontal': this.showButtons && this.buttonLayout === 'horizontal',
+        'p-inputnumber-buttons-vertical': this.showButtons && this.buttonLayout === 'vertical'
+      }"
+  [ngStyle]="style"
+  [class]="styleClass"
+>
+  <input
+    #input
+    [ngClass]="'p-inputnumber-input'"
+    [ngStyle]="inputStyle"
+    [class]="inputStyleClass"
+    pInputText
+    [value]="formattedValue()"
+    [attr.placeholder]="placeholder"
+    [attr.title]="title"
+    [attr.id]="inputId"
+    [attr.size]="size"
+    [attr.name]="name"
+    [attr.autocomplete]="autocomplete"
+    [attr.maxlength]="maxlength"
+    [attr.tabindex]="tabindex"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-required]="ariaRequired"
+    [disabled]="disabled"
+    [attr.required]="required"
+    [attr.min]="min"
+    [attr.max]="max"
+    [readonly]="readonly"
+    inputmode="decimal"
+    (input)="onUserInput($event)"
+    (keydown)="onInputKeyDown($event)"
+    (keypress)="onInputKeyPress($event)"
+    (paste)="onPaste($event)"
+    (click)="onInputClick()"
+    (focus)="onInputFocus($event)"
+    (blur)="onInputBlur($event)"
+  />
+  <i
+    *ngIf="buttonLayout != 'vertical' && showClear && value"
+    class="p-inputnumber-clear-icon pi pi-times"
+    (click)="clear()"
+  ></i>
+  <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'">
+    <button
+      type="button"
+      pButton
+      [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-up': true }"
+      [class]="incrementButtonClass"
+      [icon]="incrementButtonIcon"
+      [disabled]="disabled"
+      (mousedown)="this.onUpButtonMouseDown($event)"
+      (mouseup)="onUpButtonMouseUp()"
+      (mouseleave)="onUpButtonMouseLeave()"
+      (keydown)="onUpButtonKeyDown($event)"
+      (keyup)="onUpButtonKeyUp()"
+    ></button>
+    <button
+      type="button"
+      pButton
+      [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-down': true }"
+      [class]="decrementButtonClass"
+      [icon]="decrementButtonIcon"
+      [disabled]="disabled"
+      (mousedown)="this.onDownButtonMouseDown($event)"
+      (mouseup)="onDownButtonMouseUp()"
+      (mouseleave)="onDownButtonMouseLeave()"
+      (keydown)="onDownButtonKeyDown($event)"
+      (keyup)="onDownButtonKeyUp()"
+    ></button>
+  </span>
+  <button
+    type="button"
+    pButton
+    [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-up': true }"
+    [class]="incrementButtonClass"
+    [icon]="incrementButtonIcon"
+    *ngIf="showButtons && buttonLayout !== 'stacked'"
+    [disabled]="disabled"
+    (mousedown)="this.onUpButtonMouseDown($event)"
+    (mouseup)="onUpButtonMouseUp()"
+    (mouseleave)="onUpButtonMouseLeave()"
+    (keydown)="onUpButtonKeyDown($event)"
+    (keyup)="onUpButtonKeyUp()"
+  ></button>
+  <button
+    type="button"
+    pButton
+    [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-down': true }"
+    [class]="decrementButtonClass"
+    [icon]="decrementButtonIcon"
+    *ngIf="showButtons && buttonLayout !== 'stacked'"
+    [disabled]="disabled"
+    (mousedown)="this.onDownButtonMouseDown($event)"
+    (mouseup)="onDownButtonMouseUp()"
+    (mouseleave)="onDownButtonMouseLeave()"
+    (keydown)="onDownButtonKeyDown($event)"
+    (keyup)="onDownButtonKeyUp()"
+  ></button>
+</span>

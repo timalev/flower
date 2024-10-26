@@ -1,0 +1,130 @@
+<flower-valley-container headerTitle="{{ isImport ? 'Импортировать' : 'Добавить' }} товар">
+  <span class="p-float-label" *ngIf="isImport">
+    <p-autoComplete
+      styleClass="w-12"
+      [formControl]="productControl"
+      (onSelect)="patchValue($event)"
+      [suggestions]="businessPackResults"
+      [showEmptyMessage]="true"
+      emptyMessage="Товар не найден"
+      field="Name"
+      (completeMethod)="searchItems($event.query)"
+      inputId="inputtext"
+    ></p-autoComplete>
+    <label for="inputtext">Поиск товара в БизнесПак</label>
+  </span>
+
+  <form [formGroup]="goods" (ngSubmit)="addProduct()">
+    <span class="p-float-label" *ngIf="!isImport">
+      <input type="text" id="name" pInputText formControlName="Name" />
+      <label for="name">Наименование</label>
+    </span>
+
+    <div class="flex">
+      <span class="p-float-label mb-2 mr-2">
+        <p-dropdown
+          styleClass="w-12"
+          inputId="volume"
+          [options]="options"
+          optionValue="value"
+          optionLabel="name"
+          formControlName="Volume"
+        ></p-dropdown>
+        <label for="volume">Единица измерения</label>
+      </span>
+      <span class="p-float-label">
+        <input type="text" id="price" pInputText formControlName="Price" />
+        <label for="price">Цена</label>
+      </span>
+    </div>
+    <div class="flex">
+      <span class="p-float-label mb-2 mr-2">
+        <p-dropdown
+          styleClass="w-12"
+          inputId="pack"
+          [options]="options"
+          optionValue="value"
+          optionLabel="name"
+          formControlName="Pack"
+        ></p-dropdown>
+        <label for="pack">Упаковка</label>
+      </span>
+      <span class="p-float-label">
+        <input type="text" id="coeff" pInputText formControlName="Coefficient" />
+        <label for="coeff">Количество товара в упаковке</label>
+      </span>
+    </div>
+    <span class="p-float-label">
+      <input type="text" id="note1" [maxlength]="250" pInputText formControlName="Note1" />
+      <label for="note1">Описание упаковки</label>
+    </span>
+    <span class="p-float-label">
+      <input type="text" id="note2" [maxlength]="250" pInputText formControlName="Note2" />
+      <label for="note2">Примечание товара</label>
+    </span>
+    <form [formGroup]="product">
+      <ng-container formArrayName="prices">
+        <ng-container *ngFor="let price of prices.controls; let i = index">
+          <div [formGroup]="getFormGroup(price)" class="flex align-items-center">
+            <span class="p-float-label mr-2">
+              <p-inputNumber
+                suffix=" шт."
+                formControlName="countFrom"
+                inputId="countFrom"
+                [min]="1"
+              >
+              </p-inputNumber>
+              <label for="countFrom">При заказе от</label>
+            </span>
+            <span class="p-float-label">
+              <p-inputNumber formControlName="price" inputId="price" [min]="1"> </p-inputNumber>
+              <label for="price">Цена</label>
+            </span>
+          </div>
+        </ng-container>
+      </ng-container>
+      <div class="p-field-checkbox">
+        <p-checkbox formControlName="isPopular" [binary]="true" inputId="isPopular"></p-checkbox>
+        <label for="isPopular">Популярный товар</label>
+      </div>
+      <span class="p-float-label mb-2 mr-2">
+        <p-dropdown
+          styleClass="w-12"
+          inputId="box"
+          [options]="boxes"
+          [showClear]="true"
+          optionValue="id"
+          optionLabel="name"
+          formControlName="boxId"
+          [autoDisplayFirst]="false"
+        ></p-dropdown>
+        <label for="box">Транспортировочная коробка</label>
+      </span>
+      <span class="p-float-label mb-2">
+        <p-multiSelect
+          styleClass="w-12"
+          inputId="parent"
+          [options]="categories"
+          optionValue="id"
+          optionLabel="name"
+          emptyMessage="Категорий нет"
+          formControlName="categoryIds"
+          [filter]="false"
+        ></p-multiSelect>
+        <label for="parent">Расположить в категории</label>
+      </span>
+      <p-editor
+        [ngClass]="{
+          'editor-danger':
+            product.controls['description'].dirty && product.controls['description'].invalid
+        }"
+        styleClass="mb-2"
+        formControlName="description"
+        placeholder="Описание товара"
+      ></p-editor>
+      <div class="photos-error" *ngIf="product.dirty && !photos.length">Добавьте фотографии</div>
+      <flower-valley-files-upload (uploaded)="filesUploaded($event)"></flower-valley-files-upload>
+    </form>
+    <p-button type="submit" label="Добавить" [loading]="isLoading"></p-button>
+  </form>
+</flower-valley-container>

@@ -1,0 +1,47 @@
+<div class="media grid">
+  <div *ngIf="!media.length" class="media__error col-12">
+    К сожалению, статьи пока отсутвуют.<br />Но мы обязательно исправим ситуацию!
+  </div>
+  <div class="media__container col-12 lg:col-6 xl:col-3" *ngFor="let item of media; let i = index">
+    <div
+      class="card"
+      pDraggable="media"
+      dragEffect="move"
+      pDroppable="media"
+      (onDrop)="drop()"
+      [pDraggableDisabled]="!isAdmin"
+      (onDragEnter)="setPosition(i)"
+      (onDragStart)="dragStart(item, i)"
+      (onDragEnd)="dragEnd()"
+    >
+      <p-image
+        [src]="item.img"
+        [alt]="item.title"
+        width="280"
+        height="230"
+        class="image"
+        [imageStyle]="{ 'border-radius': '10px', 'object-fit': 'cover' }"
+        (click)="openLink(item.link)"
+      ></p-image>
+      <div>{{ item.publishDate | date: 'dd.MM.yyyy' }}</div>
+      <div class="flex justify-content-between align-items-center">
+        <div>{{ item.title }}</div>
+        <p-button icon="pi pi-arrow-right" (onClick)="openLink(item.link)"></p-button>
+      </div>
+      <div *ngIf="isAdmin">
+        <p-button
+          class="w-12"
+          styleClass="w-12 mb-2"
+          label="Редактировать"
+          (onClick)="editMedia(item.id)"
+        ></p-button>
+        <p-button
+          class="w-12"
+          styleClass="w-12 p-button-danger"
+          label="Удалить"
+          (onClick)="deleteMedia(item.id)"
+        ></p-button>
+      </div>
+    </div>
+  </div>
+</div>

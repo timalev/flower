@@ -1,0 +1,34 @@
+<div class="download-invoice">
+  <div class="download-invoice__content">
+    <div class="download-invoice__content_header">{{ content?.title }}</div>
+    <div class="download-invoice__content_text">
+      {{ content?.text }}
+    </div>
+    <div class="download-invoice__content_button">
+      <p-button
+        *ngIf="telepakId"
+        styleClass="flex justify-content-center"
+        (onClick)="window.open('https://375.ru/' + telepakId)"
+      >
+        <ng-template pTemplate="content">
+          <p-image
+            styleClass="flex align-items-center"
+            src="assets/icons/estimate-white.svg"
+          ></p-image>
+          <span [style]="{ 'margin-left': '15px' }">Cкачать счет в PDF</span>
+        </ng-template>
+      </p-button>
+      <p-button
+        [loading]="!order || isFirmLoading"
+        [style]="{ 'margin-top': '20px', padding: '25px' }"
+        styleClass="p-button-estimate w-12 flex justify-content-center"
+        (onClick)="getOffer()"
+      >
+        <ng-template pTemplate="content">
+          <p-image styleClass="flex align-items-center" src="assets/icons/estimate.svg"></p-image>
+          <span>Скачать Коммерческое Предложение</span>
+        </ng-template>
+      </p-button>
+    </div>
+  </div>
+</div>

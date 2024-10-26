@@ -1,0 +1,162 @@
+@import "colors";
+@import "container";
+
+.banner {
+  background-color: $main-green;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px;
+  &__img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $white-10;
+    border-radius: 10px;
+    padding: 10px;
+    width: 52px;
+    height: 52px;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    &_title {
+      font-weight: normal;
+      font-size: 14px;
+      @include laptop-media {
+        font-size: 24px;
+      }
+      line-height: 140%;
+      color: $white-100;
+    }
+    &_info {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 140%;
+      color: $white-70;
+      display: none;
+      @include laptop-media {
+        display: block;
+      }
+    }
+  }
+}
+
+.info-text {
+  font-weight: normal;
+  font-size: 14px;
+  @include laptop-media {
+    font-size: 18px;
+  }
+  line-height: 140%;
+  color: $text;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.contacts {
+  display: flex;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 140%;
+  margin-bottom: 60px;
+  flex-direction: column;
+  @include laptop-media {
+    flex-direction: row;
+    font-size: 18px;
+  }
+  &__address {
+    max-width: 450px;
+    margin-right: 45px;
+  }
+  &__phoneMail {
+    display: flex;
+    align-items: unset;
+    flex-direction: column;
+    margin-top: 15px;
+    @include laptop-media {
+      flex-direction: row;
+      align-items: center;
+      margin-top: unset;
+    }
+    &>div {
+      display: flex;
+      align-items: center;
+      &>div {
+        display: flex;
+        flex-direction: column;
+        a {
+          color: $main-green;
+        }
+      }
+    }
+  }
+}
+
+.empty-message {
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 100%;
+  margin-top: -20px;
+}
+
+.important {
+  background-color: $whats-app-button;
+  border: 1px solid $main-green;
+  border-radius: 10px;
+  padding: 30px;
+  margin-top: 40px;
+  margin-bottom: -30px;
+  &__header {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 100%;
+    text-transform: uppercase;
+    color: $main-green;
+    margin-bottom: 30px;
+  }
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    @include laptop-media {
+      flex-direction: unset;
+    }
+    &>div {
+      display: flex;
+      flex-direction: column;
+      &>span:first-child {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 100%;
+        color: $text;
+        margin-bottom: 10px;
+      }
+      &>span:last-child {
+        font-size: 14px;
+        line-height: 120%;
+        color: $text;
+      }
+    }
+    &_flowers {
+      &>span:last-child {
+        font-weight: 500;
+      }
+    }
+    &_tulips {
+      padding: 20px 0;
+      @include laptop-media {
+        padding: 0 20px;
+      }
+      &>span:last-child {
+        font-weight: 500;
+      }
+    }
+    &_pickup {
+      &>span:last-child {
+        font-weight: 500;
+      }
+    }
+  }
+}

@@ -1,0 +1,110 @@
+<p-table [value]="orderProducts" editMode="row" dataKey="id">
+  <ng-template pTemplate="caption">
+    <div class="flex justify-content-between align-items-center">
+      <div>Список товаров</div>
+      <div class="flex">
+        <div class="ml-2">
+          <p-button
+            *ngIf="!showProductSelect"
+            label="Добавить товар"
+            [loading]="isProductsLoading"
+            (onClick)="showProductsDropdown()"
+          ></p-button>
+          <p-dropdown
+            *ngIf="showProductSelect"
+            [filter]="true"
+            filterBy="name"
+            (onHide)="showProductSelect = false"
+            [options]="products"
+            [autoDisplayFirst]="false"
+            placeholder="Выберите товар"
+            optionLabel="name"
+            (onChange)="addProduct($event.value)"
+          ></p-dropdown>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Товар</th>
+      <th>Количество</th>
+      <th>Стоимость</th>
+      <th>Действия</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="product">
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="product.product.name" required />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ product.product.name }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <p-inputNumber
+              [(ngModel)]="product.count"
+              [min]="product.product.coefficient"
+              [required]="true"
+            >
+            </p-inputNumber>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ product.count }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <p-inputNumber
+              [(ngModel)]="product.price"
+              [min]="1"
+              [maxFractionDigits]="2"
+              [required]="true"
+            >
+            </p-inputNumber>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ product.price }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-button
+          *ngIf="!editing"
+          pInitEditableRow
+          styleClass="p-button-rounded p-button-text"
+          icon="pi pi-pencil"
+          (click)="onRowEditInit(product)"
+        ></p-button>
+        <p-button
+          *ngIf="!editing"
+          styleClass="p-button-rounded p-button-text p-button-danger"
+          icon="pi pi-trash"
+          (click)="deleteProduct(product, ri)"
+        ></p-button>
+        <p-button
+          *ngIf="editing"
+          pSaveEditableRow
+          icon="pi pi-check"
+          styleClass="p-button-rounded p-button-text p-button-success p-mr-2"
+          (click)="onRowEditSave(product, ri)"
+        ></p-button>
+        <p-button
+          *ngIf="editing"
+          pCancelEditableRow
+          icon="pi pi-times"
+          styleClass="p-button-rounded p-button-text p-button-danger"
+          (click)="onRowEditCancel(product, ri)"
+        ></p-button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

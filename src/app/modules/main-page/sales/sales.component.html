@@ -1,0 +1,44 @@
+<div class="sales">
+  <div class="sales__content">
+    <p-carousel
+      [value]="sales.items || []"
+      [autoplayInterval]="sales.autoPlay * 1000"
+      [showNavigators]="sales.isUserCanLeaf"
+      [circular]="true"
+    >
+      <ng-template let-sale pTemplate="item">
+        <div [ngStyle]="{ 'background-image': 'url(' + sale.img + ')' }" class="item">
+          <div class="item__container">
+            <div class="item__container_content">
+              <div>{{ sale.title }}</div>
+              <div>{{ sale.description }}</div>
+              <div>
+                <div *ngIf="sale.productId">
+                  <span>{{ sale.discount | priceConverter }}</span>
+                  <span>{{ sale.currentPrice | priceConverter }}</span>
+                </div>
+                <p-button
+                  label="Подробнее"
+                  (onClick)="navigateTo(sale.category?.name, sale.productId)"
+                ></p-button>
+              </div>
+              <div class="mt-3">
+                <p-button
+                  label="Редактировать"
+                  (onClick)="editSale(sale.id)"
+                  *ngIf="isAdmin"
+                ></p-button
+                ><p-button
+                  styleClass="ml-2 p-button-danger"
+                  label="Удалить"
+                  (onClick)="deleteSale(sale.id)"
+                  *ngIf="isAdmin"
+                ></p-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</div>

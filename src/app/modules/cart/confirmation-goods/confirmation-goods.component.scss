@@ -1,0 +1,193 @@
+@import "colors";
+@import "container";
+
+::ng-deep .p-card.confirmation {
+  min-width: 650px;
+  display: none;
+  @include laptop-media {
+    display: block;
+  }
+  .p-card-content {
+    padding: 0;
+  }
+}
+
+::ng-deep .p-datatable.confirmation {
+  .p-datatable-wrapper {
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $scrollbar-thumb;
+      border-radius: 80px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: $scrollbar;
+      border-radius: 80px;
+    }
+  }
+  .p-datatable-thead {
+    tr {
+      th {
+        background-color: $white-100;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 100%;
+        text-transform: uppercase;
+        color: $text-grey;
+        border: none;
+      }
+    }
+  }
+  .p-datatable-tbody {
+    tr {
+      td {
+        border: none;
+      }
+      &.p-rowgroup-header {
+        td {
+          border-top: 1px solid $border-cart;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 100%;
+          text-transform: uppercase;
+          color: $text-grey;
+          padding-bottom: 0;
+        }
+      }
+    }
+    .product {
+      &__name {
+        display: flex;
+        align-items: center;
+        &_icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 10px;
+          padding: 10px;
+          background-color: $box-background;
+        }
+        &>span {
+          margin-left: 15px;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 100%;
+          color: $text;
+          max-width: 85px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+      &__price {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 100%;
+        color: $text-grey;
+      }
+      &__count {
+        text-align: center;
+        ::ng-deep .p-inputnumber {
+          width: 80px;
+          height: 35px;
+          @include laptop-media {
+            width: auto;
+            height: 50px;
+          }
+          input {
+            max-width: 45px;
+            @include laptop-media {
+              max-width: 70px;
+            }
+            font-weight: 500;
+            font-size: 17.7778px;
+            line-height: 110%;
+            text-align: center;
+            padding: 0;
+            outline: none !important;
+            box-shadow: none !important;
+            border: 1px solid $border-count;
+            color: $text;
+            &:focus-visible {
+              outline: 3px auto $border-count;
+            }
+          }
+          .p-button.p-button-icon-only {
+            width: unset;
+            padding: 0 5px;
+            min-height: 20px;
+            min-width: 20px;
+            background-color: $white-100;
+            border-color: $border-count;
+            color: $text-grey;
+          }
+        }
+      }
+      &__price {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 100%;
+        color: $text;
+      }
+    }
+  }
+}
+
+.summary-block {
+  border-top: 1px solid $main-green;
+  padding-top: 25px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  &>div {
+    display: flex;
+    flex-direction: column;
+    span:first-child {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 100%;
+      text-transform: uppercase;
+      color: $text;
+    }
+    span:last-child {
+      margin-top: 10px;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 100%;
+      color: $main-green;
+    }
+  }
+}
+
+:host ::ng-deep .p-button {
+  &.blink {
+    margin-top: 20px;
+    padding: 25px;
+    border: 3px solid $main-green;
+    animation: borderBlink 2s infinite;
+    -webkit-animation: borderBlink 2s infinite;
+    &:hover {
+      border-color: transparent;
+      animation: none;
+      -webkit-animation: none;
+    }
+  }
+}
+
+@-webkit-keyframes borderBlink {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: $main-green;
+  }
+}
+@keyframes borderBlink {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: $main-green;
+  }
+}

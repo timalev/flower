@@ -1,0 +1,240 @@
+@import "container";
+@import "colors";
+
+$root: '.product';
+
+#{$root} {
+  &__header {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 100%;
+    padding-bottom: 40px;
+    margin-top: -50px;
+  }
+  &__desc {
+    display: flex;
+    flex-direction: column;
+    @include laptop-media {
+      flex-direction: row;
+    }
+    &_photo {
+      position: relative;
+      ::ng-deep {
+        .main-image {
+          img {
+            width: 300px;
+            height: 245px;
+            @media screen and (min-width: 600px) {
+              width: 550px;
+              height: 420px;
+            }
+            border-radius: 15px;
+            object-fit: cover;
+            cursor: pointer;
+          }
+          &.tulip {
+            img {
+              width: 245px;
+              height: 300px;
+              @media screen and (min-width: 600px) {
+                width: 420px;
+                height: 550px;
+              }
+            }
+          }
+        }
+        .p-galleria-thumbnail-container {
+          background: none;
+          img {
+            width: 75px;
+            height: 57px;
+            @media screen and (min-width: 600px) {
+              width: 130px;
+              height: 100px;
+            }
+            border-radius: 15px;
+            object-fit: cover;
+            &.tulip {
+              width: 57px;
+              height: 75px;
+              @media screen and (min-width: 600px) {
+                width: 100px;
+                height: 130px;
+              }
+            }
+          }
+        }
+      }
+      &>span {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: $white-100;
+        background-color: $main-green;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 110%;
+      }
+    }
+    &_info {
+      width: 100%;
+      @include laptop-media {
+        margin-left: 40px;
+        width: calc(100% - 590px);
+      }
+      &-tare {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        text-transform: uppercase;
+        color: $text-grey;
+      }
+      &-description {
+        margin-top: 40px;
+        margin-bottom: 60px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 150%;
+        color: $text-grey;
+      }
+      &-categories {
+        display: flex;
+        align-items: flex-start;
+        font-size: 14px;
+        line-height: 140%;
+        margin-bottom: 20px;
+        .title {
+          padding-right: 5px;
+          font-weight: 600;
+        }
+        .cat-array {
+          font-weight: 400;
+          color: $text-grey;
+          &>span {
+            padding-right: 5px;
+            span:first-child {
+              text-decoration: underline;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      &-share {
+        display: flex;
+        align-items: flex-start;
+        font-size: 14px;
+        line-height: 140%;
+        margin-bottom: 20px;
+        .title {
+          padding-right: 5px;
+          font-weight: 600;
+        }
+        .share-array {
+          display: flex;
+          align-items: center;
+        }
+      }
+      &-cart {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-direction: column;
+        @include laptop-media {
+          flex-direction: row;
+          align-items: center;
+        }
+        .price {
+          font-weight: 500;
+          line-height: 45px;
+          margin-bottom: 15px;
+          @include laptop-media {
+            margin-bottom: unset;
+          }
+          display: flex;
+          flex-direction: column;
+          span {
+            font-size: 36px;
+            color: $main-green;
+          }
+          &>div:last-child:not(:first-child) {
+            &>span {
+              font-size: 18px;
+              color: $text-discount;
+              text-align: center;
+              position: relative;
+              &::before {
+                content: '';
+                width: 100%;
+                position: absolute;
+                left: 0;
+                top: 50%;
+                border-bottom: 1px solid $text-grey;
+                -webkit-transform: skewY(-10deg);
+                transform: skewY(-10deg);
+              }
+            }
+          }
+        }
+        .right-block {
+          display: flex;
+          align-items: center;
+          .count {
+            margin-right: 20px;
+            ::ng-deep .p-inputnumber {
+              margin-right: 10px;
+              width: 100px;
+              input {
+                width: 60px;
+                text-align: center;
+                padding: 0;
+                border: 1px solid $border-count;
+                box-shadow: none !important;
+                outline: none !important;
+                &:focus-visible {
+                  outline: 3px auto $border-count;
+                }
+              }
+              .p-button.p-button-icon-only {
+                width: unset;
+                padding: 0 5px;
+                max-width: 20px;
+                min-height: 45px;
+                background-color: $white-100;
+                border-color: $border-count;
+                color: $text-grey;
+                .p-button-icon {
+                  display: flex;
+                  &::before {
+                    font-size: 10px;
+                  }
+                }
+              }
+            }
+          }
+          .button {
+            ::ng-deep .p-button.add-to-cart {
+              span {
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 110%;
+                text-transform: uppercase;
+                padding-left: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  &__delivery {
+    padding-top: 90px;
+    padding-bottom: 70px;
+  }
+}

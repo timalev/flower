@@ -1,0 +1,101 @@
+<flower-valley-container headerTitle="Добавить акцию">
+  <form [formGroup]="saleGroup" (ngSubmit)="addSale()">
+    <span class="p-float-label">
+      <input type="text" id="title" pInputText formControlName="title" />
+      <label for="title">Заголовок</label>
+    </span>
+    <span class="p-float-label">
+      <textarea
+        type="text"
+        id="description"
+        [rows]="5"
+        [cols]="30"
+        [autoResize]="true"
+        pInputTextarea
+        formControlName="description"
+      ></textarea>
+      <label for="description">Описание</label>
+    </span>
+    <span class="p-float-label">
+      <p-dropdown
+        styleClass="w-12"
+        inputId="categories"
+        [options]="categories"
+        optionValue="id"
+        optionLabel="name"
+        formControlName="categoryId"
+        [autoDisplayFirst]="false"
+        [showClear]="true"
+        [filter]="true"
+        filterBy="name"
+        emptyFilterMessage="Совпадений не найдено"
+      ></p-dropdown>
+      <label for="categories">Целевая категория</label>
+    </span>
+    <span class="p-float-label" *ngIf="selectedCategory">
+      <p-dropdown
+        styleClass="w-12"
+        inputId="products"
+        [options]="selectedCategory.products || []"
+        optionValue="id"
+        optionLabel="name"
+        formControlName="productId"
+        [autoDisplayFirst]="false"
+        [showClear]="true"
+        [filter]="true"
+        filterBy="name"
+        emptyFilterMessage="Совпадений не найдено"
+      ></p-dropdown>
+      <label for="products">Целевой товар (при скидке на товар)</label>
+    </span>
+    <span class="p-float-label" *ngIf="selectedProduct">
+      <p-inputNumber
+        class="w-12"
+        styleClass="w-12"
+        inputId="currentPrice"
+        formControlName="currentPrice"
+      ></p-inputNumber>
+      <label for="currentPrice">Текущая стоимость</label>
+    </span>
+    <span class="p-float-label" *ngIf="selectedProduct">
+      <p-inputNumber
+        class="w-12"
+        styleClass="w-12"
+        inputId="discount"
+        formControlName="discount"
+        [max]="selectedProduct.price"
+      ></p-inputNumber>
+      <label for="discount">Новая стоимость</label>
+    </span>
+    <span class="p-float-label" *ngIf="!selectedProduct">
+      <p-inputNumber
+        class="w-12"
+        styleClass="w-12"
+        inputId="discount"
+        formControlName="discount"
+        [max]="100"
+        suffix="%"
+      ></p-inputNumber>
+      <label for="discount">Скидка, %</label>
+    </span>
+    <div class="p-field-checkbox mb-2">
+      <p-checkbox formControlName="isVisible" [binary]="true" inputId="isVisible"></p-checkbox>
+      <label for="isVisible">Отображать в блоке акций</label>
+    </div>
+    <div class="p-field-checkbox mb-2">
+      <p-checkbox
+        formControlName="isActive"
+        [binary]="true"
+        inputId="isActive"
+        [disabled]="!selectedCategory"
+      ></p-checkbox>
+      <label for="isActive">Включить в систему</label>
+    </div>
+    <flower-valley-files-upload
+      [multi]="false"
+      label="Добавить изображение"
+      (uploaded)="filesUploaded($event)"
+    ></flower-valley-files-upload>
+    <p-button type="submit" label="Добавить" [loading]="isLoading"></p-button>
+  </form>
+</flower-valley-container>

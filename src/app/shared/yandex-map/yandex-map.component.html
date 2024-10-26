@@ -1,0 +1,11 @@
+<div id="yaMap" #yamap style="position: absolute; top: -500px"></div>
+<p-dialog
+  [(visible)]="showMap"
+  [styleClass]="innerWidth > 600 ? '' : 'w-12'"
+  [modal]="true"
+  [closeOnEscape]="false"
+  (visibleChange)="visibleChange()"
+  (onShow)="mapRedraw()"
+>
+  <div #mapContent></div>
+</p-dialog>

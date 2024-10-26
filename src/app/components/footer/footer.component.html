@@ -1,0 +1,104 @@
+<footer *ngIf="footer">
+  <div class="footer">
+    <div class="footer__company">
+      <p-image [src]="footer.img" [routerLink]="['']"></p-image>
+      <div class="flex flex-column justify-content-between h-100 pt-2">
+        <span class="w-8">{{ footer.title }}</span>
+        <span>{{ footer.subTitle }}</span>
+        <ng-container *ngTemplateOutlet="roots"></ng-container>
+      </div>
+    </div>
+    <div>
+      <div class="footer__menu">
+        <a [routerLink]="['/catalog']">Каталог</a>
+        <a [routerLink]="['']" fragment="about">О компании</a>
+        <a [routerLink]="['catalog', 'tulips']">Тюльпаны оптом</a>
+        <a [routerLink]="['catalog', 'seedlings']">Рассада цветов</a>
+        <a [routerLink]="['contacts']">Контакты</a>
+        <div class="price">
+          <ng-container *ngTemplateOutlet="priceButton"></ng-container>
+        </div>
+      </div>
+      <ng-container *ngTemplateOutlet="contacts"></ng-container>
+      <div class="footer__contacts">
+     <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A4c0bbfd7735e41af052a6d859dbc34f33d7e812dee62f1aaa7fa5c4d328e2d4e&amp;source=constructor" width="400" height="300" frameborder="0"></iframe>
+        <div class="footer__contacts_content">
+          <div class="price">
+            <ng-container *ngTemplateOutlet="priceButton"></ng-container>
+          </div>
+          <ng-container *ngFor="let addressData of getAddressData(); index as i">
+            <div class="address pt-2">
+              <span>{{ addressData.address }}</span>
+            </div>
+            <div class="work-time">
+              <span>{{ addressData.workTime }}</span>
+            </div>
+
+			<div class="work-time">
+			<table>
+			<tr>
+				<td>Проложить маршрут:</td>
+				<td>&nbsp;&nbsp;
+				<a [href]="sanitize('yandexnavi://build_route_on_map?lat_to='+ addressData.lonlan[i].lat +'&lon_to=' + addressData.lonlan[i].lon + '')"><img src="assets/images/yn.png" height=28 border=0></a>
+<!--
+				<a href="yandexnavi://build_route_on_map?lat_to={{ addressData.lonlan[i].lat}}&lon_to={{addressData.lonlan[i].lon}}"><img src="assets/images/yn.png" height=28 border=0></a>
+				-->
+				</td>
+			</tr>
+			</table>
+   
+            </div>
+          </ng-container>
+          <div class="roots">
+            <ng-container *ngTemplateOutlet="roots"></ng-container>
+          </div>
+        </div>
+        <ng-container *ngTemplateOutlet="contacts"></ng-container>
+      </div>
+    </div>
+  </div>
+  <!--  <div class="advertisement">-->
+  <!--        <span-->
+  <!--          >Дизайн - <a href="" target="_blank">ВАКАНСИЯ</a> | Разработано командой-->
+  <!--          <a href="https://progoff.ru" target="_blank">Progoff</a></span-->
+  <!--        >-->
+  <!--  </div>-->
+</footer>
+
+<ng-template #contacts>
+  <div class="contacts" *ngIf="footer">
+    <a
+      class="whats-app-button p-2"
+      href="https://api.whatsapp.com/send/?phone={{ footer.whatsAppNumber }}"
+      target="_blank"
+    >
+      <span class="pi pi-whatsapp"></span>
+      <div class="pl-2">What'sApp</div>
+    </a>
+    <div class="phone" *ngFor="let phone of footer.phones">
+      <span class="pi pi-phone"></span>
+      <a type="tel" href="tel:{{ phone }}">{{ phone }}</a>
+    </div>
+    <div class="mail">
+      <span class="pi pi-envelope"></span>
+      <a type="mail" href="mailto:{{ footer.mail }}">{{ footer.mail }}</a>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #priceButton>
+  <p-button (onClick)="getPriceList()">
+    <ng-template pTemplate="content">
+      <p-image
+        styleClass="flex align-items-center"
+        src="assets/icons/download.svg"
+        width="13px"
+      ></p-image>
+      <div class="pl-2">ПРАЙС-ЛИСТ</div>
+    </ng-template>
+  </p-button>
+</ng-template>
+
+<ng-template #roots>
+  <span>{{ footer?.roots }}</span>
+</ng-template>

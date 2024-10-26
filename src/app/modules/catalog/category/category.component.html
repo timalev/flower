@@ -1,0 +1,60 @@
+<flower-valley-container
+  background="dark"
+  [headerTitle]="category?.name"
+  [isAdmin]="isAdmin"
+  [buttonTemplate]="actionsTemplate"
+>
+  <div class="category__content">
+    <div class="category__content_menu">
+      <flower-valley-category-menu [category]="category"></flower-valley-category-menu>
+    </div>
+    <div *ngIf="category" class="category__content_items w-12">
+      <div class="grid w-12" *ngIf="subCatalog?.length">
+        <flower-valley-catalog-item
+          class="col-12 lg:col-6 xl:col-4 flex justify-content-center"
+          pDraggable="catalog"
+          dragEffect="move"
+          pDroppable="catalog"
+          (onDrop)="drop()"
+          [pDraggableDisabled]="!isAdmin"
+          (onDragEnter)="setPosition(i)"
+          (onDragStart)="dragStart(item, i)"
+          (onDragEnd)="dragEnd()"
+          *ngFor="let item of subCatalog; let i = index"
+          [item]="item"
+          [isAdmin]="isAdmin"
+          (categoryDeleted)="deleteCategory(item.id)"
+        ></flower-valley-catalog-item>
+      </div>
+      <div class="grid w-12">
+        <flower-valley-product-item
+          class="col-12 lg:col-6 xl:col-4 flex justify-content-center"
+          pDraggable="products"
+          dragEffect="move"
+          pDroppable="products"
+          (onDrop)="drop()"
+          [pDraggableDisabled]="!isAdmin"
+          (onDragEnter)="setPosition(i)"
+          (onDragStart)="dragStart(product, i)"
+          (onDragEnd)="dragEnd()"
+          [category]="category"
+          [isAdmin]="isAdmin"
+          *ngFor="let product of products; let i = index"
+          [product]="product"
+          (openProductCard)="navigateTo($event)"
+          (productDeleted)="deleteProduct(product.id)"
+        ></flower-valley-product-item>
+      </div>
+    </div>
+  </div>
+</flower-valley-container>
+
+<ng-template #actionsTemplate>
+  <p-splitButton
+    *ngIf="isAdmin"
+    (onClick)="editCategory()"
+    icon="pi pi-pencil"
+    label="Редактировать"
+    [model]="actions"
+  ></p-splitButton>
+</ng-template>

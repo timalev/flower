@@ -1,0 +1,132 @@
+<h2>Текстовый материал</h2>
+<font color=green>{{str}}</font><br><br>
+
+<form [formGroup]="blockForm" (ngSubmit)="saveBlock1(blockForm.value)">
+
+<div>Блок 1:</div>
+<textarea  rows="7" cols="70" name="blc1" formControlName = "blc1"></textarea>
+<br>
+
+<div>Блок 2:</div>
+<textarea  rows="7" cols="70" name="blc2" formControlName = "blc2"></textarea>
+<br>
+
+<div>Блок 3:</div>
+<textarea  rows="7" cols="70" name="blc3" formControlName = "blc3"></textarea>
+
+
+
+   <br/>
+
+      <br/>
+      <input type="submit"  value="Сохранить"> 
+</form>
+
+
+<br><br>
+
+<h1>Фотоматериалы</h1>
+<font color='green'>{{iprog}}</font><br><br>
+<div>Фото 1</div>
+
+
+<table>
+<tr>
+	<td><input type="file" class="file-input"
+       (change)="onFileSelected($event,'1')" >
+<br><br>
+</td>
+	<td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg}}" height=60 border=0></td>
+</tr>
+</table>
+
+
+<div>Фото 2</div>
+
+
+<table>
+<tr>
+	<td><input type="file" class="file-input"
+       (change)="onFileSelected($event ,'2')" >
+<br><br>
+</td>
+	<td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg2}}" height=60 border=0></td>
+</tr>
+</table>
+
+
+<div>Фото 3</div><table><tr><td><input type="file" class="file-input" (change)="onFileSelected($event ,'3')" ><br><br></td><td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg3}}" height=60 border=0></td></tr></table>
+
+
+<div>Фото 4</div><table><tr><td><input type="file" class="file-input" (change)="onFileSelected($event ,'4')" ><br><br></td><td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg4}}" height=60 border=0></td></tr></table>
+
+
+<div>Фото 5</div><table><tr><td><input type="file" class="file-input" (change)="onFileSelected($event ,'5')" ><br><br></td><td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg5}}" height=60 border=0></td></tr></table>
+
+
+<div>Фото 6</div><table><tr><td><input type="file" class="file-input" (change)="onFileSelected($event ,'6')" ><br><br></td><td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg6}}" height=60 border=0></td></tr></table>
+
+
+<div>Фото 7</div><table><tr><td><input type="file" class="file-input" (change)="onFileSelected($event ,'7')" ><br><br></td><td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg7}}" height=60 border=0></td></tr></table>
+
+
+<div>Фото 8</div><table><tr><td><input type="file" class="file-input" (change)="onFileSelected($event ,'8')" ><br><br></td><td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg8}}" height=60 border=0></td></tr></table>
+
+
+<h1>Видеоматериалы</h1>
+<font color='green'>{{vprog}}</font><br><br>
+<div>Видео 1</div>
+
+
+<table>
+<tr>
+	<td><input type="file" class="file-input"
+       (change)="onFileSelected($event,'9')" >
+<br><br>
+</td>
+	<td align=left  ><div *ngIf="strImg9!=''"><video  height="100" controls>
+     <source src="https://flowervalley.ru/back/Uploads/{{strImg9}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video></div></td>
+</tr>
+</table>
+
+
+
+
+<div>Видео 2</div>
+
+
+<table>
+<tr>
+	<td><input type="file" class="file-input"
+       (change)="onFileSelected($event,'10')" >
+<br><br>
+</td>
+	<td align=left  ><div *ngIf="strImg10!=''"><video  height="100" controls>
+     <source src="https://flowervalley.ru/back/Uploads/{{strImg10}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video></div></td>
+</tr>
+</table>
+
+
+<div>Видео 3</div>
+
+
+<table>
+<tr>
+	<td><input type="file" class="file-input"
+       (change)="onFileSelected($event,'11')" >
+<br><br>
+</td>
+	<td align=left  ><div *ngIf="strImg11!=''"><video  height="100" controls>
+     <source src="https://flowervalley.ru/back/Uploads/{{strImg11}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video></div></td>
+</tr>
+</table>
+
+
+
+

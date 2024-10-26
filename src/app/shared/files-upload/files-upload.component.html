@@ -1,0 +1,26 @@
+<div class="p-field-checkbox mb-2">
+  <p-checkbox [(ngModel)]="isWatermark" [binary]="true" inputId="isWatermark"></p-checkbox>
+  <label for="isWatermark">Добавить водяной знак</label>
+</div>
+<p-fileUpload
+  #fileUpload
+  styleClass="mb-2"
+  [customUpload]="true"
+  mode="basic"
+  [disabled]="isUploadingProcess"
+  [chooseLabel]="label"
+  [multiple]="multi"
+  [auto]="true"
+  (uploadHandler)="uploadFiles($event.files)"
+></p-fileUpload>
+
+<div class="loader" *ngIf="isUploadingProcess">
+  <flower-valley-loader appearance="small"></flower-valley-loader>
+</div>
+
+<div class="grid mt-2" *ngIf="!showOnlyButton && localCompressedUrl.length">
+  <div class="img col-3" *ngFor="let photo of localCompressedUrl; let i = index">
+    <p-image [src]="photo" styleClass="w-12" imageClass="w-12"></p-image>
+    <p-button styleClass="p-button-danger" icon="pi pi-trash" (onClick)="removeImage(i)"></p-button>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<form [formGroup]="variablesForm" (ngSubmit)="saveOthers()">
+  <span class="p-float-label">
+    <p-inputNumber
+      inputId="minOrderSum"
+      formControlName="minOrderSum"
+      [min]="1"
+      suffix="&#8381;"
+    ></p-inputNumber>
+    <label for="minOrderSum">Минимальная сумма заказа для доставки</label>
+  </span>
+  <!--  <span class="p-float-label">-->
+  <!--    <p-inputNumber-->
+  <!--      inputId="nearestDelivery"-->
+  <!--      formControlName="nearestDelivery"-->
+  <!--      [min]="1"-->
+  <!--      suffix="&#8381;"-->
+  <!--    ></p-inputNumber>-->
+  <!--    <label for="nearestDelivery">Стоимость доставки по ближайшей зоне</label>-->
+  <!--  </span>-->
+  <!--  <span class="p-float-label">-->
+  <!--    <p-inputNumber-->
+  <!--      inputId="middleDelivery"-->
+  <!--      formControlName="middleDelivery"-->
+  <!--      [min]="1"-->
+  <!--      suffix="&#8381;"-->
+  <!--    ></p-inputNumber>-->
+  <!--    <label for="middleDelivery">Стоимость доставки по средней зоне</label>-->
+  <!--  </span>-->
+  <span class="p-float-label">
+    <p-inputNumber
+      inputId="moscowDelivery"
+      formControlName="moscowDelivery"
+      [min]="1"
+      suffix="&#8381;"
+    ></p-inputNumber>
+    <label for="moscowDelivery">Стоимость доставки по Москве</label>
+  </span>
+  <span class="p-float-label">
+    <p-inputNumber
+      inputId="deliveryPerKm"
+      formControlName="deliveryPerKm"
+      [min]="1"
+      suffix="&#8381;"
+    ></p-inputNumber>
+    <label for="deliveryPerKm">Стоимость доставки за км</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="mobileWhatsApp" pInputText formControlName="mobileWhatsApp" />
+    <label for="mobileWhatsApp">Номер чата на мобильной кнопке WhatsApp</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="mobilePhone" pInputText formControlName="mobilePhone" />
+    <label for="mobilePhone">Номер телефона на мобильной кнопке вызова</label>
+  </span>
+  <p-button type="submit" label="Сохранить" [loading]="isLoading"></p-button>
+</form>

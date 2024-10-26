@@ -1,0 +1,59 @@
+<flower-valley-container headerTitle="Новый заказ" [isAdmin]="true" [buttonTemplate]="createButton">
+  <div class="client">
+    <form [formGroup]="contactsGroup">
+      <span class="p-float-label">
+        <input type="text" id="requestNumber" pInputText formControlName="requestNumber" />
+        <label for="requestNumber">Номер запроса (если есть)</label>
+      </span>
+      <span class="p-float-label">
+        <input type="text" id="FIO" pInputText formControlName="clientName" />
+        <label for="FIO">Контактное лицо</label>
+      </span>
+
+      <span class="p-float-label">
+        <input type="text" id="phone" pInputText formControlName="clientPhone" />
+        <label for="phone">Телефон</label>
+      </span>
+
+      <span class="p-float-label">
+        <input type="text" id="email" pInputText formControlName="clientEmail" />
+        <label for="email">Email</label>
+      </span>
+
+      <span class="p-float-label">
+        <input type="text" id="address" pInputText formControlName="clientAddress" />
+        <label for="address">Адрес доставки</label>
+      </span>
+
+      <span class="p-float-label">
+        <p-inputNumber id="deliveryPrice" formControlName="deliveryPrice" [min]="0">
+        </p-inputNumber>
+        <label for="deliveryPrice">Стоимость доставки</label>
+      </span>
+    </form>
+    <div *ngIf="contactsGroup.controls['requestNumber'].value || order?.clientId">
+      <flower-valley-entity-form
+        newClientLabel="Новый клиент"
+        [isNewOrder]="true"
+        [client]="entity"
+        (dataChanges)="entityDataChanges($event)"
+      ></flower-valley-entity-form>
+    </div>
+  </div>
+  <div class="products">
+    <flower-valley-products-order
+      [(orderProducts)]="products"
+      [isNewOrder]="true"
+    ></flower-valley-products-order>
+  </div>
+  <div class="boxes">
+    <flower-valley-boxes-order
+      [(orderBoxes)]="boxes"
+      [products]="products"
+    ></flower-valley-boxes-order>
+  </div>
+</flower-valley-container>
+
+<ng-template #createButton>
+  <p-button label="Создать" icon="pi pi-plus" (onClick)="createOrder()"></p-button>
+</ng-template>

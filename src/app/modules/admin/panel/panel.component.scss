@@ -1,0 +1,25 @@
+@import "colors";
+
+::ng-deep .p-card.panel {
+  height: 200px;
+  &:hover {
+    cursor: pointer;
+    outline: 2px solid $main-green;
+  }
+  .p-card-header {
+    padding-top: 1.25rem;
+    padding-left: 1.25rem;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    span:first-child {
+      margin-right: 10px;
+    }
+    span:last-child {
+      font-weight: bold;
+    }
+    .pi {
+      font-size: 25px;
+    }
+  }
+}

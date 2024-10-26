@@ -1,0 +1,17 @@
+@import "../sales.component";
+
+::ng-deep {
+  p-inputnumber, .p-inputnumber {
+    width: 100%;
+  }
+}
+
+
+.edit {
+  color: $main-green;
+}
+
+.trash {
+  margin-left: 20px;
+  color: $red-100;
+}

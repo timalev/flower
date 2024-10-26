@@ -1,0 +1,163 @@
+@import "colors";
+
+::ng-deep .p-button {
+  background-color: $main-green;
+  border-color: $main-green;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  .uppercase {
+    text-transform: uppercase;
+  }
+  &:enabled {
+    &:hover, &:active {
+      background-color: $dark-green;
+      border-color: $dark-green;
+    }
+  }
+}
+
+$root: '.cart';
+
+#{$root} {
+  &__content {
+    max-height: 200px;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+    padding-right: 10px;
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $scrollbar-thumb;
+      border-radius: 80px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: $scrollbar;
+      border-radius: 80px;
+    }
+    &_item {
+      display: flex;
+      border-bottom: 1px solid $border-cart;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      &-info {
+        display: flex;
+        justify-content: space-between;
+        .content {
+          padding-right: 50px;
+          padding-left: 10px;
+          display: flex;
+          flex-direction: column;
+          .title {
+            width: 200px;
+            white-space: pre-wrap;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 100%;
+            color: $text;
+            padding-bottom: 10px;
+          }
+          .interactive {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            ::ng-deep .p-inputnumber {
+              width: auto;
+              height: 20px;
+              input {
+                width: 40px;
+                font-weight: 500;
+                font-size: 10.3704px;
+                line-height: 110%;
+                text-align: center;
+                padding: 0;
+                border: 1px solid $border-count;
+                outline: none !important;
+                box-shadow: none !important;
+                &:focus-visible {
+                  outline: 3px auto $border-count;
+                }
+              }
+              .p-button.p-button-icon-only {
+                width: unset;
+                padding: 0;
+                min-height: 20px;
+                min-width: 20px;
+                background-color: $white-100;
+                border-color: $border-count;
+                color: $text-grey;
+                span {
+                  font-size: 10px;
+                }
+              }
+            }
+            .price {
+              font-weight: normal;
+              font-size: 10px;
+              line-height: 100%;
+              color: $text-grey;
+              text-transform: uppercase;
+            }
+            .sum {
+              font-weight: 600;
+              font-size: 12px;
+              line-height: 100%;
+              color: $text;
+            }
+          }
+        }
+        .trash {
+          display: flex;
+          align-items: center;
+          color: $red-40;
+          .pi:hover {
+            color: $red-100;
+          }
+        }
+      }
+    }
+  }
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    &>div:first-child {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      div {
+        margin-right: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        span:first-child {
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 15px;
+          color: $text-grey;
+          text-transform: uppercase;
+        }
+        span:last-child {
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 22px;
+          color: $main-green;
+        }
+      }
+    }
+    &>div:last-child {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      font-size: 10px;
+      line-height: 12px;
+      text-transform: uppercase;
+      span:first-child:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}

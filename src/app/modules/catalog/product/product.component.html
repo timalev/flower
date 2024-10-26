@@ -1,0 +1,150 @@
+<flower-valley-container
+  [headerTitle]="product.name"
+  [buttonTemplate]="actionsTemplate"
+  [isAdmin]="isAdmin"
+  *ngIf="product"
+>
+  <div class="product__desc">
+    <div class="product__desc_photo">
+      <p-galleria
+        [value]="product.photos"
+        [circular]="true"
+        [showThumbnailNavigators]="false"
+        [numVisible]="4"
+      >
+        <ng-template pTemplate="item" let-photo>
+          <p-image
+            class="main-image"
+            [ngClass]="{ tulip: category?.isTulip }"
+            [src]="photo.src"
+            (click)="openImage(photo.id)"
+          ></p-image>
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-photo>
+          <p-image
+            [imageClass]="category && category.isTulip ? 'tulip' : ''"
+            [src]="photo.src"
+          ></p-image>
+        </ng-template>
+      </p-galleria>
+      <p-galleria
+        [value]="product.photos"
+        [(visible)]="displayCustom"
+        [(activeIndex)]="activeIndex"
+        [circular]="true"
+        [fullScreen]="true"
+        [showItemNavigators]="true"
+        [showThumbnails]="false"
+      >
+        <ng-template pTemplate="item" let-item>
+          <img
+            [ngClass]="category && category.isTulip ? 'tulip' : ''"
+            [src]="item.src"
+            style="width: 100%; display: block"
+          />
+        </ng-template>
+      </p-galleria>
+      <span *ngIf="percentDiscount">Скидка {{ percentDiscount }}%</span>
+    </div>
+    <div class="product__desc_info">
+      <div class="product__desc_info-tare" *ngIf="product.note1 && product.note1 !== 'undefined'">
+        {{ product.note1 }}
+      </div>
+      <div class="product__desc_info-description" [innerHTML]="product.description"></div>
+      <div class="product__desc_info-categories">
+        <div class="title">Категории:</div>
+        <div class="cat-array">
+          <span
+            *ngFor="let category of product.categories; let last = last"
+            (click)="getRouterLink(category)"
+          >
+            <span>{{ category.name }}</span>
+            <span *ngIf="!last">,</span>
+          </span>
+        </div>
+      </div>
+      <div class="product__desc_info-share">
+        <div class="title">Поделиться:</div>
+        <div class="share-array">
+          <a *ngFor="let category of categories" href="{{ category.link }}" target="_blank">
+            <p-image
+              src="assets/icons/product/{{ category.src }}.svg"
+              width="15px"
+              height="15px"
+              styleClass="mx-2 cursor-pointer"
+            ></p-image>
+          </a>
+        </div>
+      </div>
+      <div class="product__desc_info-cart">
+        <div class="price">
+          <span *ngIf="product.sale">{{ product.sale | priceConverter }}</span>
+          <div>
+            <span>{{ product.price | priceConverter }}</span>
+          </div>
+        </div>
+        <div class="right-block">
+          <div class="count">
+            <p-inputNumber
+              [(ngModel)]="product.count"
+              (ngModelChange)="checkPrice()"
+              [min]="step"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              inputId="horizontal"
+              [step]="step"
+              (onBlur)="setCorrectCount()"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+            >
+            </p-inputNumber>
+          </div>
+          <div class="button">
+            <p-button
+              *ngIf="!isInCartShow"
+              styleClass="add-to-cart"
+              (onClick)="addToCart()"
+              [disabled]="category ? category.isBlocked : true"
+              pTooltip="Временно нет в наличии"
+              [tooltipDisabled]="!category?.isBlocked"
+              tooltipPosition="top"
+            >
+              <ng-template pTemplate="content">
+                <p-image
+                  styleClass="flex align-items-center"
+                  src="assets/icons/cart.svg"
+                  width="15px"
+                ></p-image>
+                <span>В корзину</span>
+              </ng-template>
+            </p-button>
+            <p-button *ngIf="isInCartShow" styleClass="p-button-outlined disabled">
+              <ng-template pTemplate="content">
+                <span>Товар в корзине</span>
+                <i class="pi pi-check ml-2"></i>
+              </ng-template>
+            </p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="product__delivery">
+    <flower-valley-delivery></flower-valley-delivery>
+  </div>
+</flower-valley-container>
+<flower-valley-container background="dark" headerTitle="Другие товары">
+  <div *ngIf="category" class="grid w-12">
+    <flower-valley-product-item
+      class="col-12 lg:col-6 xl:col-3 flex justify-content-center"
+      [category]="category"
+      *ngFor="let prod of products"
+      [product]="prod"
+      (openProductCard)="getOtherProduct($event)"
+    ></flower-valley-product-item>
+  </div>
+</flower-valley-container>
+
+<ng-template #actionsTemplate>
+  <p-button label="Редактировать товар" (onClick)="editProduct()"></p-button>
+</ng-template>

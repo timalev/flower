@@ -1,0 +1,255 @@
+@import "colors";
+@import "container";
+
+$root: '.confirmation';
+
+#{$root} {
+  display: flex;
+  flex-direction: column;
+  .p-buttonset {
+    display: none;
+    @include laptop-media {
+      display: unset;
+    }
+    .p-button {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 100%;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      &.p-button-outlined {
+        color: $text-grey;
+        background: none;
+        &:enabled {
+          &:hover, &:active {
+            background-color: $dark-green;
+            border-color: $dark-green;
+            color: $white-100;
+          }
+        }
+      }
+    }
+  }
+  ::ng-deep p-tabview {
+    width: 100%;
+    display: unset;
+    @include laptop-media {
+      display: none;
+    }
+    a {
+      box-shadow: none !important;
+      outline: none !important;
+      text-decoration: none;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+      padding: 15px !important;
+    }
+    .p-highlight .p-tabview-nav-link {
+      color: $main-green;
+      border-color: $main-green;
+    }
+    .p-tabview-nav-link, .p-tabview-nav {
+      background: none !important;
+    }
+    .p-tabview-ink-bar {
+      background-color: $main-green;
+    }
+    .p-tabview-panels {
+      display: none;
+    }
+  }
+  &__content {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    @include laptop-media {
+      flex-direction: unset;
+    }
+    &_form {
+      width: 100%;
+      @include laptop-media {
+        width: 540px;
+      }
+      ::ng-deep .p-float-label {
+        position: relative;
+        width: 100%;
+        margin-bottom: 10px;
+        .p-inputtext {
+          width: 100%;
+          padding: 20px 22px;
+          &.calculation-padding {
+            padding-right: 210px;
+          }
+        }
+        input:focus, input.p-filled {
+          &~ label {
+            top: 15px;
+            left: 22px;
+          }
+          padding-bottom: 15px;
+          padding-top: 25px;
+        }
+        .p-inputwrapper-focus, .p-inputwrapper-filled {
+          &~ label {
+            top: 15px;
+            left: 22px;
+          }
+          input {
+            padding-bottom: 15px;
+            padding-top: 25px;
+          }
+        }
+        .calculation-result {
+          position: absolute;
+          top: 15px;
+          right: 10px;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 100%;
+
+          ::ng-deep .p-button {
+            padding: 8px 22px;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 100%;
+
+            &.blink {
+              -webkit-animation: buttonBlink 2s infinite;
+              animation: buttonBlink 2s infinite;
+
+              &:hover {
+                animation: none;
+                -webkit-animation: none;
+                background-color: $dark-green;
+                border-color: $dark-green;
+              }
+            }
+          }
+
+          .delivery {
+            border-radius: 5px;
+            padding: 8px 22px;
+
+            &.success {
+              border: 1px solid $main-green;
+              color: $text;
+            }
+
+            &.error {
+              border: 1px solid $red-100;
+              background-color: $red-100;
+              color: $white-100;
+            }
+          }
+        }
+      }
+      ::ng-deep .p-field-checkbox {
+        margin-bottom: 10px;
+        ::ng-deep {
+          .p-checkbox-box {
+            box-shadow: none;
+          }
+          .p-checkbox .p-checkbox-box.p-highlight {
+            background-color: $main-green;
+            border-color: $main-green;
+          }
+          .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box {
+            &:hover, &.p-focus {
+              border-color: $main-green;
+            }
+          }
+        }
+        label {
+          margin-left: 10px;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 100%;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      .private-policy {
+        width: 100%;
+        margin-top: 10px;
+        @include laptop-media {
+          width: 90%;
+        }
+        margin-bottom: 10px;
+        a {
+          color: $main-green;
+        }
+      }
+      ::ng-deep .p-button {
+        &.confirm-order {
+          width: 100%;
+          @include laptop-media {
+            width: 90%;
+          }
+          padding: 25px;
+          border-radius: 15px;
+          span {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 100%;
+          }
+        }
+        &.p-button-text {
+          padding: 8px 22px;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 100%;
+        }
+      }
+    }
+    &_goods {
+      @include laptop-media {
+        margin-left: 30px;
+      }
+      @include xl-media {
+        margin-left: unset;
+      }
+    }
+  }
+}
+
+.top-10 {
+  margin-top: 10px;
+}
+
+@-webkit-keyframes buttonBlink {
+  from, to {
+    background-color: $main-green;
+    border-color: $main-green;
+  }
+  50% {
+    background-color: $dark-green;
+    border-color: $dark-green;
+  }
+}
+@keyframes buttonBlink {
+  from, to {
+    background-color: $main-green;
+    border-color: $main-green;
+  }
+  50% {
+    background-color: $dark-green;
+    border-color: $dark-green;
+  }
+}
+
+.delivery-info {
+  font-size: 15px;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  span {
+    margin-bottom: 5px;
+    &:first-child {
+      color: $red-100;
+    }
+  }
+}

@@ -1,0 +1,148 @@
+<flower-valley-container
+  headerTitle="Формирование прайс-листа"
+  [isAdmin]="true"
+  [buttonTemplate]="actionsButtons"
+>
+  <span class="p-float-label">
+    <input type="text" id="email" pInputText [formControl]="email" />
+    <label for="email">Email клиента</label>
+  </span>
+  <span class="p-float-label w-12">
+    <p-multiSelect
+      styleClass="w-12"
+      inputId="categories"
+      [options]="catalog"
+      [formControl]="categoryControl"
+      dataKey="id"
+      optionLabel="name"
+      emptyMessage="Категорий нет"
+      [maxSelectedLabels]="4"
+      selectedItemsLabel="Выбрано категорий: {0}"
+      [filter]="false"
+    ></p-multiSelect>
+    <label for="categories">Включить категории</label>
+  </span>
+
+  <div [formGroup]="textGroup">
+    <div>
+      <h4>Текст в начале документа</h4>
+      <p-editor formControlName="textTop"></p-editor>
+    </div>
+    <div>
+      <h4>Текст в конце документа</h4>
+      <p-editor formControlName="textBottom"></p-editor>
+    </div>
+  </div>
+
+  <p-table
+    [value]="selectedGoods"
+    [loading]="isLoading"
+    [globalFilterFields]="['name']"
+    sortField="categoryName"
+    sortMode="single"
+    rowGroupMode="subheader"
+    groupRowsBy="categoryName"
+    editMode="row"
+    styleClass="p-table-override"
+    dataKey="id"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Товар</th>
+        <th>Упаковка</th>
+        <th>Цена</th>
+        <th>Действия</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="groupheader" let-product>
+      <tr pRowGroupHeader>
+        <td colspan="4">
+          {{ product.categoryName || 'Категория не определена' }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+      <tr class="product" [pEditableRow]="product">
+        <td class="product__name">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="product.name" required />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.name }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td class="product__count">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-inputNumber [(ngModel)]="product.coefficient" [required]="true"></p-inputNumber>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.coefficient }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td class="product__sum">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-inputNumber [(ngModel)]="product.price" [required]="true"></p-inputNumber>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.price | priceConverter: 'two':'rub' }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <div>
+            <div class="edit">
+              <span
+                pInitEditableRow
+                *ngIf="!editing"
+                class="pi pi-pencil cursor-pointer"
+                (click)="onRowEditInit(product)"
+              ></span>
+              <button
+                *ngIf="editing"
+                pButton
+                type="button"
+                pSaveEditableRow
+                icon="pi pi-check"
+                (click)="onRowEditSave(product)"
+                class="p-button-rounded p-button-text p-button-success p-mr-2"
+              ></button>
+              <button
+                *ngIf="editing"
+                pButton
+                type="button"
+                pCancelEditableRow
+                icon="pi pi-times"
+                (click)="onRowEditCancel(product, ri)"
+                class="p-button-rounded p-button-text p-button-danger"
+              ></button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</flower-valley-container>
+
+<ng-template #actionsButtons>
+  <span class="p-buttonset">
+    <p-button
+      [disabled]="!selectedGoods.length"
+      icon="pi pi-eye"
+      styleClass="p-button-info"
+      label="Посмотреть"
+      (onClick)="showPriceList()"
+    ></p-button>
+    <p-button
+      [disabled]="sendButtonDisabled"
+      [loading]="sendingMail"
+      icon="pi pi-upload"
+      (onClick)="sendMail()"
+      label="Отправить клиенту"
+    ></p-button>
+  </span>
+</ng-template>

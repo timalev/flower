@@ -1,0 +1,27 @@
+<div class="card" *ngIf="delivery">
+  <div class="card-title">{{ delivery.title }}</div>
+  <div class="card-content">
+    <div class="card-content_tulips">
+      <div>
+        <div>
+          <p-image styleClass="flex align-items-center" [src]="delivery.leftBlock.img"></p-image>
+        </div>
+        <span>{{ delivery.leftBlock.title }}</span>
+      </div>
+      <div>
+        {{ delivery.leftBlock.description }}
+      </div>
+    </div>
+    <div class="card-content_delivery">
+      <div>
+        <div>
+          <p-image styleClass="flex align-items-center" [src]="delivery.rightBlock.img"></p-image>
+        </div>
+        <span>{{ delivery.rightBlock.title }}</span>
+      </div>
+      <div class="flex flex-column">
+        {{ delivery.rightBlock.description }}
+      </div>
+    </div>
+  </div>
+</div>

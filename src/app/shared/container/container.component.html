@@ -1,0 +1,53 @@
+<div
+  [ngClass]="{
+    'container-light': background === 'light',
+    'container-dark': background === 'dark'
+  }"
+>
+  <div class="container__content">
+    <div class="container__content_header">
+      <div class="title" *ngIf="headerTitle">
+        <div>
+          <span *ngIf="headerIcon" class="pi {{ headerIcon }} mr-3" style="font-size: 25px"></span>
+          <img *ngIf="headerIconImage" [src]="headerIconImage" width="22px" class="mr-3" />
+          <div><font size=3><h1>{{ headerTitle }}</h1></font></div>
+        </div>
+
+	
+        <div *ngIf="isAdmin">
+          <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
+        </div>
+        <flower-valley-leaf-button
+          class="leaf-button"
+          *ngIf="headerButton"
+          [routerLink]="headerButton['routerLink']"
+          [title]="headerButton['title']"
+        ></flower-valley-leaf-button>
+      </div>
+
+	   <div *ngIf="isTscont">
+         {{seocont}}
+<br><br>
+      </div>
+
+	 
+
+      <div *ngIf="headerTemplate">
+        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+      </div>
+    </div>
+    <ng-content></ng-content>
+    <p-button
+      *ngIf="footerButton"
+      styleClass="p-button-outlined w-12"
+      [routerLink]="footerButton['routerLink']"
+    >
+      <ng-template pTemplate="content">
+        <div class="flex justify-content-center align-items-center w-12">
+          <div>{{ footerButton['title'] }}</div>
+          <span class="pi {{ footerButton['icon'] }} ml-2"></span>
+        </div>
+      </ng-template>
+    </p-button>
+  </div>
+</div>

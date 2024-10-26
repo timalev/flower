@@ -1,0 +1,55 @@
+<form [formGroup]="animationForm" (ngSubmit)="saveAnimations()">
+  <h2>Первый блок</h2>
+  <span class="p-float-label">
+    <p-inputNumber inputId="firstNumber" formControlName="firstNumber" [min]="1"></p-inputNumber>
+    <label for="firstNumber">Число</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="firstSuffix" pInputText formControlName="firstSuffix" />
+    <label for="firstSuffix">Суффикс числа</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="firstText" pInputText formControlName="firstText" />
+    <label for="firstText">Текст блока</label>
+  </span>
+  <h2>Второй блок</h2>
+  <span class="p-float-label">
+    <p-inputNumber inputId="secondNumber" formControlName="secondNumber" [min]="1"></p-inputNumber>
+    <label for="secondNumber">Число</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="secondSuffix" pInputText formControlName="secondSuffix" />
+    <label for="secondSuffix">Суффикс числа</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="secondText" pInputText formControlName="secondText" />
+    <label for="secondText">Текст блока</label>
+  </span>
+  <h2>Третий блок</h2>
+  <span class="p-float-label">
+    <p-inputNumber inputId="thirdNumber" formControlName="thirdNumber" [min]="1"></p-inputNumber>
+    <label for="thirdNumber">Число</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="thirdSuffix" pInputText formControlName="thirdSuffix" />
+    <label for="thirdSuffix">Суффикс числа</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="thirdText" pInputText formControlName="thirdText" />
+    <label for="thirdText">Текст блока</label>
+  </span>
+  <h2>Четвертый блок</h2>
+  <span class="p-float-label">
+    <p-inputNumber inputId="fourthNumber" formControlName="fourthNumber" [min]="1"></p-inputNumber>
+    <label for="fourthNumber">Число</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="fourthSuffix" pInputText formControlName="fourthSuffix" />
+    <label for="fourthSuffix">Суффикс числа</label>
+  </span>
+  <span class="p-float-label">
+    <input type="text" id="fourthText" pInputText formControlName="fourthText" />
+    <label for="fourthText">Текст блока</label>
+  </span>
+  <p-button type="submit" label="Сохранить" [loading]="isLoading"></p-button>
+</form>

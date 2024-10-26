@@ -1,0 +1,162 @@
+<p-card>
+  <p-table
+    [value]="goods"
+    rowGroupMode="subheader"
+    groupRowsBy="category.id"
+    styleClass="p-table-override"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Товар</th>
+        <th>Цена</th>
+        <th>Количество</th>
+        <th>Стоимость</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="groupheader" let-product>
+      <tr pRowGroupHeader>
+        <td colspan="5">
+          {{ product.category?.name || 'Категория не определена' }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr class="product">
+        <td class="product__name">
+          <p-image
+            [src]="product.photos[0].src"
+            [alt]="product.name"
+            width="70px"
+            height="70px"
+            [imageStyle]="{ 'border-radius': '10px', 'object-fit': 'cover' }"
+          ></p-image>
+          <div>
+            <span>{{ product.name }}</span>
+            <span class="mobile-price">{{ product.price | priceConverter: 'two':'rub' }}</span>
+          </div>
+        </td>
+        <td class="mobile-price-cell">
+          <div>
+            <span>{{ product.price | priceConverter: 'two':'rub' }}</span>
+            <span *ngIf="product.initialPrice !== product.price">{{
+              product.initialPrice | priceConverter: 'two':'rub'
+            }}</span>
+          </div>
+        </td>
+        <td class="product__count">
+          <p-inputNumber
+            #countNumber
+            [(ngModel)]="product.count"
+            (ngModelChange)="updateCount(product)"
+            [min]="getStep(product)"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            inputId="horizontal"
+            [step]="getStep(product)"
+            (onBlur)="changeCount(product, countNumber.value)"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+          >
+          </p-inputNumber>
+        </td>
+        <td class="product__sum">
+          {{ product.price * product.count | priceConverter: 'two':'rub' }}
+        </td>
+        <td class="product__delete">
+          <div class="trash">
+            <span class="pi pi-trash cursor-pointer" (click)="removeItem(product.id)"></span>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-button
+    styleClass="ml-3 mb-3"
+    label="Добавить товар"
+    icon="pi pi-plus"
+    routerLink="/catalog"
+  ></p-button>
+  <div class="boxes">
+    <div class="boxes__title">Коробка транспортировочная</div>
+    <div class="boxes__content">
+      <div class="boxes__content_text">
+        <span>{{ cartContent?.boxesTitle }}</span>
+        <span *ngIf="boxes.length">{{ cartContent?.boxesNotice }}</span>
+      </div>
+      <div class="boxes__content_button">
+        <p-button
+          *ngIf="!boxes.length || !isBoxButtonClicked"
+          styleClass="p-button-outlined text-normal"
+          label="ДОБАВИТЬ КОРОБКИ"
+          (onClick)="genBoxes(); isBoxButtonClicked = true"
+          [loading]="isLoading"
+        ></p-button>
+        <p-button
+          *ngIf="boxes.length && isBoxButtonClicked"
+          styleClass="p-button-outlined p-button-danger text-normal"
+          label="УБРАТЬ КОРОБКИ"
+          (onClick)="removeBoxes()"
+        ></p-button>
+      </div>
+    </div>
+    <div class="boxes__items" *ngIf="boxes.length">
+      <p-table [value]="boxes" styleClass="p-table-override">
+        <ng-template pTemplate="header">
+          <tr>
+            <th width="600px"></th>
+            <th width="160px"></th>
+            <th width="180px"></th>
+            <th width="160px"></th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-box>
+          <tr class="product boxes">
+            <td class="product__name">
+              <div class="product__name_icon">
+                <p-image
+                  styleClass="flex align-items-center justify-content-center"
+                  src="assets/icons/box.svg"
+                ></p-image>
+              </div>
+              <div>
+                <span>{{ box.name }}</span>
+                <span class="mobile-price">{{ box.price | priceConverter: 'two':'rub' }}</span>
+              </div>
+            </td>
+            <td class="mobile-price-cell">{{ box.price | priceConverter: 'two':'rub' }}</td>
+            <td class="product__count">
+              <span>{{ box.count }}</span>
+            </td>
+            <td class="product__sum">
+              {{ box.price * box.count | priceConverter: 'two':'rub' }}
+            </td>
+            <td></td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  <div class="summary-block">
+    <div class="summary-block__info">
+      <div>
+        {{ cartContent?.paymentInfo }}
+      </div>
+    </div>
+    <div class="summary-block__summary">
+      <span>Стоимость цветов:</span>
+      <span>{{ getSum | priceConverter: 'two':'rub' }}</span>
+      <span *ngIf="getInitialSum !== getSum">{{
+        getInitialSum | priceConverter: 'two':'rub'
+      }}</span>
+    </div>
+    <div class="summary-block__additional" *ngIf="getDifference && cartVariables">
+      <span
+        >Минимальная сумма заказа
+        {{ cartVariables.minOrderSum | priceConverter: 'none':'RUB' }}</span
+      >
+      <span>Не хватает товара на сумму {{ getDifference | priceConverter: 'none':'RUB' }}</span>
+    </div>
+  </div>
+</p-card>

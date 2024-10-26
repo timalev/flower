@@ -1,0 +1,35 @@
+<div class="advantages" *ngIf="advantagesData">
+  <div class="advantages__card">
+    <div class="advantages__card_title">{{ advantagesData.title }}</div>
+    <div class="advantages__card_name">{{ advantagesData.subTitle }}</div>
+    <div class="advantages__card_content">
+      <div>
+        <div class="individual">
+          <div><img [src]="advantagesData.leftBlock.img" /></div>
+          <div>{{ advantagesData.leftBlock.title }}</div>
+        </div>
+        <div>
+          {{ advantagesData.leftBlock.description }}
+        </div>
+      </div>
+      <div>
+        <div>
+          <div><img [src]="advantagesData.centerBlock.img" /></div>
+          <div>{{ advantagesData.centerBlock.title }}</div>
+        </div>
+        <div>
+          {{ advantagesData.centerBlock.description }}
+        </div>
+      </div>
+      <div>
+        <div>
+          <div><img [src]="advantagesData.rightBlock.img" /></div>
+          <div>{{ advantagesData.rightBlock.title }}</div>
+        </div>
+        <div>
+          {{ advantagesData.rightBlock.description }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
