@@ -142,7 +142,7 @@ export class ContactsComponent implements OnInit {
     if (this.contacts) {
       this.contacts.address.map((address, index) => {
         data.push({                
-			lonlan: [{ id: 0, lat: '55.594982', lon: '37.987759' },{ id: 1, lat: '55.704222', lon: '36.847373' }],
+			lonlan: [{ id: 0, lat: '55.594982', lon: '37.987759' },{ id: 1, lat: '55.700588', lon: '36.850043' }],
           address: address,
           workTime:
             this.contacts && this.contacts.workTime[index] ? this.contacts.workTime[index] : '',
