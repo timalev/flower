@@ -23,6 +23,7 @@ export interface Header extends GeneralData {
 export interface AddressData {
   address: string;
   workTime: string;
+  addrname: any;
   lonlan: any;
 }
 

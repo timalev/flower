@@ -21,13 +21,25 @@
       </div>
       <ng-container *ngTemplateOutlet="contacts"></ng-container>
       <div class="footer__contacts">
-     <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A4c0bbfd7735e41af052a6d859dbc34f33d7e812dee62f1aaa7fa5c4d328e2d4e&amp;source=constructor" width="400" height="300" frameborder="0"></iframe>
+   
+
+   <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A4c0bbfd7735e41af052a6d859dbc34f33d7e812dee62f1aaa7fa5c4d328e2d4e&amp;source=constructor" width="400" height="300" frameborder="0"></iframe>
+
+
+
         <div class="footer__contacts_content">
           <div class="price">
             <ng-container *ngTemplateOutlet="priceButton"></ng-container>
           </div>
           <ng-container *ngFor="let addressData of getAddressData(); index as i">
-            <div class="address pt-2">
+            
+			
+			
+			<div class="address pt-2">
+              <span>{{ data.addrname[i].name  }}</span>
+            </div>
+
+			<div class="address pt-2">
               <span>{{ addressData.address }}</span>
             </div>
             <div class="work-time">
