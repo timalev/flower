@@ -59,6 +59,8 @@ export class ProductComponent implements OnInit {
       this.product = undefined;
       this.getProductById(id, params);
       this.setSharedButtons();
+
+
     });
   }
 
@@ -72,6 +74,9 @@ export class ProductComponent implements OnInit {
           initialPrice: product.price,
         };
         this.seoService.updateTitle(this.product.name);
+
+         //console.log(this.product.name);
+
         let keywords: string[] = this.product.name.toLowerCase().split(' ');
         keywords = keywords.concat(this.product.description.toLowerCase().split(' '));
         this.seoService.updateKeywords(keywords.join(','));

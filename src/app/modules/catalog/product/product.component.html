@@ -4,6 +4,7 @@
   [isAdmin]="isAdmin"
   *ngIf="product"
 >
+<div itemscope itemtype="http://schema.org/Product">
   <div class="product__desc">
     <div class="product__desc_photo">
       <p-galleria
@@ -14,6 +15,7 @@
       >
         <ng-template pTemplate="item" let-photo>
           <p-image
+            itemprop="image"
             class="main-image"
             [ngClass]="{ tulip: category?.isTulip }"
             [src]="photo.src"
@@ -50,7 +52,10 @@
       <div class="product__desc_info-tare" *ngIf="product.note1 && product.note1 !== 'undefined'">
         {{ product.note1 }}
       </div>
-      <div class="product__desc_info-description" [innerHTML]="product.description"></div>
+
+      <div itemprop="description">
+         <div class="product__desc_info-description" [innerHTML]="product.description"></div>
+      </div>
       <div class="product__desc_info-categories">
         <div class="title">Категории:</div>
         <div class="cat-array">
@@ -63,6 +68,21 @@
           </span>
         </div>
       </div>
+
+
+       <div class="product__desc_info-categories">
+        <div class="title">Наименование:</div>
+        <div class="cat-array" itemprop="name">
+
+            <span>{{ product.name}}</span>
+
+
+        </div>
+      </div>
+
+
+
+
       <div class="product__desc_info-share">
         <div class="title">Поделиться:</div>
         <div class="share-array">
@@ -77,12 +97,15 @@
         </div>
       </div>
       <div class="product__desc_info-cart">
+       <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <div class="price">
           <span *ngIf="product.sale">{{ product.sale | priceConverter }}</span>
           <div>
-            <span>{{ product.price | priceConverter }}</span>
+            <span itemprop="price">{{ product.price | priceConverter }}</span>
+            <meta itemprop="priceCurrency" content="RUB">
           </div>
         </div>
+       </div>
         <div class="right-block">
           <div class="count">
             <p-inputNumber
@@ -128,6 +151,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
   <div class="product__delivery">
     <flower-valley-delivery></flower-valley-delivery>

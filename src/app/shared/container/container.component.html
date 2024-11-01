@@ -13,7 +13,7 @@
           <div><font size=3><h1>{{ headerTitle }}</h1></font></div>
         </div>
 
-	
+
         <div *ngIf="isAdmin">
           <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
         </div>
@@ -25,12 +25,29 @@
         ></flower-valley-leaf-button>
       </div>
 
+      <!--
+
+      <div itemscope itemtype="http://schema.org/Product">
+  <div itemprop="name"><h1>Кровать Мелисса с мягкой спинкой</h1></div>
+  <a itemprop="image" href=​"products_pictures/large_krovat-mellisa-smyagkoispink.jpg">
+    <img src=​"products_pictures/medium_krovat-mellisa-smyagkoispink.jpg" title="Кровать Мелисса с мягкой спинкой">
+  </a>
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <meta itemprop="price" content="7150.00">
+    <meta itemprop="priceCurrency" content="RUB">
+    <div>В наличии</div>
+    <link itemprop="availability" href="http://schema.org/InStock">
+  </div>
+  <div itemprop="description">Цена указана за кровать Мелисса с мягкой спинкой; размером спального места 900х2000 мм. Подушки у спинки кровати изготовляются из искусственной кожи. В комплектацию входит ортопедическое основание на ножках.</div>
+</div>
+-->
+
 	   <div *ngIf="isTscont">
          {{seocont}}
 <br><br>
       </div>
 
-	 
+
 
       <div *ngIf="headerTemplate">
         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>

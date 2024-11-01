@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
   selector: 'flower-valley-container',
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+ /* encapsulation: ViewEncapsulation.None, */
   providers: [DestroyService],
 })
 export class ContainerComponent implements OnInit {
@@ -42,10 +42,10 @@ export class ContainerComponent implements OnInit {
 
   private url!: string;
 
-   public h1: any; 
+   public h1: any;
 
   constructor(
-	
+
   private http: HttpClient,
     private bs: BreadcrumbService,
     private router: Router,
@@ -66,13 +66,13 @@ export class ContainerComponent implements OnInit {
 
 
 	    this.http.get<any>('https://flowervalley.ru/back/seo_api.php?h1=' + window.location.pathname).subscribe(data => {
-		
+
 		if (data.h1!="")
 		{
 			console.log(data.h1);
 			this.headerTitle =data.h1;
 
-			 
+
 		}
 	   });
 
@@ -81,20 +81,20 @@ export class ContainerComponent implements OnInit {
 		// this.seocont = window.location.pathname;
 
 		 this.http.get<any>('https://flowervalley.ru/back/seo_api.php?tscont=' + window.location.pathname).subscribe(data => {
-			 
-			 
+
+
 		 if (data.cont!="")
 		 {
 			  this.isTscont = true;
 			  this.seocont = data.cont;
 		 }
-		 
+
 		 });
 
 
 
      }
-	  
+
 
 
   }

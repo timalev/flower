@@ -92,7 +92,7 @@ export class HeaderComponent implements OnInit {
         mainMenuService.getMenuItems().subscribe((menu) => {
 
           this.menu = menu;
-		  console.log(menu);
+		//  console.log(menu);
 		  this.menu.push({ id: 100, title: 'Новый филиал', link: '/branch' });
         });
       }
