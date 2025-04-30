@@ -34,6 +34,8 @@ export class VideoComponent implements OnInit {
         isHidden: true,
       });
     });
+  // console.log("Tima");
+//	console.log(this.videos);
   }
 
   public getHidden(id: number): boolean | undefined {

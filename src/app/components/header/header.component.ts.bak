@@ -147,7 +147,8 @@ export class HeaderComponent implements OnInit {
     if (this.headerData) {
       this.headerData.address.map((item, index) => {
         data.push({
-			lonlan: "sdfsdf",
+			lonlan: "n/a",
+				  addrname: "n/a",
           address: item,
           workTime:
             this.headerData && this.headerData.workTime[index]

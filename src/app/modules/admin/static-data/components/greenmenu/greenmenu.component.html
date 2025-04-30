@@ -1,0 +1,70 @@
+<h1>Управление зеленым меню</h1>
+<font color='green'>{{iprog}}</font> 
+
+
+<div><b>Добавить пункт меню</b></div>
+<br>
+<!--
+<input type="file" class="file-input"
+       (change)="onFileSelected($event,'image')" >
+-->
+
+<form [formGroup]="menuForm" (ngSubmit)="saveMenu(menuForm.value)">
+
+<div>Название раздела:</div>
+<input type="text" name="menu1" formControlName = "menu1">
+<br>
+
+<div>Ссылка на раздел:</div>
+<input type="text" name="menu2" formControlName = "menu2">
+<br>
+
+<div>Порядок сортировки:</div>
+<input type="text" name="menu3" formControlName = "menu3" >
+
+
+
+   <br/>
+
+      <br/>
+      <input type="submit"  value="Добавить"> 
+</form>
+
+
+<br>
+<br>
+
+<div><b>Редактировать пункты меню</b></div>
+<br>
+
+ <table>
+ 
+	    <div *ngFor="let item of items; let i = index" >
+
+   <tr>
+	<td> 
+ <input [(ngModel)]="item.sortOrder"  [ngModelOptions]="{standalone: true}" (blur)="updateVidSort(item.id, item.sortOrder, 'bra_cont')" size=5>&nbsp;
+</td>
+<td>
+ <input [(ngModel)]="item.title"  [ngModelOptions]="{standalone: true}" (blur)="updateVidTitl(item.id, item.title, 'bra_cont')"><br>
+
+
+	
+   
+   </td>
+
+   <td>
+ <input [(ngModel)]="item.link"  [ngModelOptions]="{standalone: true}" (blur)="updateVidLink(item.id, item.link, 'bra_cont')"><br>
+
+
+	
+   
+   </td>
+
+
+
+   <td><span (click)="deleteItem(i, item.id,'bra_cont')"><font color=red><b>X</b></font></span></td>
+   </tr>
+ 
+</div>
+  </table>

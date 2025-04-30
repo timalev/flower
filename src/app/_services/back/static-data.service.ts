@@ -233,6 +233,9 @@ export class StaticDataService {
 
   private generateGetRequest<T>(enumObject: any): Observable<T> {
     const values = this.getQueryParams(enumObject);
+
+	//console.log("tester: " + this.baseUrl + "/" + this.apiUrl + "/" + values);
+
     return this.http.get<StaticResponse[]>(`${this.baseUrl}/${this.apiUrl}?${values}`).pipe(
       map((response) => {
         let header: Record<string, any> = {};

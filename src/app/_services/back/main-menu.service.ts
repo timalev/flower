@@ -15,6 +15,9 @@ export class MainMenuService {
   constructor(protected http: HttpClient) {}
 
   public getMenuItems(): Observable<MainMenu[]> {
+
+	  console.log('timofeylev' + this.baseUrl + " / " + this.apiUrl);
+
     return this.http.get<MainMenu[]>(`${this.baseUrl}/${this.apiUrl}`);
   }
 

@@ -26,7 +26,7 @@
 
 			<div class="contacts__info_address-content">
               {{ data.addrname[i].name }}
-            </div>
+            </div><br>
             <div class="contacts__info_address-content">
               {{ data.address }}
             </div>
@@ -137,61 +137,7 @@
     </div>
   </div>
 </flower-valley-container>
-<flower-valley-container
-  background="dark"
-  headerTitle="Фотографии"
-  [isAdmin]="isAdmin"
-  [buttonTemplate]="addPhotos"
->
-  <div class="grid" *ngIf="photos.length">
-    <div
-      *ngFor="let photo of photos; let i = index"
-      pDraggable="contactsPhoto"
-      dragEffect="move"
-      pDroppable="contactsPhoto"
-      (onDrop)="drop()"
-      (onDragEnter)="setPosition(i)"
-      (onDragStart)="dragStart(photo, i)"
-      (onDragEnd)="dragEnd()"
-      class="photo col-12 lg:col-6 xl:col-4 flex justify-content-center"
-    >
-      <p-image
-        [src]="photo.img"
-        styleClass="cursor-pointer"
-        [width]="photosWidth"
-        (click)="openImage(photo.id)"
-        [imageStyle]="{ 'border-radius': '10px', height: '100%', 'object-fit': 'cover' }"
-      ></p-image>
-      <div class="hover" *ngIf="isAdmin">
-        <flower-valley-files-upload
-          label="Изменить фотографию"
-          [multi]="false"
-          [showOnlyButton]="true"
-          (uploaded)="editImage($event, photo.id)"
-        ></flower-valley-files-upload>
-        <p-button
-          styleClass="p-button-danger ml-2"
-          icon="pi pi-trash"
-          (onClick)="deleteImage(photo.id)"
-        ></p-button>
-      </div>
-    </div>
-  </div>
-</flower-valley-container>
 
-<p-galleria
-  [value]="photos"
-  [(visible)]="displayCustom"
-  [(activeIndex)]="activeIndex"
-  [circular]="true"
-  [fullScreen]="true"
-  [showItemNavigators]="true"
-  [showThumbnails]="false"
->
-  <ng-template pTemplate="item" let-item>
-    <img [src]="item.img" style="width: 100%; display: block" />
-  </ng-template>
-</p-galleria>
 
 <ng-template #addPhotos>
   <flower-valley-files-upload

@@ -5,6 +5,7 @@ import { Firm, Individual } from '../../_models/business-pack/firm';
 import { environment } from '../../../environments/environment';
 import { GoodsBusinessPack } from '../../_models/business-pack/goods-base';
 import { Invoice } from '../../_models/business-pack/invoice';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class BusinessPackService {
@@ -65,6 +66,9 @@ export class BusinessPackService {
   //------------------------ API Счетов -----------------------------//
 
   public createInvoice(invoice: Invoice): Observable<any> {
+
+	 // console.log(this.baseUrl + '/doc-invoice');
+
     return this.http.post<any>(`${this.baseUrl}/doc-invoice`, invoice);
   }
 
@@ -80,7 +84,32 @@ export class BusinessPackService {
     id: string,
     params: { report_name: string; send_with_stamp: boolean },
   ): Observable<{ id: string }> {
-    return this.http.post<{ id: string }>(`${this.baseUrl}/doc-invoice/${id}/send-telepak`, params);
+
+
+	  console.log(params);
+
+
+	  this.http.post<{ id: string }>(`${this.baseUrl}/doc-invoice/${id}/send-telepak`, params)
+	  
+	  .pipe(catchError((error: any) => {
+ 
+		 console.log(error.error.error.message);
+
+		 return error.error.error.message;
+         
+        }))
+      .subscribe((id) => {
+       // alert(2);
+
+		return "2";
+      
+      });
+    
+	
+	return this.http.post<{ id: string }>(`${this.baseUrl}/doc-invoice/${id}/send-telepak`, params);
+
+	
+
   }
 
   public getReport(): Observable<any> {

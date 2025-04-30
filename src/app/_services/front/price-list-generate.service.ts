@@ -123,10 +123,14 @@ export class PriceListGenerateService {
         },
       };
       const document = pdfMake.createPdf(documentDefinition);
-      document.open();
-      document.getBlob((blob: Blob) => {
+      
+	  document.download('price-list.pdf');
+	  //document.open();
+     /*
+	  document.getBlob((blob: Blob) => {
         this._generatedDocument.next(blob);
       });
+	  */
     });
   }
 

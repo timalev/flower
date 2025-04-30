@@ -10,6 +10,13 @@ import { slugify } from 'transliteration';
 })
 export class BranchComponent implements OnInit {
 
+	  vidForm: FormGroup;
+
+
+
+	  contArray: Array<{name: string; img: string; txt: string; mediaType: string, photosWidth: string; id: number; sortOrder: number;}> = [];
+	   videos: Array<{id: number; src: string; title: string, description: string; sortOrder: number;}> = [];
+
 	  fileName = '';
 	  public strImg: any;
 	  public strImg2: any;
@@ -32,7 +39,12 @@ export class BranchComponent implements OnInit {
 
 
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private fb: FormBuilder) {
+
+		this.vidForm = this.fb.group({
+			v_id: ['']
+		});
+
 		this.strImg = "";
 		this.strImg2 = "";
 		this.strImg3 = "";
@@ -56,6 +68,55 @@ export class BranchComponent implements OnInit {
       }); 
 
 	}
+	updateVidSort(id: any, sort: any, type: any)
+	  {
+		console.log("tima: / " + id + " / " + sort);
+
+		  this.http.post('https://flowervalley.ru/back/branch_api.php', { video_id: id, video_sort: sort, type: type }).subscribe(data => {
+
+			  console.log(data)
+				 // this.str = "Данные успешно добавлены";
+           });
+
+		   // console.log(id + " / " + sort);
+	  }
+
+
+	  updateVidTitl(id: any, title: any, type: any)
+	  {
+		  this.http.post('https://flowervalley.ru/back/branch_api.php', { video_id: id, video_titl: title, type: type }).subscribe(data => {
+
+			  console.log(data)
+				 // this.str = "Данные успешно добавлены";
+           });
+
+		   // console.log(id + " / " + sort);
+	  }
+
+	  deleteVid(i: number, id: any, type: any)
+	  {
+		  this.http.post('https://flowervalley.ru/back/branch_api.php', { video_delete: id, type: type }).subscribe(data => {
+
+			  if (type=="bra_cont")
+				  this.contArray.splice(i, 1);
+			  else
+				  this.videos.splice(i, 1);
+
+			  console.log(data)
+				 // this.str = "Данные успешно добавлены";
+           });
+
+		  //console.log(id);
+	  }
+
+
+
+	saveVidInfo(){
+		console.log(this.vidForm.value);
+
+
+	}
+	
 
     onFileSelected(event: any, id: string) {
 
@@ -63,11 +124,11 @@ export class BranchComponent implements OnInit {
 
         if (file) {
 
-			if (id=='9' || id=='10' || id=='11')
+			if (id=='video')
 			{
 				this.vprog = "идет размещение видео..";
 			}
-			if (id=='1' || id=='2' || id=='3'|| id=='4'|| id=='5'|| id=='6'|| id=='7'|| id=='8')
+			if (id=='image')
 			{
 				this.iprog = "идет размещение фото..";
 			}
@@ -82,8 +143,9 @@ export class BranchComponent implements OnInit {
             formData.append("thumbnail", file);
 			//formData.append("id", id);
 
-			  this.http.post<any>("https://flowervalley.ru/back/branch_api.php?id=" + id, formData).subscribe(data => {
+			  this.http.post<any>("https://flowervalley.ru/back/branch_api.php?type=" + id, formData).subscribe(data => {
 
+/*
 				  switch (id)
 				  {
 				  case '1':
@@ -91,51 +153,22 @@ export class BranchComponent implements OnInit {
 				      this.iprog = "фото размещено!";
 				  break;
 
-				  case '2':
-					  this.strImg2 = data.res;
-				      this.iprog = "фото размещено!";
-				  break;
-				  case '3':
-					  this.strImg3 = data.res;
-				      this.iprog = "фото размещено!";
-				  break;
-				  case '4':
-					  this.strImg4 = data.res;
-				  this.iprog = "фото размещено!";
-				  break;
-				  case '5':
-					  this.strImg5 = data.res;
-				      this.iprog = "фото размещено!";
-				  break;
-				  case '6':
-					  this.strImg6 = data.res;
-				      this.iprog = "фото размещено!";
-				  break;
-				  case '7':
-					  this.strImg7 = data.res;
-				      this.iprog = "фото размещено!";
-				  break;
-
-				  case '8':
-					  this.strImg8 = data.res;
-				      this.iprog = "фото размещено!";
-				  break;
-				   case '9':
-					  this.strImg9 = data.res;
-				      this.vprog = "видео размещено!";
-				  break;
-				  case '10':
-					  this.strImg10 = data.res;
-				      this.vprog = "видео размещено!";
-				  break;
+				 
 				  default:
 					  this.strImg11 = data.res;
 				      this.vprog = "видео размещено!";
 				  
 				  }
+				  */
+
+				  if (data.res)
+				  {
+					  this.vprog = "";
+					  this.iprog = "";
+				  }
 				  
 
-			  console.log(data)
+			  console.log(data.res)
 				 
            });
 
@@ -148,22 +181,58 @@ export class BranchComponent implements OnInit {
 	
   ngOnInit(): void {
 
-	    this.http.get<any>('https://flowervalley.ru/back/branch_api.php?cont=1').subscribe(data => {
+	    this.http.get<any>('https://flowervalley.ru/back/branch_api.php?cont=bra_cont_vid').subscribe(data => {
+
+
+
+			
+			for (let i=0; i<data.length; i++)
+			{
+			 	 
+					this.videos.push({
+						id: data[i].id, 
+						src: 'https://flowervalley.ru/back/Uploads/' + data[i].img,
+						title: data[i].text,
+						description: "",
+						sortOrder: data[i].sort
+						});
+			 
+
+			}
+
 		
 		//console.log(data);
-		 this.strImg = data[0].img;
-		 this.strImg2 = data[1].img;
-		 this.strImg3 = data[2].img;
-		 this.strImg4 = data[3].img;
-		 this.strImg5 = data[4].img;
-		 this.strImg6 = data[5].img;
-		 this.strImg7 = data[6].img;
-		 this.strImg8 = data[7].img;
-		 this.strImg9 = data[8].img;
-		 this.strImg10 = data[9].img;
-		 this.strImg11 = data[10].img;
+		
 	   
 	   },error =>{ console.log("err");});
+
+
+
+
+	       this.http.get<any>('https://flowervalley.ru/back/branch_api.php?cont=bra_cont').subscribe(data => {
+
+
+
+			
+			for (let i=0; i<data.length; i++)
+			{
+			 
+
+				this.contArray.push({name: data[i].img, img: 'https://flowervalley.ru/back/Uploads/' + data[i].img, txt:data[i].text, mediaType:data[i].mediaType, photosWidth: '240', id: data[i].id, sortOrder: data[i].sort});
+                
+
+			 
+
+			}
+
+		
+	 
+		
+	   
+	   },error =>{ console.log("err");});
+
+
+
 
 
 	    this.http.get<any>('https://flowervalley.ru/back/branch_api.php?blocks=1').subscribe(data => {

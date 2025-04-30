@@ -34,6 +34,9 @@ import { DownloadInvoiceComponent } from './components/download-invoice/download
 import { MailsComponent } from './components/mails/mails.component';
 import { SeoComponent } from './components/seo/seo.component';
 import { BranchComponent } from './components/branch/branch.component';
+import { GmenuComponent } from './components/greenmenu/greenmenu.component';
+
+
 
 @NgModule({
   declarations: [
@@ -54,6 +57,7 @@ import { BranchComponent } from './components/branch/branch.component';
     MailsComponent,
 	SeoComponent,
 	BranchComponent,
+	GmenuComponent,
   ],
   imports: [
     CommonModule,

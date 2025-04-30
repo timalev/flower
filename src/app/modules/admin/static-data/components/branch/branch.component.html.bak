@@ -1,0 +1,165 @@
+<h2>Текстовый материал</h2>
+<font color=green>{{str}}</font><br><br>
+
+<form [formGroup]="blockForm" (ngSubmit)="saveBlock1(blockForm.value)">
+
+<div>Блок 1:</div>
+<textarea  rows="7" cols="70" name="blc1" formControlName = "blc1"></textarea>
+<br>
+
+<div>Блок 2:</div>
+<textarea  rows="7" cols="70" name="blc2" formControlName = "blc2"></textarea>
+<br>
+
+<div>Блок 3:</div>
+<textarea  rows="7" cols="70" name="blc3" formControlName = "blc3"></textarea>
+
+
+
+   <br/>
+
+      <br/>
+      <input type="submit"  value="Сохранить"> 
+</form>
+
+
+<br><br>
+
+<h1>Фотоматериалы</h1>
+<font color='green'>{{iprog}}</font> 
+
+
+<div>Добавить фото</div>
+
+
+<input type="file" class="file-input"
+       (change)="onFileSelected($event,'image')" >
+
+<br>
+<br>
+
+
+	    <div *ngFor="let photo of contArray; let i = index" >
+ <table>
+   <tr>
+	<td> 
+	Сортировка: <input [(ngModel)]="photo.sortOrder"  [ngModelOptions]="{standalone: true}" (blur)="updateVidSort(photo.id, photo.sortOrder, 'bra_cont')" size=5><br>
+	<!--
+	Описание:<br><input [(ngModel)]="photo.txt"  [ngModelOptions]="{standalone: true}" (blur)="updateVidTitl(photo.id, photo.txt, 'bra_cont')"><br>
+	 -->
+
+	
+   
+   </td>
+	<td>
+<img src="{{photo.img}}" height=60 border=0>
+<br>{{photo.img}}
+
+</td>
+
+   <td><span (click)="deleteVid(i, photo.id,'bra_cont')"><font color=red><b>X</b></font></span></td>
+   </tr>
+   </table>
+</div>
+
+
+<h1>Видеоматериалы</h1>
+<font color='green'>{{vprog}}</font> 
+
+
+<div>Добавить видео</div>
+
+
+<input type="file" class="file-input"
+       (change)="onFileSelected($event,'video')" >
+
+<br>
+<br>
+
+
+<form>
+   <div *ngFor="let video of videos; let i = index" >
+
+   <table>
+   <tr>
+	<td> 
+	Сортировка: <input [(ngModel)]="video.sortOrder"  [ngModelOptions]="{standalone: true}" (blur)="updateVidSort(video.id, video.sortOrder, 'bra_cont_vid')" size=5><br>
+	Описание:<br><input [(ngModel)]="video.title"  [ngModelOptions]="{standalone: true}" (blur)="updateVidTitl(video.id, video.title, 'bra_cont_vid')"><br>
+	 
+
+	
+   
+   </td>
+	<td> <video  height="100" controls>
+     <source src="{{video.src}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video></td>
+   <td><span (click)="deleteVid(i, video.id,'bra_cont_vid')"><font color=red><b>X</b></font></span></td>
+   </tr>
+   </table>
+  
+  
+   </div>
+   <!--
+<br>
+   <button type="submit">Сохранить</button>
+   -->
+</form>
+
+
+   <!--
+<div>Видео 1</div>
+
+
+<table>
+<tr>
+	<td><input type="file" class="file-input"
+       (change)="onFileSelected($event,'video')" >
+<br><br>
+</td>
+	<td align=left  ><div *ngIf="strImg9!=''"><video  height="100" controls>
+     <source src="https://flowervalley.ru/back/Uploads/{{strImg9}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video></div></td>
+</tr>
+</table>
+
+
+
+
+<div>Видео 2</div>
+
+
+<table>
+<tr>
+	<td><input type="file" class="file-input"
+       (change)="onFileSelected($event,'video')" >
+<br><br>
+</td>
+	<td align=left  ><div *ngIf="strImg10!=''"><video  height="100" controls>
+     <source src="https://flowervalley.ru/back/Uploads/{{strImg10}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video></div></td>
+</tr>
+</table>
+
+
+<div>Видео 3</div>
+
+
+<table>
+<tr>
+	<td><input type="file" class="file-input"
+       (change)="onFileSelected($event,'video')" >
+<br><br>
+</td>
+	<td align=left  ><div *ngIf="strImg11!=''"><video  height="100" controls>
+     <source src="https://flowervalley.ru/back/Uploads/{{strImg11}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video></div></td>
+</tr>
+</table>
+
+
+-->
+

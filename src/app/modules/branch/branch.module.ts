@@ -7,6 +7,9 @@ import { FlowerValleySharedModule } from '../../shared/shared.module';
 
 import { LightgalleryModule } from 'lightgallery/angular/13';
 
+import { ImageModule } from 'primeng/image';
+import { GalleriaModule } from 'primeng/galleria';
+
 //import { ImageModule } from 'primeng/image';
 //import { GalleriaModule } from 'primeng/galleria';
 //import { ButtonModule } from 'primeng/button';
@@ -19,7 +22,9 @@ import { LightgalleryModule } from 'lightgallery/angular/13';
     CommonModule,
     BranchRoutingModule,
     FlowerValleySharedModule,
-	LightgalleryModule
+	LightgalleryModule,
+	   ImageModule,
+    GalleriaModule
   ],
 })
 export class BranchModule {}

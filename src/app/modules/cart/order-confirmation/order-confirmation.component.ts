@@ -21,6 +21,7 @@ import { Firm, Individual } from '../../../_models/business-pack/firm';
 import { orderWarnMessage } from '../../../_utils/constants';
 import { CartVariables } from '../../../_models/static-data/variables';
 import { OrderStatus } from '../../../_utils/order-status.enum';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'flower-valley-order-confirmation',
@@ -154,6 +155,8 @@ export class OrderConfirmationComponent implements OnDestroy {
     if (this.isConfirmOrderDisabled) return;
     const order = this.getOrderData();
     if (this.clientType === 'entity') {
+
+		console.log("teest: 3");
       if (isFormInvalid(this.entityData)) return;
       this.isInvoiceLoading = true;
       this.messageService.add(orderWarnMessage);
@@ -169,11 +172,16 @@ export class OrderConfirmationComponent implements OnDestroy {
         });
       }
     } else {
+		console.log("teest: 2");
       this.isInvoiceLoading = true;
       this.messageService.add(orderWarnMessage);
       if (order.deliveryPrice === this.cartVariables?.moscowDelivery || this.pickUp.value) {
+
+		 console.log("teest: 1");
         this.createIndividualInvoice(order);
       } else {
+
+		  console.log("teest: 4");
         order.status = OrderStatus.Calculate_Delivery;
         this.createOrder(order);
       }
@@ -257,15 +265,44 @@ export class OrderConfirmationComponent implements OnDestroy {
       goods: goods,
       partner_flag: 'A',
     };
+
+	  console.log(invoice);
+
     this.bpService.createInvoice(invoice).subscribe((response) => {
       const invoiceId = response.Object;
       order.invoiceId = invoiceId;
+
+
+	   console.log(response); 
+/*
+
+	   var id = "777";
+
+
+	       if (id) {
+            order.accountNumber = id;
+            if (!order.deliveryPrice && !this.pickUp.value) {
+              order.status = OrderStatus.Calculate_Delivery;
+            }
+            this.orderService.addItem(order).subscribe((orderId) => {
+              this.sendInvoiceMail(invoiceId, partnerId, orderId, isBusiness);
+            });
+          }
+		  */
+
+
+/* бизнес парк */
+
       this.bpService
         .sendInvoiceToTelepak(invoiceId, {
-          report_name: 'Счет с образцом п. п. + печать подпись',
+          //report_name: 'Счет с образцом п. п. + печать подпись',
+		  report_name: 'Счет с образцом п. п.',
           send_with_stamp: true,
         })
+	
         .subscribe(({ id }) => {
+
+			  console.log("biz: 6");
           if (id) {
             order.accountNumber = id;
             if (!order.deliveryPrice && !this.pickUp.value) {
@@ -276,6 +313,11 @@ export class OrderConfirmationComponent implements OnDestroy {
             });
           }
         });
+
+/* бизнес парк end */
+
+
+
     });
   }
 

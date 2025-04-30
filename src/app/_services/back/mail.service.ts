@@ -51,6 +51,8 @@ export class MailService {
     data.append('email', order.clientEmail);
     data.append('sign', this.signature);
     data.append('text', this.businessNotificationText);
+	console.log(`${this.baseUrl}/${this.apiUrl}/business-notification`);
+	//console.log(this.http.post(`${this.baseUrl}/${this.apiUrl}/business-notification`, data));
     return this.http.post(`${this.baseUrl}/${this.apiUrl}/business-notification`, data);
   }
 
@@ -62,6 +64,12 @@ export class MailService {
     return this.http.post(`${this.baseUrl}/${this.apiUrl}/admin`, data);
   }
 
+
+
+
+
+
+
   private sendAdminNotificationMail(order: Order): Observable<any> {
     const data = new FormData();
     data.append('orderId', order.id.toString());
@@ -69,6 +77,8 @@ export class MailService {
     data.append('contactPhone', order.clientPhone);
     data.append('contactEmail', order.clientEmail);
     data.append('contactAddress', order.clientAddress);
+
+	console.log("adminu sended!!");
     return this.http.post(`${this.baseUrl}/${this.apiUrl}/admin-notification`, data);
   }
 

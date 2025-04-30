@@ -2,6 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { BreadcrumbService } from '../../components/breadcrumb/breadcrumb.service';
 import { AdminService } from '../../_services/back/admin.service';
 import { HttpClient } from '@angular/common/http';
+
+import { Video } from '../../_models/video';
 //import { ContactsService } from '../../_services/back/contacts.service';
 //import { ConfirmationService, MessageService } from 'primeng/api';
 //import { DomSanitizer } from '@angular/platform-browser';
@@ -28,7 +30,18 @@ export class BranchComponent implements OnInit {
 
   //public photos: IdImg[] = [];
 
-   contArray: Array<{img: string; txt: string; mediaType: string}> = [];
+/*
+  {
+    "id": 4,
+    "src": "https://youtube.com/embed/mueAlhkQaDs",
+    "title": "НТВ ОБ АГРОФИРМЕ ЦВЕТОЧНАЯ ДОЛИНА | РАССАДА ЦВЕТОВ 2017Г",
+    "description": "Ежегодно мы выращиваем 240 тысяч тюльпанов, которые выгоняются из лучших голландских луковиц размера 12+ . Наша традиция – выращивание отборного, качественного тюльпана. ",
+    "sortOrder": 0
+}
+*/
+
+   contArray: Array<{img: string; txt: string; mediaType: string, photosWidth: string; id: number;}> = [];
+   videos: Array<{id: number; src: string; title: string, description: string; sortOrder: number;}> = [];
 
    public vid1: any;
    public vid2: any;
@@ -41,6 +54,11 @@ export class BranchComponent implements OnInit {
    public block1: any;
    public block2: any;
    public block3: any;
+
+
+ 
+public displayCustom: boolean = false;
+     public activeIndex: number = 0;
    
 
   
@@ -63,6 +81,7 @@ export class BranchComponent implements OnInit {
 
   public ngOnInit(): void {
 
+
 	  this.http.get<any>('https://flowervalley.ru/back/branch_api.php?blocks=1').subscribe(data => {
 	   
 	    this.block1 = data[0].blc1;
@@ -71,10 +90,33 @@ export class BranchComponent implements OnInit {
 		
 	   });
 
+  this.http.get<any>('https://flowervalley.ru/back/branch_api.php?cont=bra_cont_vid').subscribe(data => {
 
-  this.http.get<any>('https://flowervalley.ru/back/branch_api.php?cont=1').subscribe(data => {
+//console.log(data.length);
+			// this.strImg = data.img;
 
-	  
+			for (let i=0; i<data.length; i++)
+			{
+			
+				 
+					this.videos.push({
+						id: data[i].id, 
+						src: 'https://flowervalley.ru/back/Uploads/' + data[i].img,
+						title: data[i].text,
+						description: "",
+						sortOrder: data[i].sort
+						});
+				
+			}
+
+
+			  });
+
+
+
+
+
+			   this.http.get<any>('https://flowervalley.ru/back/branch_api.php?cont=bra_cont').subscribe(data => {
 
 //console.log(data.length);
 			// this.strImg = data.img;
@@ -83,18 +125,12 @@ export class BranchComponent implements OnInit {
 			{
 				//console.log(data[i]);
 
-				this.contArray.push({img: data[i].img, txt:data[i].text, mediaType:data[i].mediaType});
-
+				
+				this.contArray.push({img: 'https://flowervalley.ru/back/Uploads/' + data[i].img, txt:data[i].text, mediaType:data[i].mediaType, photosWidth: '350', id: i});
+				
+				
 			}
 
-			//console.log(this.contArray);
-
-			this.vid1 = this.contArray[8].img;
-			this.vid2 = this.contArray[9].img;
-			this.vid3 = this.contArray[10].img;
-
-			this.img1 = this.contArray[0].img;
-			this.img2 = this.contArray[1].img;
 
 			  });
 
@@ -102,6 +138,11 @@ export class BranchComponent implements OnInit {
 			  //console.log(this.contArray);
   
   };
+    public openImage(id: number): void {
+    this.activeIndex = this.contArray.findIndex((photo) => photo.id === id);
+    this.displayCustom = true;
+  };
+
    settings = {
     counter: false,
     plugins: [lgZoom,lgVideo]

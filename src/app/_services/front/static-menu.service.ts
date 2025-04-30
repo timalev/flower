@@ -78,6 +78,11 @@ export class StaticMenuService {
       routerLink: 'branch',
     },
     {
+      label: 'Зеленое меню',
+      icon: 'pi pi-info-circle',
+      routerLink: 'greenmenu',
+    },
+    {
       label: 'Письма',
       icon: 'pi pi-envelope',
       routerLink: 'mails',

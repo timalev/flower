@@ -140,6 +140,9 @@ export class MainPageComponent implements OnInit {
         this.ls.removeSubscription(sub);
       });
     this.ls.addSubscription(sub);
+
+
+	//console.log(this.mainInfo);
   }
 
   public loadMainInfo(): void {

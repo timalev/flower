@@ -41,74 +41,94 @@
 
 <div>
 
+<!--
+<lightgallery [settings]="settings" >
+  <a *ngFor="let image of contArray" 
+    data-lg-size="480-475-480, 800-791-800, 1406-1390" class="gallery-item"
+    data-src="https://flowervalley.ru/back/Uploads/img8.jpg" 
+	data-sub-html="<p></p>">
+    <img class="img-responsive"
+      src="https://flowervalley.ru/back/Uploads/img8.jpg" />
+  </a>
+  <a 
+   data-lg-size="480-475-480, 800-791-800, 1406-1390" class="gallery-item"
+    data-src="https://flowervalley.ru/back/Uploads/img8.jpg" 
+	data-sub-html="<p></p>">
+    <img class="img-responsive"
+      src="https://flowervalley.ru/back/Uploads/img8.jpg" />
+  </a>
+ 
+</lightgallery>
+
+-->
+<!--
+
+<div *ngFor="let image of contArray" >{{image.img}}</div>
+-->
+
+<!--
 
 <lightgallery [settings]="settings" [onBeforeSlide]="onBeforeSlide">
-  <a data-lg-size="480-475-480, 800-791-800, 1406-1390" class="gallery-item"
+  <a *ngFor="let image of contArray"  data-lg-size="480-475-480, 800-791-800, 1406-1390" class="gallery-item"
     data-src="https://flowervalley.ru/back/Uploads/img1.jpg"
-    data-sub-html="<p></p>">
+    data-sub-html="<p>{{image.img}}</p>">
     <img class="img-responsive" height=240
       src="https://flowervalley.ru/back/Uploads/img1.jpg" />
   </a>
-  <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=" "
-    data-tweet-text=" " class="gallery-item"
-    data-src="https://flowervalley.ru/back/Uploads/img2.jpg"
-   
-    data-sub-html="<p></p>">
-    <img class="img-responsive" height=240
-      src="https://flowervalley.ru/back/Uploads/img2.jpg" />
-  </a>
-  <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=""
-    data-tweet-text="" class="gallery-item"
-    data-src="https://flowervalley.ru/back/Uploads/img3.jpg"
-    data-sub-html="<span></span>">
-    <img class="img-responsive" height=240
-      src="https://flowervalley.ru/back/Uploads/img3.jpg" />
-  </a>
-
-    <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=""
-    data-tweet-text="" class="gallery-item"
-    data-src="https://flowervalley.ru/back/Uploads/img4.jpg"
-    data-sub-html="<span></span>">
-    <img class="img-responsive" height=240
-      src="https://flowervalley.ru/back/Uploads/img4.jpg" />
-  </a>
-    <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=""
-    data-tweet-text="" class="gallery-item"
-    data-src="https://flowervalley.ru/back/Uploads/img5.jpg"
-    data-sub-html="<span></span>">
-    <img class="img-responsive" height=240
-      src="https://flowervalley.ru/back/Uploads/img5.jpg" />
-  </a>
-    <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=""
-    data-tweet-text="" class="gallery-item"
-    data-src="https://flowervalley.ru/back/Uploads/img6.jpg"
-    data-sub-html="<span></span>">
-    <img class="img-responsive" height=240
-      src="https://flowervalley.ru/back/Uploads/img6.jpg" />
-  </a>
-    <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=""
-    data-tweet-text="" class="gallery-item"
-    data-src="https://flowervalley.ru/back/Uploads/img7.jpg"
-    data-sub-html="<span></span>">
-    <img class="img-responsive" height=240
-      src="https://flowervalley.ru/back/Uploads/img7.jpg" />
-  </a>
-    <a data-lg-size="480-480-480, 800-800-800, 1400-1400" data-pinterest-text=""
-    data-tweet-text="" class="gallery-item"
-    data-src="https://flowervalley.ru/back/Uploads/img8.jpg"
-    data-sub-html="<span></span>">
-    <img class="img-responsive" height=240
-      src="https://flowervalley.ru/back/Uploads/img8.jpg" />
-  </a>
+  
 
 
 
 </lightgallery>
 
+-->
+
+
+
 
 
 
 </div>
+
+
+
+
+
+
+ <div class="grid" *ngIf="contArray.length">
+    <div
+      *ngFor="let photo of contArray; let i = index"
+      
+      class="photo col-12 lg:col-6 xl:col-4 flex justify-content-center"
+    >
+      <p-image
+        [src]="photo.img"
+        styleClass="cursor-pointer"
+        [width]="photo.photosWidth"
+          (click)="openImage(photo.id)"
+        [imageStyle]="{ 'border-radius': '10px', height: '100%', 'object-fit': 'cover' }"
+      ></p-image>
+     
+    </div>
+  </div>
+
+
+
+<p-galleria
+  [value]="contArray"
+  [(visible)]="displayCustom"
+  [(activeIndex)]="activeIndex"
+  [circular]="true"
+  [fullScreen]="true"
+  [showItemNavigators]="true"
+  [showThumbnails]="false"
+>
+  <ng-template pTemplate="item" let-item>
+    <img [src]="item.img" style="width: 100%; display: block" />
+  </ng-template>
+</p-galleria>
+
+
 
 <div [innerHTML]="block2">
 
@@ -116,8 +136,14 @@
 </div>
 
 
+<!--
 <div>
 <br><h2>Наши видео</h2>
+
+ 
+
+
+
  <video height="200" controls *ngIf="vid1!=''" >
      <source src="https://flowervalley.ru/back/Uploads/{{vid1}}" type="video/mp4">
      Your browser does not support the video tag.
@@ -134,6 +160,34 @@
    </video>
 </div>
 
+-->
+
+
+<div class="video grid" #container style="text-align: center;">
+  <div *ngIf="!videos.length" class="video__error col-12">
+    К сожалению, видео пока отсутвует.<br />Но мы обязательно исправим ситуацию!
+  </div>
+  <div
+    class="video__container col-12 lg:col-6 xl:col-4"
+    *ngFor="let video of videos; let i = index"
+    pDraggable="video"
+    dragEffect="move"
+    pDroppable="video"
+    
+  >
+   <video height="200" controls >
+    <source src="https://flowervalley.ru/back/Uploads/1725357524.mp4" type="video/mp4">
+	  </video>
+    <div>{{ video.title }}</div>
+    <div
+  
+	
+    >
+      {{ video.description }}
+    </div>
+   
+  </div>
+</div>
 
 
 

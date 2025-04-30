@@ -1,0 +1,209 @@
+
+
+
+
+<flower-valley-container background="dark" headerTitle="Новый филиал">
+  <div  >
+    <div >
+
+<div  id="mobmap" >
+<table border=0>
+<tr>
+<td width=100><font size=5>Адрес</font>:</td>
+
+
+<td><a href="yandexnavi://build_route_on_map?lat_to=55.673768&lon_to=36.904844"><img src="assets/images/yn.png" height=28 border=0></a>
+&nbsp;&nbsp;
+<a href="yandexmaps://build_route_on_map?lat_to=55.673768&lon_to=36.904844"><img src="assets/images/ym.png" border=0></a></td></tr>
+</table>
+
+
+
+
+</div>
+
+<br>
+
+<div style="position:relative;overflow:hidden;" id="pcmap" >
+<b><font size=5>Адрес</font></b>:<br><br>
+
+<iframe src="https://yandex.ru/map-widget/v1/org/agrofirma_tsvetochnaya_dolina_zvenigorod/213622374670/?ll=36.904844%2C55.673768&z=11" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe></div>
+
+
+ </div>
+
+
+
+
+<div [innerHTML]="block1">
+
+</div>
+
+<div>
+
+<!--
+<lightgallery [settings]="settings" >
+  <a *ngFor="let image of contArray" 
+    data-lg-size="480-475-480, 800-791-800, 1406-1390" class="gallery-item"
+    data-src="https://flowervalley.ru/back/Uploads/img8.jpg" 
+	data-sub-html="<p></p>">
+    <img class="img-responsive"
+      src="https://flowervalley.ru/back/Uploads/img8.jpg" />
+  </a>
+  <a 
+   data-lg-size="480-475-480, 800-791-800, 1406-1390" class="gallery-item"
+    data-src="https://flowervalley.ru/back/Uploads/img8.jpg" 
+	data-sub-html="<p></p>">
+    <img class="img-responsive"
+      src="https://flowervalley.ru/back/Uploads/img8.jpg" />
+  </a>
+ 
+</lightgallery>
+
+-->
+<!--
+
+<div *ngFor="let image of contArray" >{{image.img}}</div>
+-->
+
+<!--
+
+<lightgallery [settings]="settings" [onBeforeSlide]="onBeforeSlide">
+  <a *ngFor="let image of contArray"  data-lg-size="480-475-480, 800-791-800, 1406-1390" class="gallery-item"
+    data-src="https://flowervalley.ru/back/Uploads/img1.jpg"
+    data-sub-html="<p>{{image.img}}</p>">
+    <img class="img-responsive" height=240
+      src="https://flowervalley.ru/back/Uploads/img1.jpg" />
+  </a>
+  
+
+
+
+</lightgallery>
+
+-->
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+ <div class="grid" *ngIf="contArray.length">
+    <div
+      *ngFor="let photo of contArray; let i = index"
+      
+      class="photo col-12 lg:col-6 xl:col-4 flex justify-content-center"
+    >
+      <p-image
+       
+        styleClass="cursor-pointer"
+        [width]="photo.photosWidth"
+          (click)="openImage(photo.id)"
+        [imageStyle]="{ 'border-radius': '10px', height: '100%', 'object-fit': 'cover' }"
+      ></p-image>
+     
+    </div>
+  </div>
+
+
+
+<p-galleria
+  [value]="contArray"
+  [(visible)]="displayCustom"
+  [(activeIndex)]="activeIndex"
+  [circular]="true"
+  [fullScreen]="true"
+  [showItemNavigators]="true"
+  [showThumbnails]="false"
+>
+  <ng-template pTemplate="item" let-item>
+    <img [src]="item.img" style="width: 100%; display: block" />
+  </ng-template>
+</p-galleria>
+
+
+
+<div [innerHTML]="block2">
+
+
+</div>
+
+
+<!--
+<div>
+<br><h2>Наши видео</h2>
+
+ 
+
+
+
+ <video height="200" controls *ngIf="vid1!=''" >
+     <source src="https://flowervalley.ru/back/Uploads/{{vid1}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video>&nbsp;&nbsp;
+
+   <video height="200" controls *ngIf="vid2!=''">
+     <source src="https://flowervalley.ru/back/Uploads/{{vid2}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video>&nbsp;&nbsp;
+
+   <video height="200" controls *ngIf="vid3!=''">
+     <source src="https://flowervalley.ru/back/Uploads/{{vid3}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video>
+</div>
+
+-->
+
+
+<div class="video grid" #container style="text-align: center;">
+  <div *ngIf="!videos.length" class="video__error col-12">
+    К сожалению, видео пока отсутвует.<br />Но мы обязательно исправим ситуацию!
+  </div>
+  <div
+    class="video__container col-12 lg:col-6 xl:col-4"
+    *ngFor="let video of videos; let i = index"
+    pDraggable="video"
+    dragEffect="move"
+    pDroppable="video"
+    
+  >
+   <video height="200" controls >
+    <source src="https://flowervalley.ru/back/Uploads/1725357524.mp4" type="video/mp4">
+	  </video>
+    <div>{{ video.title }}</div>
+    <div
+  
+	
+    >
+      {{ video.description }}
+    </div>
+   
+  </div>
+</div>
+
+
+
+
+
+
+
+<div [innerHTML]="block3">
+
+
+</div>
+
+
+
+
+
+
+ </div>
+</flower-valley-container>

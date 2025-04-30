@@ -26,62 +26,95 @@
 <br><br>
 
 <h1>Фотоматериалы</h1>
-<font color='green'>{{iprog}}</font><br><br>
-<div>Фото 1</div>
+<font color='green'>{{iprog}}</font> 
 
 
-<table>
-<tr>
-	<td><input type="file" class="file-input"
-       (change)="onFileSelected($event,'1')" >
-<br><br>
+<div>Добавить фото</div>
+
+
+<input type="file" class="file-input"
+       (change)="onFileSelected($event,'image')" >
+
+<br>
+<br>
+
+
+	    <div *ngFor="let photo of contArray; let i = index" >
+ <table>
+   <tr>
+	<td> 
+	Сортировка: <input [(ngModel)]="photo.sortOrder"  [ngModelOptions]="{standalone: true}" (blur)="updateVidSort(photo.id, photo.sortOrder, 'bra_cont')" size=5><br>
+	<!--
+	Описание:<br><input [(ngModel)]="photo.txt"  [ngModelOptions]="{standalone: true}" (blur)="updateVidTitl(photo.id, photo.txt, 'bra_cont')"><br>
+	 -->
+
+	
+   
+   </td>
+	<td>
+<img src="{{photo.img}}" height=60 border=0>
+<br>{{photo.name}}
+
 </td>
-	<td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg}}" height=60 border=0></td>
-</tr>
-</table>
 
-
-<div>Фото 2</div>
-
-
-<table>
-<tr>
-	<td><input type="file" class="file-input"
-       (change)="onFileSelected($event ,'2')" >
-<br><br>
-</td>
-	<td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg2}}" height=60 border=0></td>
-</tr>
-</table>
-
-
-<div>Фото 3</div><table><tr><td><input type="file" class="file-input" (change)="onFileSelected($event ,'3')" ><br><br></td><td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg3}}" height=60 border=0></td></tr></table>
-
-
-<div>Фото 4</div><table><tr><td><input type="file" class="file-input" (change)="onFileSelected($event ,'4')" ><br><br></td><td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg4}}" height=60 border=0></td></tr></table>
-
-
-<div>Фото 5</div><table><tr><td><input type="file" class="file-input" (change)="onFileSelected($event ,'5')" ><br><br></td><td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg5}}" height=60 border=0></td></tr></table>
-
-
-<div>Фото 6</div><table><tr><td><input type="file" class="file-input" (change)="onFileSelected($event ,'6')" ><br><br></td><td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg6}}" height=60 border=0></td></tr></table>
-
-
-<div>Фото 7</div><table><tr><td><input type="file" class="file-input" (change)="onFileSelected($event ,'7')" ><br><br></td><td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg7}}" height=60 border=0></td></tr></table>
-
-
-<div>Фото 8</div><table><tr><td><input type="file" class="file-input" (change)="onFileSelected($event ,'8')" ><br><br></td><td align=left><img src="https://flowervalley.ru/back/Uploads/{{strImg8}}" height=60 border=0></td></tr></table>
+   <td><span (click)="deleteVid(i, photo.id,'bra_cont')"><font color=red><b>X</b></font></span></td>
+   </tr>
+   </table>
+</div>
 
 
 <h1>Видеоматериалы</h1>
-<font color='green'>{{vprog}}</font><br><br>
+<font color='green'>{{vprog}}</font> 
+
+
+<div>Добавить видео</div>
+
+
+<input type="file" class="file-input"
+       (change)="onFileSelected($event,'video')" >
+
+<br>
+<br>
+
+
+<form>
+   <div *ngFor="let video of videos; let i = index" >
+
+   <table>
+   <tr>
+	<td> 
+	Сортировка: <input [(ngModel)]="video.sortOrder"  [ngModelOptions]="{standalone: true}" (blur)="updateVidSort(video.id, video.sortOrder, 'bra_cont_vid')" size=5><br>
+	Описание:<br><input [(ngModel)]="video.title"  [ngModelOptions]="{standalone: true}" (blur)="updateVidTitl(video.id, video.title, 'bra_cont_vid')"><br>
+	 
+
+	
+   
+   </td>
+	<td> <video  height="100" controls>
+     <source src="{{video.src}}" type="video/mp4">
+     Your browser does not support the video tag.
+   </video></td>
+   <td><span (click)="deleteVid(i, video.id,'bra_cont_vid')"><font color=red><b>X</b></font></span></td>
+   </tr>
+   </table>
+  
+  
+   </div>
+   <!--
+<br>
+   <button type="submit">Сохранить</button>
+   -->
+</form>
+
+
+   <!--
 <div>Видео 1</div>
 
 
 <table>
 <tr>
 	<td><input type="file" class="file-input"
-       (change)="onFileSelected($event,'9')" >
+       (change)="onFileSelected($event,'video')" >
 <br><br>
 </td>
 	<td align=left  ><div *ngIf="strImg9!=''"><video  height="100" controls>
@@ -100,7 +133,7 @@
 <table>
 <tr>
 	<td><input type="file" class="file-input"
-       (change)="onFileSelected($event,'10')" >
+       (change)="onFileSelected($event,'video')" >
 <br><br>
 </td>
 	<td align=left  ><div *ngIf="strImg10!=''"><video  height="100" controls>
@@ -117,7 +150,7 @@
 <table>
 <tr>
 	<td><input type="file" class="file-input"
-       (change)="onFileSelected($event,'11')" >
+       (change)="onFileSelected($event,'video')" >
 <br><br>
 </td>
 	<td align=left  ><div *ngIf="strImg11!=''"><video  height="100" controls>
@@ -128,5 +161,5 @@
 </table>
 
 
-
+-->
 

@@ -93,7 +93,7 @@ export class HeaderComponent implements OnInit {
 
           this.menu = menu;
 		  console.log(menu);
-		  this.menu.push({ id: 100, title: 'Новый филиал', link: '/branch' });
+		  //this.menu.push({ id: 100, title: 'Новый филиал', link: '/branch' });
         });
       }
     });
