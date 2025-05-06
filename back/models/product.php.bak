@@ -160,9 +160,7 @@ class Product
             $this->setPrices($productId, $prices);
         }
 
-
-		
-        //$request = $this->dataBase->stripAll((array)$request);
+        $request = $this->dataBase->stripAll((array)$request);
         if (isset($request['price'])) {
             $request['price'] = $request['price'] * 1;
         }

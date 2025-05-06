@@ -28,10 +28,10 @@ $root: '.product';
         
 	 img {
             width: 300px;
-            
+            height: 245px;
             @media screen and (min-width: 600px) {
               width: 550px;
-              
+              height: 420px;
             }
             border-radius: 15px;
             object-fit: cover;
@@ -40,10 +40,10 @@ $root: '.product';
           &.tulip {
             img {
               width: 245px;
-              
+              height: 300px;
               @media screen and (min-width: 600px) {
                 width: 420px;
-               
+                height: 550px;
               }
             }
           }

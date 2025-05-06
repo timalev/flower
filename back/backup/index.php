@@ -339,12 +339,10 @@ $app->group('/', function (RouteCollectorProxy $group) use ($product, $category,
             }
         });
 
-
         $productGroup->post('/{id}', function (Request $request, Response $response) use ($product) {
             try {
                 $routeContext = RouteContext::fromRequest($request);
                 $route = $routeContext->getRoute();
-		
                 $response->getBody()->write(json_encode($product->update($route->getArgument('id'), $request->getParsedBody(), $_FILES)));
                 return $response;
             } catch (Exception $e) {

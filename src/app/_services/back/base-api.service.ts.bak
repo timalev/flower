@@ -32,7 +32,7 @@ export class BaseApiService {
       delete item.id;
     }
 
-	console.log("timalle2:", identifier);
+	console.log("timalle2:", item);
 
     return this.http.post<T>(`${this.baseUrl}/${this.apiUrl}/${identifier}`, item);
   }
