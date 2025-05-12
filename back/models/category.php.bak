@@ -107,6 +107,18 @@ class Category
         }
 
 
+
+        //return $sql_res->fetchAll();
+
+
+		//$test = genSelectQuery("sort_products", array("id"=>"1"));
+
+
+		$fp = fopen('lidn.txt', 'w');
+fwrite($fp,trim($res[0]));
+fclose($fp);
+
+
         $query = "SELECT p.id, p.name, p.price, p.volume, p.coefficient, p.pack, p.description, p.boxId, pc.id as productCategoryId, pc.productOrder FROM Product p JOIN ProductCategory pc ON p.id = pc.productId WHERE pc.categoryId=? ORDER BY ".trim($res[0]);
 		
 		//$query = "SELECT p.id, p.name, p.price, p.volume, p.coefficient, p.pack, p.description, p.boxId, pc.id as productCategoryId, pc.productOrder FROM Product p JOIN ProductCategory pc ON p.id = pc.productId WHERE pc.categoryId=? ORDER BY pc.productOrder";

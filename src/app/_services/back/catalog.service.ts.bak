@@ -17,9 +17,9 @@ export class CatalogService extends BaseApiService {
 	  //console.log(this.baseUrl + "/" + this.apiUrl + "/list");
 
     if (!isDiscountRequest) {
-      return this.http.get<Category[]>(`${this.baseUrl}/${this.apiUrl}/list`);
+      return this.http.get<Category[]>(`${this.baseUrl}/${this.apiUrl}/list2`);
     } else {
-      return this.http.get<Category[]>(`${this.baseUrl}/${this.apiUrl}/list`).pipe(
+      return this.http.get<Category[]>(`${this.baseUrl}/${this.apiUrl}/list2`).pipe(
         map((categories) => {
           const discountCategories = categories.filter((item) => !item.parentId && !item.isTulip);
           discountCategories.map((item: any) => {

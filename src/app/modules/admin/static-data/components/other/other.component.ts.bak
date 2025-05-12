@@ -56,11 +56,6 @@ export class OtherComponent implements OnInit {
 	       this.http.get<any>('https://flowervalley.ru/back/branch_api.php?sortItems=1').subscribe(data => {
 
 
-			   this.model = {
-            sort: data._sort
-        };
-
-
 
 			
 			console.log(data._sort);

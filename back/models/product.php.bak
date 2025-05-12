@@ -92,7 +92,7 @@ class Product
         $product['categories'] = $this->category->getProductCategories($id);
         $product['sale'] = $this->sale->getProductSale($product['id'], $product['price']);
 
-        return $product;
+      //  return $product;
     }
 
     public function create($request, $photos)
@@ -160,7 +160,9 @@ class Product
             $this->setPrices($productId, $prices);
         }
 
-        $request = $this->dataBase->stripAll((array)$request);
+
+		
+        //$request = $this->dataBase->stripAll((array)$request);
         if (isset($request['price'])) {
             $request['price'] = $request['price'] * 1;
         }

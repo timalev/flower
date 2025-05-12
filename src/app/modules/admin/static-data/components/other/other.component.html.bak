@@ -57,7 +57,7 @@
 <br><div><b>Сортировка продуктов:</b></div>
   <br>
      <input type="radio" [(ngModel)]="model.sort"  name="sort"  value="pc.productOrder" [ngModelOptions]="{standalone: true}">По умолчанию<br>
-        <input type="radio" [(ngModel)]="model.sort"  name="sort"  value="p.price asc"  [ngModelOptions]="{standalone: true}">По возрастанию цены<br>
+        <input type="radio" [(ngModel)]="model.sort"  name="sort"  [value]="p.price asc"  [ngModelOptions]="{standalone: true}">По возрастанию цены<br>
 		  <input type="radio" [(ngModel)]="model.sort"  name="sort"   value="p.price desc"  [ngModelOptions]="{standalone: true}">По убыванию цены
 
 
